@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.sample.view.weights.CircleImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@mipmap/naruto"/>
+
+        <com.sample.view.weights.NiceImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@mipmap/naruto"
+            app:border_color="#FF7F24"
+            app:border_width="2dp"
+            app:corner_bottom_left_radius="10dp"
+            app:corner_bottom_right_radius="60dp"
+            app:corner_top_left_radius="60dp"
+            app:corner_top_right_radius="10dp"/>
+
+        <ImageView
+            android:id="@+id/ivView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
