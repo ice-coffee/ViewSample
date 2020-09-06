@@ -20,6 +20,7 @@
             android:src="@mipmap/naruto"
             app:border_color="#FF7F24"
             app:border_width="2dp"
+            app:is_cover_src="false"
             app:corner_bottom_left_radius="10dp"
             app:corner_bottom_right_radius="60dp"
             app:corner_top_left_radius="60dp"
