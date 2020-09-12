@@ -18,6 +18,8 @@
         </activity>
 
         <activity android:name=".RoundViewActivity" />
+        <activity android:name=".PaintActivity" />
+        <activity android:name=".CanvasActivity" />
     </application>
 
 </manifest>
