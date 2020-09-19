@@ -1,4 +1,4 @@
-package com.sample.view
+package com.sample.view.weights
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.sample.common.utils.dp2px
 
 /**
  * @date: 2020/9/13
@@ -25,7 +26,7 @@ class TextShadowView(context: Context?, attrs: AttributeSet?) : View(context, at
         mPaint.isAntiAlias = true
         mPaint.color = Color.RED
         mPaint.strokeWidth = 5f
-        mPaint.textSize = 100f
+        mPaint.textSize = dp2px(32f).toFloat()
 
         mPaint.setShadowLayer(10f, 10f, 10f, Color.GREEN)
     }
@@ -33,6 +34,6 @@ class TextShadowView(context: Context?, attrs: AttributeSet?) : View(context, at
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        canvas?.drawText("Text_Shadow", 100f, 100f, mPaint)
+        canvas?.drawText("Text_Shadow", 0f, 100f, mPaint)
     }
 }
