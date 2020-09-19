@@ -20,6 +20,7 @@
         <activity android:name=".RoundViewActivity" />
         <activity android:name=".PaintActivity" />
         <activity android:name=".CanvasActivity" />
+        <activity android:name=".ShadowActivity" />
     </application>
 
 </manifest>

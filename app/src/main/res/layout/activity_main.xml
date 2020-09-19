@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -12,27 +12,24 @@
         android:orientation="vertical">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            style="@style/common_main_botton"
             android:onClick="jumpRoundView"
             android:text="圆角图片"/>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            style="@style/common_main_botton"
             android:onClick="jumpViewPaint"
-            android:textAllCaps="false"
             android:text="Paint"/>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            style="@style/common_main_botton"
             android:onClick="jumpViewCanvas"
-            android:textAllCaps="false"
             android:text="Canvas"/>
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpTextShadow"
+            android:text="阴影"/>
 
     </LinearLayout>
 

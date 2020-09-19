@@ -30,4 +30,8 @@ class MainActivity : AppCompatActivity() {
     fun jumpViewCanvas(view: View) {
         startActivity(Intent(this, CanvasActivity::class.java))
     }
+
+    fun jumpTextShadow(view: View) {
+        startActivity(Intent(this, ShadowActivity::class.java))
+    }
 }

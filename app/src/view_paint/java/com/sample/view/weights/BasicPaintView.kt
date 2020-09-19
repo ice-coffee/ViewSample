@@ -37,9 +37,9 @@ class BasicPaintView : View {
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-//        paintStyle(canvas!!)
+        paintStyle(canvas!!)
 //        paintCap(canvas!!)
-        paintJoin(canvas!!)
+//        paintJoin(canvas!!)
     }
 
     /**
