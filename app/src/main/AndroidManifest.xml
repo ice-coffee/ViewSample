@@ -21,6 +21,10 @@
         <activity android:name=".PaintActivity" />
         <activity android:name=".CanvasActivity" />
         <activity android:name=".ShaderActivity" />
+
+        <activity android:name=".WidgetActivity" />
+        <activity android:name=".ViewSwitcher.TextSwitcherActivity" />
+        <activity android:name=".ViewSwitcher.ImageSwitcherActivity" />
     </application>
 
 </manifest>

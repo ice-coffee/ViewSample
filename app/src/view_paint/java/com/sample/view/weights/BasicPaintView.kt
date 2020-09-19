@@ -18,11 +18,9 @@ import com.sample.common.views.BaseView
  */
 class BasicPaintView(context: Context?, attrs: AttributeSet?) : BaseView(context, attrs) {
 
-    lateinit var mPaint: Paint
+    private val mPaint = Paint()
 
-    private fun initView() {
-
-        mPaint = Paint()
+    init {
 
         mPaint.isAntiAlias = true //抗锯齿功能
         mPaint.color = Color.RED //设置画笔颜色

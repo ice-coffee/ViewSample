@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    fun jumpWidget(view: View) {
+        startActivity(Intent(this, WidgetActivity::class.java))
+    }
+
     fun jumpRoundView(view: View) {
         startActivity(Intent(this, RoundViewActivity::class.java))
     }

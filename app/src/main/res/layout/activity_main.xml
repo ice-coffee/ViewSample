@@ -13,6 +13,11 @@
 
         <Button
             style="@style/common_main_botton"
+            android:onClick="jumpWidget"
+            android:text="Widget"/>
+
+        <Button
+            style="@style/common_main_botton"
             android:onClick="jumpRoundView"
             android:text="圆角图片"/>
 

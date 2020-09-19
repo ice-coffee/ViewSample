@@ -6,5 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.sample.view.weights.BitmapShaderView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.sample.view.weights.LinearGradientView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
+
+    <TextView
+        android:id="@+id/tvLeftRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这是一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的内容"
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/tvTopBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从上到下" />
 
 </LinearLayout>
