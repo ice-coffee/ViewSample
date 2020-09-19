@@ -28,8 +28,8 @@
 
         <Button
             style="@style/common_main_botton"
-            android:onClick="jumpTextShadow"
-            android:text="阴影"/>
+            android:onClick="jumpTextShader"
+            android:text="着色器"/>
 
     </LinearLayout>
 

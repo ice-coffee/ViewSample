@@ -9,6 +9,6 @@ import com.blankj.utilcode.util.SizeUtils
 <p>
  * @remark:
  */
-fun dp2px(dpValue: Float): Int {
-    return SizeUtils.dp2px(dpValue)
+fun dp2px(dpValue: Int): Int {
+    return SizeUtils.dp2px(dpValue.toFloat())
 }

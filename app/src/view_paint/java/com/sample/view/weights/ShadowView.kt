@@ -7,48 +7,39 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import com.sample.common.utils.dp2px
+import com.sample.common.views.BaseView
 
 /**
- *  @author mzp
- *  date : 2020/9/18
- *  desc :
+ * @date: 2020/9/13
+ * @author: ice_coffee
+ * @remark:
+ * radius       : 阴影半径
+ * dx           : x轴偏移量
+ * dy           : y轴偏移量
+ * shadowColor  : 阴影颜色
+ * 通过Paint.setShadowLayer(float radius, float dx, float dy, @ColorInt int shadowColor)方法添加阴影图层,
+ * 当使用Canvas绘制各种图形时就会带有阴影, 可用于创建文字下面的模糊阴影, 对其他绘图操作的支持仅限于软件渲染管道。
  */
-class ShadowView: View {
+class ShadowView(context: Context?, attrs: AttributeSet?) : BaseView(context, attrs) {
 
-    lateinit var mPaint: Paint
+    var mPaint: Paint = Paint()
 
-    constructor(context: Context):super(context){ initView() }
-    constructor(context: Context, attributes: AttributeSet?):super(context, attributes){ initView() }
-    constructor(context: Context, attributes: AttributeSet?, defStyleAttr: Int):super(context, attributes, defStyleAttr){ initView() }
+    init {
+        mPaint.isAntiAlias = true
+        mPaint.color = Color.RED
+        mPaint.strokeWidth = 5f
+        mPaint.textSize = dp2px(32).toFloat()
 
-    private fun initView() {
+        mPaint.setShadowLayer(10f, 10f, 10f, Color.GREEN)
+    }
 
-        mPaint = Paint()
-
-        mPaint.isAntiAlias = true //抗锯齿功能
-        mPaint.color = Color.RED //设置画笔颜色
-        mPaint.strokeWidth = 5f //设置画笔宽度
-        mPaint.textSize = dp2px(32f).toFloat()
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), dp2px(200))
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        drawTextShadow(canvas!!)
-    }
-
-    /**
-     * 绘制阴影层
-     * setShadowLayer
-     * @param radius 阴影半径
-     * @param dx x轴偏移量
-     * @param dy y轴偏移量
-     * @param color 阴影颜色
-     * 可用于创建文字下面的模糊阴影。对其他绘图操作的支持仅限于软件渲染管道。
-     */
-    private fun drawTextShadow(canvas: Canvas) {
-
-        mPaint.setShadowLayer(10f, 5f, 5f, Color.GREEN) //设置阴影
-        canvas.drawText("Paint_Style", 110f, 110f, mPaint)
+        canvas?.drawText("Text_Shadow", 0f, 100f, mPaint)
     }
 }

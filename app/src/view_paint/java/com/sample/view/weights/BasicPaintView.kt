@@ -6,8 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.View
 import com.sample.common.utils.dp2px
+import com.sample.common.views.BaseView
 
 /**
  * @date: 2020/9/12
@@ -16,13 +16,9 @@ import com.sample.common.utils.dp2px
 <p>
  * @remark:
  */
-class BasicPaintView : View {
+class BasicPaintView(context: Context?, attrs: AttributeSet?) : BaseView(context, attrs) {
 
     lateinit var mPaint: Paint
-
-    constructor(context: Context):super(context){ initView() }
-    constructor(context: Context, attributes: AttributeSet?):super(context, attributes){ initView() }
-    constructor(context: Context, attributes: AttributeSet?, defStyleAttr: Int):super(context, attributes, defStyleAttr){ initView() }
 
     private fun initView() {
 
@@ -31,7 +27,11 @@ class BasicPaintView : View {
         mPaint.isAntiAlias = true //抗锯齿功能
         mPaint.color = Color.RED //设置画笔颜色
         mPaint.strokeWidth = 5f //设置画笔宽度
-        mPaint.textSize = dp2px(32f).toFloat()
+        mPaint.textSize = dp2px(32).toFloat()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), dp2px(200))
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -79,7 +79,7 @@ class BasicPaintView : View {
      */
     private fun paintCap(canvas: Canvas) {
 
-        mPaint.strokeWidth = dp2px(30f).toFloat()
+        mPaint.strokeWidth = dp2px(30).toFloat()
 
         mPaint.strokeCap = Paint.Cap.BUTT
         canvas.drawLine(50f, 10f, 200f, 10f, mPaint)

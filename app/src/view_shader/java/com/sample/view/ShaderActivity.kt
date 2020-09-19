@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 <p>
  * @remark:
  */
-class ShadowActivity: AppCompatActivity() {
+class ShaderActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shadow)
+        setContentView(R.layout.activity_shader)
     }
 }

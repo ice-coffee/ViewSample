@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, CanvasActivity::class.java))
     }
 
-    fun jumpTextShadow(view: View) {
-        startActivity(Intent(this, ShadowActivity::class.java))
+    fun jumpTextShader(view: View) {
+        startActivity(Intent(this, ShaderActivity::class.java))
     }
 }
