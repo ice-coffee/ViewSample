@@ -21,7 +21,7 @@ class LinearGradientView(context: Context?, attributeSet: AttributeSet?) : AppCo
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
-        mLinearGradient = LinearGradient(0f, 0f, measuredWidth.toFloat(), 0f, intArrayOf(Color.GREEN, Color.RED, Color.GREEN), null, Shader.TileMode.REPEAT)
+        mLinearGradient = LinearGradient(0f, 0f, measuredWidth.toFloat(), 0f, intArrayOf(Color.YELLOW, Color.RED, Color.GREEN), floatArrayOf(0.2f, 0.4f, 0.6f), Shader.TileMode.REPEAT)
         paint.shader = mLinearGradient
 
         initAnimator(w)
