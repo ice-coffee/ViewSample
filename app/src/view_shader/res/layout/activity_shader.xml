@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,19 +11,8 @@
     <com.sample.view.weights.LinearGradientView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
+        android:text="以前总以为天下最好听的情话，就是跟你一起走到了今天，还能让你知道我比初见钟情更喜欢你，我知道有时候你会觉得自己脾气坏，觉得自己长得不够好看，但其实啊，你已经很好了，也已经不能再好看了，就算有了白头我也一样看不厌，还是跟当年看到你一模一样，一眼看到，就喜欢得不行，喜欢到此生再不会不喜欢了。" />
 
-    <TextView
-        android:id="@+id/tvLeftRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="这是一段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的内容"
-        android:textSize="32dp"/>
 
-    <TextView
-        android:id="@+id/tvTopBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="从上到下" />
 
 </LinearLayout>
