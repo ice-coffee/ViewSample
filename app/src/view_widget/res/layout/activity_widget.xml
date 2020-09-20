@@ -8,11 +8,6 @@
     <Button
         style="@style/common_main_botton"
         android:onClick="jumpTextSwitcher"
-        android:text="TextSwitcher"/>
-
-    <Button
-        style="@style/common_main_botton"
-        android:onClick="jumpImageSwitcher"
-        android:text="ImageSwitcher"/>
+        android:text="ViewSwitcher"/>
 
 </LinearLayout>

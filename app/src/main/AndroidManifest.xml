@@ -23,8 +23,7 @@
         <activity android:name=".ShaderActivity" />
 
         <activity android:name=".WidgetActivity" />
-        <activity android:name=".ViewSwitcher.TextSwitcherActivity" />
-        <activity android:name=".ViewSwitcher.ImageSwitcherActivity" />
+        <activity android:name=".view_switcher.ViewSwitcherActivity" />
     </application>
 
 </manifest>

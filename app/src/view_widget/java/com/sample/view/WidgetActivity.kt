@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.view.ViewSwitcher.ImageSwitcherActivity
-import com.sample.view.ViewSwitcher.TextSwitcherActivity
+import com.sample.view.view_switcher.ViewSwitcherActivity
 
 /**
  * @date: 2020/9/19
@@ -22,10 +21,6 @@ class WidgetActivity: AppCompatActivity() {
     }
 
     fun jumpTextSwitcher(view: View) {
-        startActivity(Intent(this, TextSwitcherActivity::class.java))
-    }
-
-    fun jumpImageSwitcher(view: View) {
-        startActivity(Intent(this, ImageSwitcherActivity::class.java))
+        startActivity(Intent(this, ViewSwitcherActivity::class.java))
     }
 }
