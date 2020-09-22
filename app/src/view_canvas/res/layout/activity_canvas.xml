@@ -2,10 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.sample.view.weights.CanvasView
+    <com.sample.view.weights.BaseCanvasView
         android:layout_width="match_parent"
-        android:layout_height="1000dp"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <com.sample.view.weights.PathView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

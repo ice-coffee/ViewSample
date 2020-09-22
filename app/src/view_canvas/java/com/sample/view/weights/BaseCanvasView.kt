@@ -14,7 +14,7 @@ import android.view.View
 <p>
  * @remark:
  */
-class CanvasView : View {
+class BaseCanvasView : View {
 
     lateinit var mPaint: Paint
 
