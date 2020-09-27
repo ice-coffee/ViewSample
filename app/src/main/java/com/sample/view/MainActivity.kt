@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, WidgetActivity::class.java))
     }
 
+    fun jumpHelper(view: View) {
+        startActivity(Intent(this, ViewDragActivity::class.java))
+    }
+
     fun jumpRoundView(view: View) {
         startActivity(Intent(this, RoundViewActivity::class.java))
     }

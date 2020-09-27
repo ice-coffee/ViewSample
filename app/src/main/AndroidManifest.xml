@@ -24,6 +24,8 @@
 
         <activity android:name=".WidgetActivity" />
         <activity android:name=".view_switcher.ViewSwitcherActivity" />
+
+        <activity android:name=".ViewDragActivity" />
     </application>
 
 </manifest>
