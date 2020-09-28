@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun jumpHelper(view: View) {
-        startActivity(Intent(this, ViewDragActivity::class.java))
+        startActivity(Intent(this, ViewHelperActivity::class.java))
     }
 
     fun jumpRoundView(view: View) {
@@ -40,6 +40,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun jumpTextShader(view: View) {
-        startActivity(Intent(this, ShaderActivity::class.java))
+        startActivity(Intent(this, ViewHelperActivity::class.java))
     }
 }

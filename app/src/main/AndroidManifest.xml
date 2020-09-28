@@ -20,12 +20,12 @@
         <activity android:name=".RoundViewActivity" />
         <activity android:name=".PaintActivity" />
         <activity android:name=".CanvasActivity" />
-        <activity android:name=".ShaderActivity" />
 
         <activity android:name=".WidgetActivity" />
         <activity android:name=".view_switcher.ViewSwitcherActivity" />
 
-        <activity android:name=".ViewDragActivity" />
+        <activity android:name=".ViewHelperActivity" />
+        <activity android:name=".viewdraghelper.ViewDragHelperActivity" />
     </application>
 
 </manifest>
