@@ -78,15 +78,6 @@ class DragRelativeLayout : RelativeLayout {
         })
     }
 
-//    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-//        val action = ev.actionMasked
-//        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
-//            mDragHelper?.cancel()
-//            return false
-//        }
-//        return mDragHelper?.shouldInterceptTouchEvent(ev) ?: false
-//    }
-
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         if (null != mDragHelper && null != ev) {
             return mDragHelper!!.shouldInterceptTouchEvent(ev)
