@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.customview.widget.ViewDragHelper
 import com.sample.common.utils.LogUtils
@@ -74,6 +73,14 @@ class DragRelativeLayout : RelativeLayout {
                     mDragHelper?.settleCapturedViewAt(rightBound, mCurrentTop)
                 }
                 invalidate()
+            }
+
+            override fun getViewHorizontalDragRange(child: View): Int {
+                return measuredWidth - child.measuredWidth
+            }
+
+            override fun getViewVerticalDragRange(child: View): Int {
+                return measuredHeight - child.measuredHeight
             }
         })
     }
