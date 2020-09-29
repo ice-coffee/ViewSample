@@ -12,7 +12,7 @@ import com.sample.view.R
  *  date : 2020/9/29
  *  desc :
  */
-class AppbarTwoFragment: Fragment() {
+class SampleTwoFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_appbar_two, container, false)

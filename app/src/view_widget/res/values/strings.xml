@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="behavior_sample">com.sample.view.appbarLayout.SampleOneFragment$SampleOneBehavior</string>
+</resources>

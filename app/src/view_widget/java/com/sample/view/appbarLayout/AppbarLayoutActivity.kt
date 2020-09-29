@@ -17,17 +17,17 @@ class AppbarLayoutActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appbarlayout)
 
-        replaceFragment(AppbarOneFragment())
+        replaceFragment(SampleOneFragment())
     }
 
     fun replaceSampleOne(view: View) {
 
-        replaceFragment(AppbarOneFragment())
+        replaceFragment(SampleOneFragment())
     }
 
     fun replaceSampleTwo(view: View) {
 
-        replaceFragment(AppbarTwoFragment())
+        replaceFragment(SampleTwoFragment())
     }
 
     private fun replaceFragment(fragment: Fragment) {
