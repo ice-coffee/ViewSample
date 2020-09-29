@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.view.view_switcher.ViewSwitcherActivity
+import com.sample.view.appbarLayout.AppbarLayoutActivity
+import com.sample.view.viewSwitcher.ViewSwitcherActivity
 
 /**
  * @date: 2020/9/19
@@ -20,7 +21,11 @@ class WidgetActivity: AppCompatActivity() {
         setContentView(R.layout.activity_widget)
     }
 
-    fun jumpTextSwitcher(view: View) {
+    fun jumpViewSwitcher(view: View) {
         startActivity(Intent(this, ViewSwitcherActivity::class.java))
+    }
+
+    fun jumpAppbarLayout(view: View) {
+        startActivity(Intent(this, AppbarLayoutActivity::class.java))
     }
 }

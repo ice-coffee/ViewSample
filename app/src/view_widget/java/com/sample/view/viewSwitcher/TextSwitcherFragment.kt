@@ -1,4 +1,4 @@
-package com.sample.view.view_switcher
+package com.sample.view.viewSwitcher
 
 import android.os.Bundle
 import android.view.Gravity

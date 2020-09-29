@@ -22,7 +22,8 @@
         <activity android:name=".CanvasActivity" />
 
         <activity android:name=".WidgetActivity" />
-        <activity android:name=".view_switcher.ViewSwitcherActivity" />
+        <activity android:name=".viewSwitcher.ViewSwitcherActivity" />
+        <activity android:name=".appbarLayout.AppbarLayoutActivity" />
 
         <activity android:name=".ViewHelperActivity" />
         <activity android:name=".viewdraghelper.ViewDragHelperActivity" />
