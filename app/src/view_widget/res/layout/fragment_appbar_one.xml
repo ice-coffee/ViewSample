@@ -45,6 +45,6 @@
         android:text="Hello World"
         android:textColor="#ffffff"
         android:textSize="18sp"
-        app:layout_behavior="@string/behavior_sample" />
+        app:layout_behavior="@string/behavior_sample_one" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

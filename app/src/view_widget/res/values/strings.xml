@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="behavior_sample">com.sample.view.appbarLayout.SampleOneFragment$SampleOneBehavior</string>
+    <string name="behavior_sample_one">com.sample.view.appbarLayout.SampleOneFragment$SampleOneBehavior</string>
+    <string name="behavior_sample_two_head">com.sample.view.appbarLayout.SampleHeaderBehavior</string>
+    <string name="behavior_sample_two_recyclerview">com.sample.view.appbarLayout.RecyclerViewBehavior</string>
 </resources>
