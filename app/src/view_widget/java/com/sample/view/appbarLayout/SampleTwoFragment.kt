@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sample.common.utils.LogUtils
 import com.sample.view.R
 import kotlinx.android.synthetic.main.fragment_appbar_one.*
 
@@ -73,6 +74,7 @@ class SampleHeaderBehavior : CoordinatorLayout.Behavior<TextView> {
             }
             // 整体可以滑动，否则RecyclerView消费滑动事件
             if (canScroll(child, dy.toFloat()) && pos == 0) {
+                LogUtils.e("${child.translationY}, $dy")
                 var finalY = child.translationY - dy
                 if (finalY < -child.height) {
                     finalY = -child.height.toFloat()
