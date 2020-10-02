@@ -56,7 +56,6 @@ class SampleOneFragment: Fragment() {
             dy = if (dy < 0) 0f else dy
             val y = -(dy / deltaY) * child.height
             child.translationY = y
-            LogUtils.e(y)
 
             /**
              * 透明度变化
@@ -65,11 +64,6 @@ class SampleOneFragment: Fragment() {
              */
 
             return true
-        }
-
-        override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
-            LogUtils.e("onLayoutChild")
-            return super.onLayoutChild(parent, child, layoutDirection)
         }
     }
 }
