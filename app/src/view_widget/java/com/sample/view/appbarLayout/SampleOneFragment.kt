@@ -66,6 +66,11 @@ class SampleOneFragment: Fragment() {
 
             return true
         }
+
+        override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+            LogUtils.e("onLayoutChild")
+            return super.onLayoutChild(parent, child, layoutDirection)
+        }
     }
 }
 
