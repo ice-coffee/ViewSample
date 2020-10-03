@@ -28,6 +28,12 @@
             android:onClick="replaceSampleThree"
             android:text="SampleThree"/>
 
+        <Button
+            style="@style/common_main_botton"
+            android:layout_weight="1"
+            android:onClick="replaceSampleFour"
+            android:text="SampleFour"/>
+
     </LinearLayout>
 
     <LinearLayout

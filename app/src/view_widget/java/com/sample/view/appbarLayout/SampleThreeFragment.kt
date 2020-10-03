@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sample.view.R
-import kotlinx.android.synthetic.main.fragment_appbar_threee.*
+import kotlinx.android.synthetic.main.fragment_appbar_three.*
 
 
 /**
@@ -23,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_appbar_threee.*
 class SampleThreeFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_appbar_threee, container, false)
+        return inflater.inflate(R.layout.fragment_appbar_three, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
