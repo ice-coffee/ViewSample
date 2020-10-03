@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sample.view.R
 import kotlinx.android.synthetic.main.fragment_appbar_threee.*
 
@@ -25,24 +29,19 @@ class SampleThreeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //获取BottomSheetBehavior
+        showBehaviorView()
+    }
+
+    private fun showBehaviorView() {
         //获取BottomSheetBehavior
         val sheetBehavior = BottomSheetBehavior.from(shareView)
-
         //设置折叠时的高度
         //sheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-
         //监听BottomSheetBehavior 状态的变化
-
-        //设置折叠时的高度
-        //sheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-
-        //监听BottomSheetBehavior 状态的变化
-        sheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
+        sheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {}
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
-        //下滑的时候是否可以隐藏
         //下滑的时候是否可以隐藏
         sheetBehavior.isHideable = true
         btn_show_bottom_sheet.setOnClickListener(View.OnClickListener {
@@ -50,6 +49,25 @@ class SampleThreeFragment: Fragment() {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
             } else {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+            }
+        })
+    }
+
+    private fun showBottomSheetDialog() {
+        val dialog = BottomSheetDialog(context!!)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_share_dialog, null)
+        dialog.setContentView(view)
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+
+        val behavior = dialog.behavior
+        //下滑的时候是否可以隐藏
+        behavior.isHideable = true
+        btn_show_bottom_sheet.setOnClickListener(View.OnClickListener {
+            if (dialog.isShowing) {
+                dialog.hide()
+            } else {
+                dialog.show()
             }
         })
     }
