@@ -40,6 +40,11 @@ class AppbarLayoutActivity: AppCompatActivity() {
         replaceFragment(SampleFourFragment())
     }
 
+    fun replaceSampleFive(view: View) {
+
+        replaceFragment(SampleFiveFragment())
+    }
+
     private fun replaceFragment(fragment: Fragment) {
 
         val ft = supportFragmentManager.beginTransaction()
