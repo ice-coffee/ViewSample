@@ -36,11 +36,14 @@ class SampleFourFragment: Fragment() {
          * 3，SWIPE_DIRECTION_END_TO_START，只能从右向左滑
          */
         swipe.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_START_TO_END)
-
+        /**
+         * 设置修改滑动组件透明度前滑动的最小距离
+         */
         swipe.setStartAlphaSwipeDistance(0f)
-
+        /**
+         * 检测滑动开始的灵敏度
+         */
         swipe.setSensitivity(0.2f)
-
         swipe.listener = object : SwipeDismissBehavior.OnDismissListener {
             override fun onDismiss(view: View) {
                 LogUtils.e("------>onDissmiss")
