@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.sample.view.R
 
 /**
@@ -33,6 +34,10 @@ class ViewSwitcherActivity: AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment) {
 
         val ft = supportFragmentManager.beginTransaction()
+        ft.setCustomAnimations( R.anim.slide_right_in,
+                R.anim.slide_left_out,
+                R.anim.slide_left_in,
+                R.anim.slide_right_out)
         ft.replace(R.id.llFragmentContent, fragment)
         ft.commitAllowingStateLoss()
     }
