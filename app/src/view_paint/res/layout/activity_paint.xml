@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <!--文字阴影-->
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowDx="10"
@@ -17,12 +19,29 @@
         android:textColor="#FF0000"
         tools:ignore="SpUsage" />
 
+    <!--布局阴影-->
     <com.sample.view.weights.ShadowView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.sample.view.weights.BasicPaintView
+    <com.sample.view.weights.CornerPathEffectView
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
+
+    <com.sample.view.weights.DashPathEffectView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.sample.view.weights.PathDashPathEffectView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.sample.view.weights.ComposePathEffectView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
