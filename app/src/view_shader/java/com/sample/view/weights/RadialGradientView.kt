@@ -65,6 +65,9 @@ class RadialGradientView(context: Context?, attributeSet: AttributeSet?) : BaseV
     }
 
     //注意这里的方法名必须是setRadius(自定义属性动画)
+    /**
+     * @param radius 放射半径
+     */
     fun setRadius(radius: Int) {
         mCurRadius = radius.toFloat()
         if (mCurRadius > 0) {

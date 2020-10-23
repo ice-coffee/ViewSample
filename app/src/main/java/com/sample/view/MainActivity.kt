@@ -40,6 +40,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun jumpTextShader(view: View) {
-        startActivity(Intent(this, ViewHelperActivity::class.java))
+        startActivity(Intent(this, ShaderActivity::class.java))
     }
 }
