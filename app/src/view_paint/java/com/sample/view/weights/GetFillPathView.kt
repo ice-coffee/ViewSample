@@ -19,7 +19,6 @@ class GetFillPathView(context: Context?, attrs: AttributeSet?) : View(context, a
         super.onDraw(canvas)
 
         val arcPath = Path()
-        val borderPath = Path()
 
         arcPath.addArc(RectF(100f, 100f, 500f, 500f), 30f, 300f)
 
@@ -33,11 +32,12 @@ class GetFillPathView(context: Context?, attrs: AttributeSet?) : View(context, a
         canvas.translate(0f, 500f)
 
         //获取
-        paint.getFillPath(arcPath, borderPath)
+        val dstPath = Path()
+        paint.getFillPath(arcPath, dstPath)
 
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 2f
         paint.isAntiAlias = true
-        canvas.drawPath(borderPath, paint)
+        canvas.drawPath(dstPath, paint)
     }
 }
