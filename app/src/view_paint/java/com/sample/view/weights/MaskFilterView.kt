@@ -35,7 +35,7 @@ class MaskFilterView(context: Context?, attrs: AttributeSet?) : View(context, at
 
         canvas!!.drawColor(Color.BLACK)
 
-        val drawBitmap = BitmapFactory.decodeResource(resources, R.mipmap.icon_point)
+        val drawBitmap = BitmapFactory.decodeResource(resources, R.mipmap.maskfilter)
         val srcRect = Rect(0, 0, drawBitmap.width, drawBitmap.height)
         val dstRect = Rect(0, 0, drawWidth, drawWidth)
 
