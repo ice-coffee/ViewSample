@@ -9,7 +9,7 @@ import android.view.View
 /**
  *  @author mzp
  *  date : 2020/10/23
- *  desc :
+ *  desc : 通过 PathDashPathEffect 绘制指定 Path 的虚线效果
  */
 class PathDashPathEffectView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 

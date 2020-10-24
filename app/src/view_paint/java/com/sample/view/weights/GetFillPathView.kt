@@ -11,7 +11,7 @@ import android.view.View
 /**
  *  @author mzp
  *  date : 2020/10/23
- *  desc :
+ *  desc : 通过 getFillPath 获取 Path 绘制图形的外形边框
  */
 class GetFillPathView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 

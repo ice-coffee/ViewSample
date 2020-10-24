@@ -8,7 +8,7 @@ import android.view.View
 /**
  *  @author mzp
  *  date : 2020/10/23
- *  desc :
+ *  desc : 使用 ComposePathEffect 复合两种 PathEffect 效果
  */
 class ComposePathEffectView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 

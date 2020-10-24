@@ -9,9 +9,9 @@ import com.sample.common.utils.LogUtils
 /**
  * date: 2020/10/23
  * author: ice_coffee
- * remark:
+ * remark: 介绍 FontMetrics \ measureText \ getTextBounds 的用法, 和字符绘制时的坐标问题
  */
-class FontMetricsView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class TextMeasureView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val text = "ABC"
     private var viewHeight = 0

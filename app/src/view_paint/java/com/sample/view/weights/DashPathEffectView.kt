@@ -12,7 +12,7 @@ import android.view.View
 /**
  *  @author mzp
  *  date : 2020/10/23
- *  desc :
+ *  desc : 使用 DashPathEffect 绘制虚线
  */
 class DashPathEffectView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
