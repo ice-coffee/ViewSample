@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.sample.common.utils.LogUtils
 
 /**
  * date: 2020/10/23
@@ -20,13 +21,14 @@ class FontMetricsView(context: Context?, attrs: AttributeSet?) : View(context, a
         super.onSizeChanged(w, h, oldw, oldh)
         viewHeight = h
         viewWidth = w
+
+        LogUtils.e("$viewHeight, $viewWidth")
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
         val paint = Paint()
-        paint.strokeWidth = 10f
         paint.textSize = 200f
         paint.strokeCap = Paint.Cap.ROUND
         canvas!!.drawText(text, 0f, 0f, paint)
@@ -42,6 +44,26 @@ class FontMetricsView(context: Context?, attrs: AttributeSet?) : View(context, a
         paint.getTextBounds(text, 0, text.length, textRect)
 
         val fontMetrics = paint.fontMetrics
+
+        //坐标轴
+        paint.strokeWidth = 4f
+        paint.color = Color.WHITE
+        canvas.drawLine(0f, paddingTop + (-fontMetrics.ascent), viewWidth.toFloat(), paddingTop + (-fontMetrics.ascent), paint)
+        canvas.drawLine(paddingLeft, 0f, paddingLeft, viewHeight.toFloat(), paint)
+        val yArrowPath = Path()
+        yArrowPath.moveTo(paddingLeft, viewHeight.toFloat() / 2)
+        yArrowPath.lineTo(paddingLeft - 20, viewHeight.toFloat() / 2 - 20)
+        yArrowPath.lineTo(paddingLeft + 20, viewHeight.toFloat() / 2 - 20)
+        yArrowPath.lineTo(paddingLeft, viewHeight.toFloat() / 2)
+        canvas.drawPath(yArrowPath, paint)
+        val xArrowPath = Path()
+        xArrowPath.moveTo(viewWidth.toFloat(), paddingTop + (-fontMetrics.ascent))
+        xArrowPath.lineTo(viewWidth.toFloat() - 20, paddingTop + (-fontMetrics.ascent) - 20)
+        xArrowPath.lineTo(viewWidth.toFloat() - 20, paddingTop + (-fontMetrics.ascent) + 20)
+        xArrowPath.lineTo(viewWidth.toFloat(), paddingTop + (-fontMetrics.ascent))
+        canvas.drawPath(xArrowPath, paint)
+
+        paint.strokeWidth = 10f
 
         //measureText\getTextBounds测量文字宽度
         canvas.save()
