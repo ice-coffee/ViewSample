@@ -32,11 +32,8 @@ class ComposePathEffectView(context: Context?, attrs: AttributeSet?) : View(cont
         canvas.translate(width / 2f, 0f)
 
         mPath.reset()
-        mPath.moveTo(200f, 200f)
-        mPath.lineTo(400f, 200f)
-        mPath.lineTo(400f, 400f)
-        mPath.lineTo(200f, 400f)
-        mPath.lineTo(200f, 200f)
+        val rect = RectF(200f, 200f, 400f, 400f)
+        mPath.addRect(rect, Path.Direction.CW)
         mPaint.pathEffect = ComposePathEffect(DashPathEffect(floatArrayOf(10f, 10f), 0f), CornerPathEffect(200f))
         canvas.drawPath(mPath, mPaint)
     }
