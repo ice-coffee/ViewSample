@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.sample.common.utils.LogUtils
 
 /**
  * date: 2020/10/23
@@ -37,27 +36,30 @@ class FontMetricsView(context: Context?, attrs: AttributeSet?) : View(context, a
 
         val paddingTop = 200f
         val paddingLeft = 200f
-        val textWidth = paint.measureText(text)
 
+        val textWidth = paint.measureText(text, 0, text.length)
         val textRect = Rect()
         paint.getTextBounds(text, 0, text.length, textRect)
-        LogUtils.e("${textRect.width()}, ${textRect.height()}")
 
         val fontMetrics = paint.fontMetrics
 
+        //measureText\getTextBounds测量文字宽度
         canvas.save()
         canvas.translate(paddingLeft, paddingTop - fontMetrics.ascent)
-        paint.color = Color.RED
         val textPath = Path()
+        paint.color = Color.GREEN
+        textPath.addRect(RectF(textRect.left.toFloat(), textRect.top.toFloat(), textWidth - textRect.left.toFloat(), textRect.bottom.toFloat()), Path.Direction.CW)
+        canvas.drawPath(textPath, paint)
+        paint.color = Color.RED
+        textPath.reset()
         textPath.addRect(RectF(textRect.left.toFloat(), textRect.top.toFloat(), textRect.right.toFloat(), textRect.bottom.toFloat()), Path.Direction.CW)
         canvas.drawPath(textPath, paint)
         canvas.restore()
 
-        paint.pathEffect = DashPathEffect(floatArrayOf(20f, 20f), 0f)
-        LogUtils.e("${fontMetrics.descent - fontMetrics.ascent}")
+        //fontMetrics的各种测量结果
         paint.color = Color.YELLOW
         canvas.drawLine(paddingLeft, paddingTop, paddingLeft + textWidth, paddingTop, paint)
-        paint.color = Color.WHITE
+        paint.color = Color.RED
         canvas.drawLine(paddingLeft, paddingTop + (-fontMetrics.ascent), paddingLeft + textWidth, paddingTop + (-fontMetrics.ascent), paint)
         paint.color = Color.BLUE
         canvas.drawLine(paddingLeft, paddingTop + (-fontMetrics.ascent) + fontMetrics.descent, paddingLeft + textWidth, paddingTop + (-fontMetrics.ascent) + fontMetrics.descent, paint)
