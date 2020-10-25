@@ -13,9 +13,10 @@ import com.sample.view.R
  */
 class ColorFilterView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private val colorMatrixArray = floatArrayOf(1f, 1f, 1f, 0f, 0f,
-            0f, 0f, 0f, 0f, 0f,
-            0f, 0f, 0f, 0f, 0f,
+    private val colorMatrixArray = floatArrayOf(
+            -1f, 0f, 0f, 0f, 255f,
+            0f, -1f, 0f, 0f, 255f,
+            0f, 0f, -1f, 0f, 255f,
             0f, 0f, 0f, 1f, 0f)
     private val colorMatrixArray1 = floatArrayOf(1f, 0f, 0f, 0f, 0f,
             0f, 0f, 0f, 0f, 0f,
@@ -33,7 +34,7 @@ class ColorFilterView(context: Context?, attrs: AttributeSet?) : View(context, a
 
         canvas!!.drawBitmap(bitmap, srcRect, dstRect, paint)
 
-        canvas.translate(0f, bitmap.height.toFloat())
+        canvas.translate(0f, bitmap.height.toFloat() + 10)
         paint.colorFilter = ColorMatrixColorFilter(colorMatrixArray)
         canvas.drawBitmap(bitmap, srcRect, dstRect, paint)
 
