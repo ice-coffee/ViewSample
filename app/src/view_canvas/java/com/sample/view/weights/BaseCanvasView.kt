@@ -14,17 +14,11 @@ import android.view.View
 <p>
  * @remark:
  */
-class BaseCanvasView : View {
+class BaseCanvasView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    lateinit var mPaint: Paint
+    private var mPaint: Paint = Paint()
 
-    constructor(context: Context):super(context){ initView() }
-    constructor(context: Context, attributes: AttributeSet?):super(context, attributes){ initView() }
-    constructor(context: Context, attributes: AttributeSet?, defStyleAttr: Int):super(context, attributes, defStyleAttr){ initView() }
-
-    private fun initView() {
-        mPaint = Paint()
-
+    init {
         mPaint.isAntiAlias = true //抗锯齿功能
         mPaint.color = Color.RED //设置画笔颜色
         mPaint.strokeWidth = 5f //设置画笔宽度
