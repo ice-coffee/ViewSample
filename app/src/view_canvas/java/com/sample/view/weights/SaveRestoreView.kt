@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.sample.common.utils.LogUtils
 import com.sample.view.R
 
 /**
@@ -15,6 +16,11 @@ class SaveRestoreView(context: Context?, attrs: AttributeSet?) : View(context, a
 
     private val paint = Paint()
     private val bitmap = BitmapFactory.decodeResource(resources, R.mipmap.maskfilter)
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        LogUtils.e("$measuredWidth, $measuredHeight")
+    }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
