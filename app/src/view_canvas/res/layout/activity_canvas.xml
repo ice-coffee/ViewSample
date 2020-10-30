@@ -26,6 +26,11 @@
         android:layout_height="match_parent"/>
 
     <com.sample.view.weights.SaveRestoreView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.sample.view.weights.CanvasOptionsView
         android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
