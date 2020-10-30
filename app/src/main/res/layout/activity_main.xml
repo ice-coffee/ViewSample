@@ -41,6 +41,11 @@
             android:onClick="jumpTextShader"
             android:text="着色器"/>
 
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpGestureDetector"
+            android:text="手势"/>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

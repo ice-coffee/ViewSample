@@ -29,6 +29,8 @@
         <activity android:name=".viewdraghelper.ViewDragHelperActivity" />
 
         <activity android:name=".ShaderActivity" />
+
+        <activity android:name=".GestureActivity" />
     </application>
 
 </manifest>

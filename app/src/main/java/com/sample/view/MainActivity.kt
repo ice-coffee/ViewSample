@@ -42,4 +42,8 @@ class MainActivity : AppCompatActivity() {
     fun jumpTextShader(view: View) {
         startActivity(Intent(this, ShaderActivity::class.java))
     }
+
+    fun jumpGestureDetector(view: View) {
+        startActivity(Intent(this, GestureActivity::class.java))
+    }
 }
