@@ -31,6 +31,13 @@
         <activity android:name=".ShaderActivity" />
 
         <activity android:name=".GestureActivity" />
+        <activity android:name=".BaseTestActivity" />
+        <activity android:name=".DoubleTapActivity" />
+        <activity android:name=".DragTestActivity" />
+        <activity android:name=".MoveGestureActivity" />
+        <activity android:name=".RotateGestureActivity" />
+        <activity android:name=".ScaleGestureActivity" />
+        <activity android:name=".ShoveGestureActivity" />
     </application>
 
 </manifest>
