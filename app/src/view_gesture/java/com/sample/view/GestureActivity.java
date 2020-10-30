@@ -43,6 +43,7 @@ public class GestureActivity extends AppCompatActivity {
         itemList.add("旋转测试(第三方库)");
         itemList.add("拖拽测试(第三方库)");
         itemList.add("shove(第三方库)");
+        itemList.add("自定义TextView");
 
         //添加换行
         listAddNullTag();
@@ -66,6 +67,8 @@ public class GestureActivity extends AppCompatActivity {
                     startActivity(new Intent(GestureActivity.this, MoveGestureActivity.class));
                 }else if ("shove(第三方库)".equals(itemStr)) {
                     startActivity(new Intent(GestureActivity.this, ShoveGestureActivity.class));
+                }else if ("自定义TextView".equals(itemStr)) {
+                    startActivity(new Intent(GestureActivity.this, CustomGestureTextView.class));
                 }
             }
         });

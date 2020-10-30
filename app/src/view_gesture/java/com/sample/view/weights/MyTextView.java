@@ -82,9 +82,6 @@ public class MyTextView extends View {
 
         mPaint.setColor(Color.WHITE);
         canvas.drawText(textContent, textCenterX, textCenterY, mPaint);
-
-        mPaint.setColor(Color.RED);
-        canvas.drawPoint(viewCenterX, viewCenterY, mPaint);
     }
 
     private ScaleGestureDetector.OnScaleGestureListener mScaleGestureListener = new ScaleGestureDetector.OnScaleGestureListener() {
