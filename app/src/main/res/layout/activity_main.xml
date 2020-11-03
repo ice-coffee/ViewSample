@@ -46,6 +46,10 @@
             android:onClick="jumpGestureDetector"
             android:text="手势"/>
 
+        <com.sample.view.NewRangeSeekBarView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"/>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
