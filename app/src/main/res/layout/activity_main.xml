@@ -47,6 +47,7 @@
             android:text="手势"/>
 
         <com.sample.view.NewRangeSeekBarView
+            android:id="@+id/seekBarView"
             android:layout_width="match_parent"
             android:layout_height="160dp"/>
 

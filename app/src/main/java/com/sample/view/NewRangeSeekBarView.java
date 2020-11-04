@@ -8,11 +8,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+
+import com.sample.common.utils.LogUtils;
 
 /**
  * @author mzp
@@ -20,6 +23,9 @@ import androidx.annotation.Nullable;
  * desc :
  */
 public class NewRangeSeekBarView extends View {
+
+    private final int MIN_SELECT_DURATION = 3 * 1000;
+    private final int MAX_SELECT_DURATION = 60 * 1000;
 
     /**
      * 控件宽高
@@ -58,35 +64,53 @@ public class NewRangeSeekBarView extends View {
     private Bitmap mLeftBitmap;
     private Rect mLeftSrcRect;
     private float leftDstWidth;
-    private Rect mLeftDstRectF;
+    private RectF mLeftDstRectF;
     /**
      * 右滑块
      */
     private Bitmap mRightBitmap;
     private Rect mRightSrcRect;
     private float rightDstWidth;
-    private Rect mRightDstRectF;
+    private RectF mRightDstRectF;
     /**
      * 左右滑块滑动的距离
      */
     private float moveLeftRange;
     private float moveRightRange;
     /**
-     * 最小范围
+     * 最小(大)选择时间段(秒)
      */
-    private int minRange;
+    private long minSelectTime = MIN_SELECT_DURATION;
+    private long maxSelectTime = MAX_SELECT_DURATION;
     /**
-     * 动画执行时间
+     * 最小时间段像素长度
      */
-    private long animDuration;
+    private float minRange;
     /**
-     * 进度条执行进度
+     * 单位 PX  = 多少时长
      */
-    private float progressValue;
+    private float unitTimeTange;
+    /**
+     * 选中时间线(秒)
+     */
+    private long selectStartTime;
+    private long selectEndTime;
     /**
      * 进度条执行动画
      */
     private ValueAnimator progressAnima;
+    /**
+     * 当前拖动的是否为左滑块
+     */
+    private boolean isDragLeft;
+    /**
+     * 当前拖动的是否为右滑块
+     */
+    private boolean isDragRight;
+    /**
+     * 选中监听
+     */
+    private OnRangeChangeListener rangeChangeListener;
 
     public NewRangeSeekBarView(Context context) {
         super(context);
@@ -123,26 +147,13 @@ public class NewRangeSeekBarView extends View {
         viewHeight = h;
         viewWidth = w;
 
-        int bitmapHeight = viewHeight - (int) viewMarginTb * 2;
+        viewMoveWidth = viewWidth - viewMarginSe * 2 - leftDstWidth - rightDstWidth;
 
-        leftDstWidth = mLeftSrcRect.width() / (float) mLeftSrcRect.height() * bitmapHeight;
-        rightDstWidth = mRightSrcRect.width() / (float) mRightSrcRect.height() * bitmapHeight;
-        mLeftDstRectF = new Rect(0, 0, (int) leftDstWidth, bitmapHeight);
-        mRightDstRectF = new Rect(0, 0, (int) rightDstWidth, bitmapHeight);
+        //单位像素代表的时长
+        unitTimeTange = maxSelectTime / viewMoveWidth;
+        minRange = MIN_SELECT_DURATION / unitTimeTange;
 
-        viewMoveWidth = viewWidth - viewMarginSe * 2 -leftDstWidth - rightDstWidth;
-
-        pts[0] = viewMarginSe + leftDstWidth;
-        pts[1] = viewMarginTb + viewStrokeWidth / 2;
-        pts[2] = viewWidth - viewMarginSe -rightDstWidth;
-        pts[3] = viewMarginTb + viewStrokeWidth / 2;
-
-        pts[4] = viewMarginSe + leftDstWidth;
-        pts[5] = viewHeight - viewMarginTb - viewStrokeWidth / 2;
-        pts[6] = viewWidth - viewMarginSe -rightDstWidth;
-        pts[7] = viewHeight - viewMarginTb - viewStrokeWidth / 2;
-
-        updateProgressAnimation();
+        updateDstBitmapRect();
     }
 
     @Override
@@ -155,29 +166,40 @@ public class NewRangeSeekBarView extends View {
 
         canvas.drawLines(progressPts, mPaint);
 
-        canvas.translate(viewMarginSe, viewMarginTb);
         canvas.drawBitmap(mLeftBitmap, mLeftSrcRect, mLeftDstRectF, mPaint);
-
-        canvas.translate(viewWidth - viewMarginSe * 2 - mRightDstRectF.width(), 0);
         canvas.drawBitmap(mRightBitmap, mRightSrcRect, mRightDstRectF, mPaint);
     }
 
     float downX;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                downX = event.getX();
+                isDragLeft = false;
+                isDragRight = false;
+                downX = event.getRawX();
+                if (mLeftDstRectF.contains(event.getRawX(), event.getY())) {
+                    isDragLeft = true;
+                }
+                if (mRightDstRectF.contains(event.getRawX(), event.getY())) {
+                    isDragRight = true;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
-                moveLeftRange += (event.getX() - downX);
-                downX = event.getX();
-
-                updateProgressAnimation();
+                if (isDragLeft) {
+                    moveLeftRange += (event.getRawX() - downX);
+                }
+                if (isDragRight) {
+                    moveRightRange += (event.getRawX() - downX);
+                }
+                updateDstBitmapRect();
+                downX = event.getRawX();
 
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
+                updateProgressAnimation();
                 break;
             default:
         }
@@ -185,28 +207,117 @@ public class NewRangeSeekBarView extends View {
     }
 
     /**
-     * 更新进度条动画
+     * 绘制更新
      */
-    private void updateProgressAnimation() {
+    private void updateDstBitmapRect() {
+
+        //取消动画
         if (null != progressAnima) {
             progressAnima.cancel();
         }
-        progressAnima = ValueAnimator.ofFloat(moveLeftRange, viewMoveWidth - moveRightRange);
+
+        float bitmapHeight = viewHeight - viewMarginTb * 2;
+        leftDstWidth = mLeftSrcRect.width() / (float) mLeftSrcRect.height() * bitmapHeight;
+        rightDstWidth = mRightSrcRect.width() / (float) mRightSrcRect.height() * bitmapHeight;
+
+        //左右边界滑动限制
+        if (moveLeftRange < 0) {
+            moveLeftRange = 0;
+        }
+
+        if (moveRightRange > 0) {
+            moveRightRange = 0;
+        }
+
+        float leftRectLeft = viewMarginSe + moveLeftRange;
+        float leftRectRight = leftRectLeft + leftDstWidth;
+        float rightRectLeft = viewWidth - viewMarginSe - rightDstWidth - Math.abs(moveRightRange);
+        float rightRectRgith = rightRectLeft + rightDstWidth;
+
+        //滑动选中最小范围限制
+        if (minRange > viewWidth - (viewMarginSe * 2 + leftDstWidth + moveLeftRange + Math.abs(moveRightRange) + rightDstWidth)) {
+            return;
+        }
+
+        //左右滑块绘制Rect
+        mLeftDstRectF = new RectF(leftRectLeft, viewMarginTb, leftRectRight, bitmapHeight + viewMarginTb);
+        mRightDstRectF = new RectF(rightRectLeft, viewMarginTb, rightRectRgith, bitmapHeight + viewMarginTb);
+
+        //上下两条边线绘制坐标
+        pts[0] = leftRectRight;
+        pts[1] = viewMarginTb + viewStrokeWidth / 2;
+        pts[2] = rightRectLeft;
+        pts[3] = viewMarginTb + viewStrokeWidth / 2;
+
+        pts[4] = leftRectRight;
+        pts[5] = viewHeight - viewMarginTb - viewStrokeWidth / 2;
+        pts[6] = rightRectLeft;
+        pts[7] = viewHeight - viewMarginTb - viewStrokeWidth / 2;
+
+        float x = viewMarginSe + leftDstWidth + moveLeftRange;
+        progressPts[0] = x;
+        progressPts[1] = 0;
+        progressPts[2] = x;
+        progressPts[3] = viewHeight;
+
+        if (null != rangeChangeListener) {
+            long startTime = (long) Math.floor(unitTimeTange * moveLeftRange / 1000);
+            long endTime = (long) Math.ceil(unitTimeTange * (viewMoveWidth - Math.abs(moveRightRange)) / 1000);
+            rangeChangeListener.onRangeValuesChanged(startTime, endTime);
+        }
+    }
+
+    /**
+     * 更新进度条动画
+     */
+    private void updateProgressAnimation() {
+        progressAnima = ValueAnimator.ofFloat(mLeftDstRectF.right, mRightDstRectF.left);
         progressAnima.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                progressValue = (float) animation.getAnimatedValue();
-
-                float x = viewMarginSe + leftDstWidth + progressValue;
-                progressPts[0] = x;
-                progressPts[1] = 0;
-                progressPts[2] = x;
-                progressPts[3] = viewHeight;
+                float progressValue = (float) animation.getAnimatedValue();
+                updateProgressLine(progressValue);
 
                 invalidate();
             }
         });
-        progressAnima.setDuration(animDuration);
-        progressAnima.start();
+        progressAnima.setDuration(10000);
+        progressAnima.setRepeatCount(Integer.MAX_VALUE);
+//        progressAnima.start();
+    }
+
+    /**
+     * 进度条位置更新
+     */
+    private void updateProgressLine(float progressValue) {
+
+        progressPts[0] = progressValue;
+        progressPts[1] = 0;
+        progressPts[2] = progressValue;
+        progressPts[3] = viewHeight;
+    }
+
+    /**
+     * 根据视频时长初始化选择框可选区间
+     * @param duration 视频时长,单位毫秒
+     */
+    public void setVideoDuration(long duration) {
+        //时长区间
+        this.minSelectTime = 0;
+        if (duration < MAX_SELECT_DURATION) {
+            this.maxSelectTime = duration;
+        }
+
+        //初始选中开始播放时间和播放结束时间
+        this.selectStartTime = minSelectTime;
+        this.selectEndTime = maxSelectTime;
+    }
+
+    public void addRangeChangeListener(OnRangeChangeListener listener) {
+        this.rangeChangeListener = listener;
+    }
+
+    public interface OnRangeChangeListener {
+        void onRangeValuesChanged(long startTime, long maxValue);
     }
 }
