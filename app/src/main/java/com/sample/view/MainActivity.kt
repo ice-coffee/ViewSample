@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.common.utils.LogUtils
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @date: 2020/9/6
@@ -19,9 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        seekBarView.setVideoDuration(120 * 1000)
-        seekBarView.addRangeChangeListener { startTime, maxValue -> LogUtils.Companion.e("$startTime, $maxValue") }
     }
 
     fun jumpWidget(view: View) {
@@ -50,5 +45,9 @@ class MainActivity : AppCompatActivity() {
 
     fun jumpGestureDetector(view: View) {
         startActivity(Intent(this, GestureActivity::class.java))
+    }
+
+    fun jumpViewCustom(view: View) {
+        startActivity(Intent(this, CustomActivity::class.java))
     }
 }

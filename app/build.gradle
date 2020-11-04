@@ -26,7 +26,7 @@ android {
     sourceSets {
         main {
             manifest.srcFile 'src/main/AndroidManifest.xml'
-            def dirs = ['main', 'view_round', 'view_paint', 'view_canvas', 'view_shader', 'view_widget', 'view_helper', 'view_gesture']
+            def dirs = ['main', 'view_round', 'view_paint', 'view_canvas', 'view_shader', 'view_widget', 'view_helper', 'view_gesture', 'view_custom']
             dirs.each { dir ->
                 java.srcDir("src/$dir/java")
                 res.srcDir("src/$dir/res")

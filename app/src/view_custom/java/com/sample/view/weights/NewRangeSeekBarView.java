@@ -1,4 +1,4 @@
-package com.sample.view;
+package com.sample.view.weights;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -10,12 +10,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.sample.common.utils.LogUtils;
+import com.sample.view.R;
 
 /**
  * @author mzp
@@ -112,6 +113,8 @@ public class NewRangeSeekBarView extends View {
      */
     private OnRangeChangeListener rangeChangeListener;
 
+    private GestureDetector gestureDetector;
+
     public NewRangeSeekBarView(Context context) {
         super(context);
         initView(context, null);
@@ -138,6 +141,8 @@ public class NewRangeSeekBarView extends View {
 
         mLeftSrcRect = new Rect(0, 0, mLeftBitmap.getWidth(), mLeftBitmap.getHeight());
         mRightSrcRect = new Rect(0, 0, mRightBitmap.getWidth(), mRightBitmap.getHeight());
+
+        gestureDetector = new GestureDetector(context, gestureListener);
     }
 
     @Override
@@ -170,41 +175,44 @@ public class NewRangeSeekBarView extends View {
         canvas.drawBitmap(mRightBitmap, mRightSrcRect, mRightDstRectF, mPaint);
     }
 
-    float downX;
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                isDragLeft = false;
-                isDragRight = false;
-                downX = event.getRawX();
-                if (mLeftDstRectF.contains(event.getRawX(), event.getY())) {
-                    isDragLeft = true;
-                }
-                if (mRightDstRectF.contains(event.getRawX(), event.getY())) {
-                    isDragRight = true;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (isDragLeft) {
-                    moveLeftRange += (event.getRawX() - downX);
-                }
-                if (isDragRight) {
-                    moveRightRange += (event.getRawX() - downX);
-                }
-                updateDstBitmapRect();
-                downX = event.getRawX();
-
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                updateProgressAnimation();
-                break;
-            default:
+        boolean isHandle = gestureDetector.onTouchEvent(event);
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            updateProgressAnimation();
         }
-        return true;
+        return isHandle;
     }
+
+    private GestureDetector.SimpleOnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            isDragLeft = false;
+            isDragRight = false;
+            if (mLeftDstRectF.contains(event.getRawX(), event.getY())) {
+                isDragLeft = true;
+            }
+            if (mRightDstRectF.contains(event.getRawX(), event.getY())) {
+                isDragRight = true;
+            }
+            return isDragLeft || isDragRight;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (isDragLeft) {
+                moveLeftRange -= distanceX;
+            }
+            if (isDragRight) {
+                moveRightRange += distanceX;
+            }
+            updateDstBitmapRect();
+
+            invalidate();
+            return true;
+        }
+    };
 
     /**
      * 绘制更新
@@ -225,17 +233,17 @@ public class NewRangeSeekBarView extends View {
             moveLeftRange = 0;
         }
 
-        if (moveRightRange > 0) {
+        if (moveRightRange < 0) {
             moveRightRange = 0;
         }
 
         float leftRectLeft = viewMarginSe + moveLeftRange;
         float leftRectRight = leftRectLeft + leftDstWidth;
-        float rightRectLeft = viewWidth - viewMarginSe - rightDstWidth - Math.abs(moveRightRange);
+        float rightRectLeft = viewWidth - viewMarginSe - rightDstWidth - moveRightRange;
         float rightRectRgith = rightRectLeft + rightDstWidth;
 
         //滑动选中最小范围限制
-        if (minRange > viewWidth - (viewMarginSe * 2 + leftDstWidth + moveLeftRange + Math.abs(moveRightRange) + rightDstWidth)) {
+        if (minRange > viewWidth - (viewMarginSe * 2 + leftDstWidth + moveLeftRange + moveRightRange + rightDstWidth)) {
             return;
         }
 
@@ -261,9 +269,9 @@ public class NewRangeSeekBarView extends View {
         progressPts[3] = viewHeight;
 
         if (null != rangeChangeListener) {
-            long startTime = (long) Math.floor(unitTimeTange * moveLeftRange / 1000);
-            long endTime = (long) Math.ceil(unitTimeTange * (viewMoveWidth - Math.abs(moveRightRange)) / 1000);
-            rangeChangeListener.onRangeValuesChanged(startTime, endTime);
+            selectStartTime = (long) Math.floor(unitTimeTange * moveLeftRange / 1000);
+            selectEndTime = (long) Math.ceil(unitTimeTange * (viewMoveWidth - moveRightRange) / 1000);
+            rangeChangeListener.onRangeValuesChanged(selectStartTime, selectEndTime);
         }
     }
 
@@ -281,9 +289,8 @@ public class NewRangeSeekBarView extends View {
                 invalidate();
             }
         });
-        progressAnima.setDuration(10000);
-        progressAnima.setRepeatCount(Integer.MAX_VALUE);
-//        progressAnima.start();
+        progressAnima.setDuration((selectEndTime - selectStartTime) * 1000);
+        progressAnima.start();
     }
 
     /**

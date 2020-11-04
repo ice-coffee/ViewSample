@@ -39,6 +39,8 @@
         <activity android:name=".ScaleGestureActivity" />
         <activity android:name=".ShoveGestureActivity" />
         <activity android:name=".CustomGestureTextView" />
+
+        <activity android:name=".CustomActivity" />
     </application>
 
 </manifest>
