@@ -46,4 +46,8 @@ class MainActivity : AppCompatActivity() {
     fun jumpGestureDetector(view: View) {
         startActivity(Intent(this, GestureActivity::class.java))
     }
+
+    fun jumpViewCustom(view: View) {
+        startActivity(Intent(this, CustomActivity::class.java))
+    }
 }

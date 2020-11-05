@@ -46,6 +46,11 @@
             android:onClick="jumpGestureDetector"
             android:text="手势"/>
 
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpViewCustom"
+            android:text="自定义View"/>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
