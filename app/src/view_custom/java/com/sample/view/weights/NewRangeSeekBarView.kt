@@ -82,6 +82,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var mUnSelectRightMargin = 0f
     private var mRightUnSelectRect: RectF? = null
 
+    private var bottomViewWidth = 0f
+
     /**
      * 左右滑块滑动的距离
      */
@@ -176,6 +178,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         viewHeight = h
         viewWidth = w
         viewMoveWidth = viewWidth - viewMarginSe * 2 - leftDstWidth - rightDstWidth
+
+        mUnSelectRightMargin = bottomViewWidth - viewWidth
 
         //单位像素代表的时长
         unitTimeTange = maxSelectTime / viewMoveWidth
@@ -310,21 +314,12 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     }
 
     fun initBottomShadow(bottomViewWidth: Float) {
-        mUnSelectLeftMargin = 0f
-        mUnSelectRightMargin = bottomViewWidth - viewWidth
-        updateDstBitmapRect()
-        invalidate()
+        this.bottomViewWidth = bottomViewWidth
     }
 
-    fun updateUnSelectLeftRect(dx: Int) {
+    fun updateUnSelectRect(dx: Int) {
 
         mUnSelectLeftMargin += dx
-        updateDstBitmapRect()
-        invalidate()
-    }
-
-    fun updateUnSelectRightRect(dx: Int) {
-
         mUnSelectRightMargin -= dx
         updateDstBitmapRect()
         invalidate()
