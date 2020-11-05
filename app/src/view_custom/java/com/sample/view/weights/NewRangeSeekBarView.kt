@@ -68,6 +68,9 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var leftDstWidth = 0f
     private var mLeftDstRectF: RectF? = null
 
+    private var mUnSelectLeftMargin = 0f
+    private var mleftUnSelectRect: RectF? = null
+
     /**
      * 右滑块
      */
@@ -75,6 +78,9 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var mRightSrcRect: Rect
     private var rightDstWidth = 0f
     private var mRightDstRectF: RectF? = null
+
+    private var mUnSelectRightMargin = 0f
+    private var mRightUnSelectRect: RectF? = null
 
     /**
      * 左右滑块滑动的距离
@@ -179,9 +185,10 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawColor(Color.BLACK)
         canvas.drawLines(pts, mPaint)
         canvas.drawLines(progressPts, mPaint)
+        canvas.drawRect(mleftUnSelectRect!!, mPaint)
+        canvas.drawRect(mRightUnSelectRect!!, mPaint)
         canvas.drawBitmap(mLeftBitmap, mLeftSrcRect, mLeftDstRectF!!, mPaint)
         canvas.drawBitmap(mRightBitmap, mRightSrcRect, mRightDstRectF!!, mPaint)
     }
@@ -227,6 +234,17 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         mLeftDstRectF = RectF(leftRectLeft, viewMarginTb, leftRectRight, bitmapHeight + viewMarginTb)
         mRightDstRectF = RectF(rightRectLeft, viewMarginTb, rightRectRgith, bitmapHeight + viewMarginTb)
 
+        var unSelectRectLeft = leftRectRight - moveLeftRange - mUnSelectLeftMargin
+        var unSelectRectRight = rightRectLeft + moveRightRange + mUnSelectRightMargin
+        if (unSelectRectLeft < 0) {
+            unSelectRectLeft = 0f
+        }
+        if (unSelectRectRight > viewWidth) {
+            unSelectRectRight = viewWidth.toFloat()
+        }
+        mleftUnSelectRect = RectF(unSelectRectLeft, viewMarginTb, leftRectRight, bitmapHeight + viewMarginTb)
+        mRightUnSelectRect = RectF(rightRectLeft, viewMarginTb, unSelectRectRight, bitmapHeight + viewMarginTb)
+
         //上下两条边线绘制坐标
         pts[0] = leftRectRight
         pts[1] = viewMarginTb + viewStrokeWidth / 2
@@ -256,7 +274,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      */
     private fun updateProgressAnimation() {
         progressAnima = ValueAnimator.ofFloat(mLeftDstRectF!!.right, mRightDstRectF!!.left)
-        progressAnima!!.addUpdateListener(AnimatorUpdateListener{ animation ->
+        progressAnima!!.addUpdateListener(AnimatorUpdateListener { animation ->
             val progressValue = animation.animatedValue as Float
             updateProgressLine(progressValue)
             invalidate()
@@ -289,6 +307,27 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         //初始选中开始播放时间和播放结束时间
         selectStartTime = minSelectTime
         selectEndTime = maxSelectTime
+    }
+
+    fun initBottomShadow(bottomViewWidth: Float) {
+        mUnSelectLeftMargin = 0f
+        mUnSelectRightMargin = bottomViewWidth - viewWidth
+        updateDstBitmapRect()
+        invalidate()
+    }
+
+    fun updateUnSelectLeftRect(dx: Int) {
+
+        mUnSelectLeftMargin += dx
+        updateDstBitmapRect()
+        invalidate()
+    }
+
+    fun updateUnSelectRightRect(dx: Int) {
+
+        mUnSelectRightMargin -= dx
+        updateDstBitmapRect()
+        invalidate()
     }
 
     fun addRangeChangeListener(listener: OnRangeChangeListener?) {
