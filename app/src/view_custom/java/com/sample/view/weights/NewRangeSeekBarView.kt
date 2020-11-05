@@ -319,7 +319,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             progressPts[3] = viewHeight.toFloat()
 
             if (progressValue == mRightDstRectF!!.left) {
-                progressAnima!!.start()
+                updateProgressAnimation()
             }
         }
     }
