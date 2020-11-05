@@ -2,9 +2,11 @@
 <resources>
 
     <dimen name="seek_margin_top_bottom">4dp</dimen>
-    <dimen name="seek_margin_start_end">30dp</dimen>
+    <dimen name="seek_margin_start_end">32dp</dimen>
     <dimen name="slider_width">24dp</dimen>
     <dimen name="slider_height">56dp</dimen>
     <dimen name="seek_stroke_width">2dp</dimen>
+
+    <dimen name="thumb_item_width">32dp</dimen>
 
 </resources>

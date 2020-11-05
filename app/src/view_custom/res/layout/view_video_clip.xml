@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/darker_gray">
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="110dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bitmapRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_centerVertical="true"/>
+
+        <com.sample.view.weights.NewRangeSeekBarView
+            android:id="@+id/seekBarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/video_shoot_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="68dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="13dp"
+        tools:text="@string/video_shoot_tip"
+        tools:ignore="SpUsage" />
+
+</RelativeLayout>

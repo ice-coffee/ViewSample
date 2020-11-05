@@ -1,10 +1,12 @@
 package com.sample.view.weights
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
@@ -273,8 +275,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         progressPts[3] = viewHeight.toFloat()
 
         if (null != rangeChangeListener) {
-            selectStartTime = floor(unitTimeTange * moveLeftRange / 1000.toDouble()).toInt()
-            selectEndTime = ceil(unitTimeTange * (viewMoveWidth - moveRightRange) / 1000.toDouble()).toInt()
+            selectStartTime = floor(unitTimeTange * moveLeftRange).toInt()
+            selectEndTime = ceil(unitTimeTange * (viewMoveWidth - moveRightRange)).toInt()
             rangeChangeListener!!.onRangeValuesChanged(selectStartTime, selectEndTime)
         }
     }
@@ -289,6 +291,19 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             updateProgressLine(progressValue)
             invalidate()
         })
+        progressAnima!!.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) {}
+
+            override fun onAnimationEnd(animation: Animator?) {
+                rangeChangeListener?.onPlayEnd()
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {}
+
+            override fun onAnimationStart(animation: Animator?) {
+                rangeChangeListener?.onPlayStart()
+            }
+        })
         progressAnima!!.duration = (selectEndTime - selectStartTime).toLong()
         progressAnima!!.start()
     }
@@ -297,10 +312,16 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      * 进度条位置更新
      */
     private fun updateProgressLine(progressValue: Float) {
-        progressPts[0] = progressValue
-        progressPts[1] = 0f
-        progressPts[2] = progressValue
-        progressPts[3] = viewHeight.toFloat()
+        if (progressAnima!!.isRunning) {
+            progressPts[0] = progressValue
+            progressPts[1] = 0f
+            progressPts[2] = progressValue
+            progressPts[3] = viewHeight.toFloat()
+
+            if (progressValue == mRightDstRectF!!.left) {
+                progressAnima!!.start()
+            }
+        }
     }
 
     /**
@@ -338,6 +359,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     }
 
     interface OnRangeChangeListener {
-        fun onRangeValuesChanged(startTime: Int, maxValue: Int)
+        fun onPlayStart()
+        fun onRangeValuesChanged(startTime: Int, endTime: Int)
+        fun onPlayEnd()
     }
 }

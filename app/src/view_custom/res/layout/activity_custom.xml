@@ -4,21 +4,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray">
 
-    <RelativeLayout
+    <com.sample.view.weights.VideoClipView
+        android:id="@+id/videoClipView"
         android:layout_width="match_parent"
-        android:layout_height="64dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bitmapRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_centerVertical="true"/>
-
-        <com.sample.view.weights.NewRangeSeekBarView
-            android:id="@+id/seekBarView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </RelativeLayout>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
