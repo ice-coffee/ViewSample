@@ -101,8 +101,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 最小(大)选择时间段(毫秒)
      */
-    private var minSelectTime = MIN_SELECT_DURATION.toLong()
-    private var maxSelectTime = MAX_SELECT_DURATION.toLong()
+    private var minSelectTime = MIN_SELECT_DURATION
+    private var maxSelectTime = MAX_SELECT_DURATION
 
     /**
      * 最小时间段像素长度
@@ -117,8 +117,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 选中时间线(秒)
      */
-    private var selectStartTime: Long = 0
-    private var selectEndTime: Long = 0
+    private var selectStartTime = 0
+    private var selectEndTime = 0
 
     /**
      * 进度条执行动画
@@ -273,8 +273,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         progressPts[3] = viewHeight.toFloat()
 
         if (null != rangeChangeListener) {
-            selectStartTime = floor(unitTimeTange * moveLeftRange / 1000.toDouble()).toLong()
-            selectEndTime = ceil(unitTimeTange * (viewMoveWidth - moveRightRange) / 1000.toDouble()).toLong()
+            selectStartTime = floor(unitTimeTange * moveLeftRange / 1000.toDouble()).toInt()
+            selectEndTime = ceil(unitTimeTange * (viewMoveWidth - moveRightRange) / 1000.toDouble()).toInt()
             rangeChangeListener!!.onRangeValuesChanged(selectStartTime, selectEndTime)
         }
     }
@@ -289,7 +289,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             updateProgressLine(progressValue)
             invalidate()
         })
-        progressAnima!!.duration = selectEndTime - selectStartTime
+        progressAnima!!.duration = (selectEndTime - selectStartTime).toLong()
         progressAnima!!.start()
     }
 
@@ -307,7 +307,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      * 根据视频时长初始化选择框可选区间
      * @param duration 视频时长,单位毫秒
      */
-    fun setVideoDuration(duration: Long) {
+    fun setVideoDuration(duration: Int) {
         //时长区间
         minSelectTime = 0
         if (duration < MAX_SELECT_DURATION) {
@@ -317,6 +317,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         //初始选中开始播放时间和播放结束时间
         selectStartTime = minSelectTime
         selectEndTime = maxSelectTime
+
+        updateProgressAnimation()
     }
 
     fun initBottomShadow(bottomViewWidth: Float) {
@@ -336,6 +338,6 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     }
 
     interface OnRangeChangeListener {
-        fun onRangeValuesChanged(startTime: Long, maxValue: Long)
+        fun onRangeValuesChanged(startTime: Int, maxValue: Int)
     }
 }
