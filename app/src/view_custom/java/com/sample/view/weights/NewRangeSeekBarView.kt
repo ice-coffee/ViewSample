@@ -6,7 +6,6 @@ import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
@@ -126,6 +125,11 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      * 进度条执行动画
      */
     private var progressAnima: ValueAnimator? = null
+
+    /**
+     * 判断动画取消成因, true: 滑动滑块取消, false: 正常播放结束
+     */
+    private var isAnimationCancel = false
 
     /**
      * 当前拖动的是否为左滑块
@@ -295,10 +299,17 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             override fun onAnimationRepeat(animation: Animator?) {}
 
             override fun onAnimationEnd(animation: Animator?) {
-                rangeChangeListener?.onPlayEnd()
+                if (!isAnimationCancel) {
+                    rangeChangeListener?.onPlayEnd()
+                    updateProgressAnimation()
+                } else {
+                    isAnimationCancel = false
+                }
             }
 
-            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationCancel(animation: Animator?) {
+                isAnimationCancel = true
+            }
 
             override fun onAnimationStart(animation: Animator?) {
                 rangeChangeListener?.onPlayStart()
@@ -312,16 +323,10 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      * 进度条位置更新
      */
     private fun updateProgressLine(progressValue: Float) {
-        if (progressAnima!!.isRunning) {
-            progressPts[0] = progressValue
-            progressPts[1] = 0f
-            progressPts[2] = progressValue
-            progressPts[3] = viewHeight.toFloat()
-
-            if (progressValue == mRightDstRectF!!.left) {
-                updateProgressAnimation()
-            }
-        }
+        progressPts[0] = progressValue
+        progressPts[1] = 0f
+        progressPts[2] = progressValue
+        progressPts[3] = viewHeight.toFloat()
     }
 
     /**
