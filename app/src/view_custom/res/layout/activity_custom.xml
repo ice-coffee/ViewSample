@@ -6,17 +6,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="64dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bitmapRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="52dp"
+            android:layout_centerVertical="true"/>
 
         <com.sample.view.weights.NewRangeSeekBarView
             android:id="@+id/seekBarView"
             android:layout_width="match_parent"
-            android:layout_height="160dp"/>
+            android:layout_height="match_parent"/>
 
     </RelativeLayout>
 

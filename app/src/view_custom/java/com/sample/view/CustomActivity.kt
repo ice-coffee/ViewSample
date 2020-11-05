@@ -26,9 +26,11 @@ public class CustomActivity: AppCompatActivity() {
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         bitmapRecyclerView.layoutManager = layoutManager
         mVideoThumbAdapter = VideoTrimmerAdapter(this)
+        val marginSpace = resources.getDimension(R.dimen.seek_margin_start_end).toInt() + resources.getDimension(R.dimen.slider_width).toInt()
+        bitmapRecyclerView.addItemDecoration(SpacesItemDecoration2(marginSpace, 20))
         bitmapRecyclerView.adapter = mVideoThumbAdapter
         bitmapRecyclerView.addOnScrollListener(listener)
-        seekBarView.initBottomShadow( dp2px(30) * 10f + dp2px(56) * 2f)
+        seekBarView.initBottomShadow( dp2px(30) * 20f + marginSpace * 2f)
 
         seekBarView.setVideoDuration(120 * 1000)
     }

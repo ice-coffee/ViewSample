@@ -48,7 +48,17 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      * 边框宽度
      */
     private val viewStrokeWidth = resources.getDimension(R.dimen.seek_stroke_width)
+
+    /**
+     * 滑块宽高
+     */
+    private val slideWidth = resources.getDimension(R.dimen.slider_width)
+    private val slideHeight = resources.getDimension(R.dimen.slider_height)
+
     private val mPaint = Paint()
+
+    private val mBorderColor = Color.WHITE
+    private val mShadowColor = resources.getColor(R.color.seek_shadow_color)
 
     /**
      * 上下两个线段的坐标
@@ -65,7 +75,6 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      */
     private var mLeftBitmap: Bitmap
     private var mLeftSrcRect: Rect
-    private var leftDstWidth = 0f
     private var mLeftDstRectF: RectF? = null
 
     private var mUnSelectLeftMargin = 0f
@@ -76,7 +85,6 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
      */
     private var mRightBitmap: Bitmap
     private var mRightSrcRect: Rect
-    private var rightDstWidth = 0f
     private var mRightDstRectF: RectF? = null
 
     private var mUnSelectRightMargin = 0f
@@ -91,7 +99,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var moveRightRange = 0f
 
     /**
-     * 最小(大)选择时间段(秒)
+     * 最小(大)选择时间段(毫秒)
      */
     private var minSelectTime = MIN_SELECT_DURATION.toLong()
     private var maxSelectTime = MAX_SELECT_DURATION.toLong()
@@ -163,7 +171,6 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     }
 
     init {
-        mPaint.color = Color.WHITE
         mPaint.strokeCap = Paint.Cap.ROUND
         mPaint.strokeWidth = viewStrokeWidth
         mLeftBitmap = BitmapFactory.decodeResource(resources, R.mipmap.upload_btn_cut_left, )
@@ -177,7 +184,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         super.onSizeChanged(w, h, oldw, oldh)
         viewHeight = h
         viewWidth = w
-        viewMoveWidth = viewWidth - viewMarginSe * 2 - leftDstWidth - rightDstWidth
+        viewMoveWidth = viewWidth - viewMarginSe * 2 - slideWidth - slideWidth
 
         mUnSelectRightMargin = bottomViewWidth - viewWidth
 
@@ -189,10 +196,13 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawLines(pts, mPaint)
-        canvas.drawLines(progressPts, mPaint)
+        mPaint.color = mShadowColor
         canvas.drawRect(mleftUnSelectRect!!, mPaint)
         canvas.drawRect(mRightUnSelectRect!!, mPaint)
+
+        mPaint.color = mBorderColor
+        canvas.drawLines(pts, mPaint)
+        canvas.drawLines(progressPts, mPaint)
         canvas.drawBitmap(mLeftBitmap, mLeftSrcRect, mLeftDstRectF!!, mPaint)
         canvas.drawBitmap(mRightBitmap, mRightSrcRect, mRightDstRectF!!, mPaint)
     }
@@ -213,10 +223,6 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         //取消动画
         progressAnima?.cancel()
 
-        val bitmapHeight = viewHeight - viewMarginTb * 2
-        leftDstWidth = mLeftSrcRect.width() / mLeftSrcRect.height().toFloat() * bitmapHeight
-        rightDstWidth = mRightSrcRect.width() / mRightSrcRect.height().toFloat() * bitmapHeight
-
         //左右边界滑动限制
         if (moveLeftRange < 0) {
             moveLeftRange = 0f
@@ -225,18 +231,18 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             moveRightRange = 0f
         }
         val leftRectLeft = viewMarginSe + moveLeftRange
-        val leftRectRight = leftRectLeft + leftDstWidth
-        val rightRectLeft = viewWidth - viewMarginSe - rightDstWidth - moveRightRange
-        val rightRectRgith = rightRectLeft + rightDstWidth
+        val leftRectRight = leftRectLeft + slideWidth
+        val rightRectLeft = viewWidth - viewMarginSe - slideWidth - moveRightRange
+        val rightRectRgith = rightRectLeft + slideWidth
 
         //滑动选中最小范围限制
-        if (minRange > viewWidth - (viewMarginSe * 2 + leftDstWidth + moveLeftRange + moveRightRange + rightDstWidth)) {
+        if (minRange > viewWidth - (viewMarginSe * 2 + slideWidth + moveLeftRange + moveRightRange + slideWidth)) {
             return
         }
 
         //左右滑块绘制Rect
-        mLeftDstRectF = RectF(leftRectLeft, viewMarginTb, leftRectRight, bitmapHeight + viewMarginTb)
-        mRightDstRectF = RectF(rightRectLeft, viewMarginTb, rightRectRgith, bitmapHeight + viewMarginTb)
+        mLeftDstRectF = RectF(leftRectLeft, viewMarginTb, leftRectRight, slideHeight + viewMarginTb)
+        mRightDstRectF = RectF(rightRectLeft, viewMarginTb, rightRectRgith, slideHeight + viewMarginTb)
 
         var unSelectRectLeft = leftRectRight - moveLeftRange - mUnSelectLeftMargin
         var unSelectRectRight = rightRectLeft + moveRightRange + mUnSelectRightMargin
@@ -246,8 +252,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         if (unSelectRectRight > viewWidth) {
             unSelectRectRight = viewWidth.toFloat()
         }
-        mleftUnSelectRect = RectF(unSelectRectLeft, viewMarginTb, leftRectRight, bitmapHeight + viewMarginTb)
-        mRightUnSelectRect = RectF(rightRectLeft, viewMarginTb, unSelectRectRight, bitmapHeight + viewMarginTb)
+        mleftUnSelectRect = RectF(unSelectRectLeft, viewMarginTb + viewStrokeWidth, leftRectRight, slideHeight + viewMarginTb - viewStrokeWidth)
+        mRightUnSelectRect = RectF(rightRectLeft, viewMarginTb + viewStrokeWidth, unSelectRectRight, slideHeight + viewMarginTb - viewStrokeWidth)
 
         //上下两条边线绘制坐标
         pts[0] = leftRectRight
@@ -260,7 +266,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         pts[7] = viewHeight - viewMarginTb - viewStrokeWidth / 2
 
         //进度条初始位置
-        val x = viewMarginSe + leftDstWidth + moveLeftRange
+        val x = viewMarginSe + slideWidth + moveLeftRange
         progressPts[0] = x
         progressPts[1] = 0f
         progressPts[2] = x
@@ -283,7 +289,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             updateProgressLine(progressValue)
             invalidate()
         })
-        progressAnima!!.duration = (selectEndTime - selectStartTime) * 1000
+        progressAnima!!.duration = selectEndTime - selectStartTime
         progressAnima!!.start()
     }
 
