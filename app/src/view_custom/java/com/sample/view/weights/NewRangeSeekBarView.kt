@@ -108,12 +108,12 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 最小时间段像素长度
      */
-    private var minRange = 0f
+    private var minRange = 0
 
     /**
      * 单位 PX  = 多少时长
      */
-    private var unitTimeTange = 0f
+    private var unitLengthTime = 0
 
     /**
      * 选中时间线(秒)
@@ -195,8 +195,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         mUnSelectRightMargin = bottomViewWidth - viewWidth
 
         //单位像素代表的时长
-        unitTimeTange = maxSelectTime / viewMoveWidth
-        minRange = MIN_SELECT_DURATION / unitTimeTange
+        unitLengthTime = maxSelectTime / viewMoveWidth.toInt()
+        minRange = MIN_SELECT_DURATION / unitLengthTime
         updateDstBitmapRect()
     }
 
@@ -279,8 +279,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         progressPts[3] = viewHeight.toFloat()
 
         if (null != rangeChangeListener) {
-            selectStartTime = floor(unitTimeTange * moveLeftRange).toInt()
-            selectEndTime = ceil(unitTimeTange * (viewMoveWidth - moveRightRange)).toInt()
+            selectStartTime = floor(unitLengthTime * moveLeftRange).toInt()
+            selectEndTime = ceil(unitLengthTime * (viewMoveWidth - moveRightRange)).toInt()
             rangeChangeListener!!.onRangeValuesChanged(selectStartTime, selectEndTime)
         }
     }
@@ -357,6 +357,10 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         mUnSelectRightMargin -= dx
         updateDstBitmapRect()
         invalidate()
+    }
+
+    fun getUnitLengthTime(): Int {
+        return unitLengthTime
     }
 
     fun addRangeChangeListener(listener: OnRangeChangeListener?) {

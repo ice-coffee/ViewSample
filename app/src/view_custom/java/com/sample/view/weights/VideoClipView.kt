@@ -73,6 +73,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
             selectStartTime = startTime
             selectEndTime = endTime
 
+            updateVideoSelectTime()
             videoView.seekTo(startTime)
         }
 
@@ -85,8 +86,15 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+            selectStartTime += dx * seekBarView.getUnitLengthTime()
+            selectEndTime -= dx * seekBarView.getUnitLengthTime()
 
+            updateVideoSelectTime()
             seekBarView.updateUnSelectRect(dx)
         }
+    }
+
+    private fun updateVideoSelectTime() {
+        videoSelectTime.text = String.format(resources.getString(R.string.video_shoot_tip), (selectEndTime - selectStartTime).toString())
     }
 }
