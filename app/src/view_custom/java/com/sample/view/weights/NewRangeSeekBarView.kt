@@ -171,6 +171,12 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
                 moveRightRange += distanceX
             }
             updateDstBitmapRect()
+
+            if (null != rangeChangeListener) {
+                selectStartTime = floor(unitLengthTime * moveLeftRange).toInt()
+                selectEndTime = ceil(unitLengthTime * (viewMoveWidth - moveRightRange)).toInt()
+                rangeChangeListener!!.onRangeValuesChanged(selectStartTime, selectEndTime)
+            }
             invalidate()
             return true
         }
@@ -277,12 +283,6 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         progressPts[1] = 0f
         progressPts[2] = x
         progressPts[3] = viewHeight.toFloat()
-
-        if (null != rangeChangeListener) {
-            selectStartTime = floor(unitLengthTime * moveLeftRange).toInt()
-            selectEndTime = ceil(unitLengthTime * (viewMoveWidth - moveRightRange)).toInt()
-            rangeChangeListener!!.onRangeValuesChanged(selectStartTime, selectEndTime)
-        }
     }
 
     /**

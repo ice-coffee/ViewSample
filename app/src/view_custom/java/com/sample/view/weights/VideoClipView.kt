@@ -74,7 +74,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
             selectEndTime = endTime
 
             updateVideoSelectTime()
-            videoView.seekTo(startTime)
+            videoView.seekTo(selectStartTime)
         }
 
         override fun onPlayEnd() {
@@ -89,12 +89,13 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
             selectStartTime += dx * seekBarView.getUnitLengthTime()
             selectEndTime -= dx * seekBarView.getUnitLengthTime()
 
+            videoView.seekTo(selectStartTime)
             updateVideoSelectTime()
             seekBarView.updateUnSelectRect(dx)
         }
     }
 
     private fun updateVideoSelectTime() {
-        videoSelectTime.text = String.format(resources.getString(R.string.video_shoot_tip), (selectEndTime - selectStartTime).toString())
+        videoSelectTime.text = String.format(resources.getString(R.string.video_shoot_tip), selectEndTime / 1000f - selectStartTime / 1000f)
     }
 }
