@@ -241,7 +241,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             //滑动选中最小范围限制
             if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.right + distanceX) {
                 //当最后一次滑动超过最小长度时, 控制移动距离使其正好等于最小长度
-                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.right - minLength
+                distanceX = minLength - (mRightDstRectF!!.left - mLeftDstRectF!!.right)
                 isMinLength = true
             }
             var rectLeft = mLeftDstRectF!!.left
