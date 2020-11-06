@@ -7,6 +7,4 @@
     <dimen name="slider_height">56dp</dimen>
     <dimen name="seek_stroke_width">2dp</dimen>
 
-    <dimen name="thumb_item_width">32dp</dimen>
-
 </resources>
