@@ -17,7 +17,7 @@ import java.util.List;
 
 public class VideoTrimmerAdapter extends RecyclerView.Adapter {
     private Context context;
-    private int itemWidth;
+    private float itemWidth;
     private LayoutInflater mInflater;
     private List<Bitmap> mBitmaps = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class VideoTrimmerAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void setItemWidth(int itemWidth) {
+    public void setItemWidth(float itemWidth) {
         this.itemWidth = itemWidth;
     }
 
@@ -65,7 +65,7 @@ public class VideoTrimmerAdapter extends RecyclerView.Adapter {
             super(itemView);
             thumbImageView = itemView.findViewById(R.id.thumb);
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) thumbImageView.getLayoutParams();
-            layoutParams.width = itemWidth;
+            layoutParams.width = (int) itemWidth;
             thumbImageView.setLayoutParams(layoutParams);
         }
     }

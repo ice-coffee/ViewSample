@@ -4,7 +4,6 @@ import android.content.Context
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.view_video_clip.view.*
 public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
     companion object {
-        const val MIN_SELECT_DURATION = 5 * 1000
+        const val MIN_SELECT_DURATION = 5 * 1000f
         const val MAX_SELECT_DURATION = 60 * 1000f
         const val MIN_THUMB_TOTAL_COUNT = 10
     }
@@ -40,7 +39,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
     /**
      * 滑块控件宽度 (可选中最大范围)
      */
-    private var seekBarMaxLength = 0
+    private var seekBarMaxLength = 0f
 
     /**
      * 视频缩略图距离左右两边最长距离
@@ -60,12 +59,12 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
     /**
      * 最小时间段像素长度
      */
-    private var minLength = 0
+    private var minLength = 0f
 
     /**
      * 单位 PX  = 多少时长
      */
-    private var unitLengthTime = 0
+    private var unitLengthTime = 0f
 
     /**
      * 选中时间线(秒)
@@ -87,12 +86,12 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
 
         viewWidth = w
 
-        seekBarMaxLength = (viewWidth - resources.getDimension(R.dimen.seek_margin_start_end) * 2 - resources.getDimension(R.dimen.slider_width) * 2).toInt()
+        seekBarMaxLength = viewWidth - resources.getDimension(R.dimen.seek_margin_start_end) * 2 - resources.getDimension(R.dimen.slider_width) * 2
 
         //缩略图数量
-        val maxThumbCount = videoDuration / 1000
+        val maxThumbCount = videoDuration / 1000 / MAX_SELECT_DURATION * 10
         if (maxThumbCount > MIN_THUMB_TOTAL_COUNT) {
-            thumbTotalCount = maxThumbCount
+            thumbTotalCount = maxThumbCount.toInt()
         }
 
         //选中最大时长
@@ -118,7 +117,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
         bitmapRecyclerView.addItemDecoration(SpacesItemDecoration2(marginSpace, thumbTotalCount))
         bitmapRecyclerView.adapter = mVideoThumbAdapter
 
-        seekBarView.initBottomShadow(  + marginSpace * 2f)
+        seekBarView.initBottomShadow(thumbTotalWidth)
         seekBarView.initMinLength(minLength)
     }
 

@@ -91,7 +91,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 最小时间段像素长度
      */
-    private var minLength = 0
+    private var minLength = 0f
 
     /**
      * 进度条执行动画
@@ -199,7 +199,10 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
 
         viewMoveWidth = viewWidth - viewMarginSe * 2 - slideWidth * 2
 
-        mUnSelectRightMargin = bottomViewWidth - viewWidth
+        mUnSelectRightMargin = bottomViewWidth - viewMoveWidth
+        if (mUnSelectRightMargin < 0) {
+            mUnSelectRightMargin = 0f
+        }
 
         updateDstBitmapRect(0f)
     }
@@ -236,9 +239,9 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         //左右边界滑动限制
         if (isDragLeft) {
             //滑动选中最小范围限制
-            if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.left + distanceX) {
+            if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.right + distanceX) {
                 //当最后一次滑动超过最小长度时, 控制移动距离使其正好等于最小长度
-                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.left - minLength
+                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.right - minLength
                 isMinLength = true
             }
             var rectLeft = mLeftDstRectF!!.left
@@ -254,8 +257,8 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         }
         if (isDragRight) {
             //滑动选中最小范围限制
-            if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.left - distanceX) {
-                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.left - minLength
+            if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.right - distanceX) {
+                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.right - minLength
                 isMinLength = true
             }
             var rectRight = mRightDstRectF!!.right
@@ -356,7 +359,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         this.bottomViewWidth = bottomViewWidth
     }
 
-    fun initMinLength(length: Int) {
+    fun initMinLength(length: Float) {
         this.minLength = length
     }
 
