@@ -101,7 +101,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 动画播放时长
      */
-    private var animaDuration: Int = 0
+    private var animaDuration = 0f
 
     /**
      * 判断动画取消成因, true: 滑动滑块取消, false: 正常播放结束
@@ -144,6 +144,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+            //当滑块选中范围缩小到最小值时不再处理可能缩小范围的滑动事件
             if (isMinLength) {
                 if (isDragLeft && distanceX < 0) {
                     return true
@@ -153,11 +154,13 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
                 }
                 isMinLength = false
             } else {
+                //当左滑块滑动到最左端不再处理左滑块左滑动事件
                 if (isDragLeft && isLeftMax && distanceX > 0) {
                     return true
                 } else {
                     isLeftMax = false
                 }
+                //当右滑块滑动到最右端不再处理右滑块右滑动事件
                 if (isDragRight && isRightMax && distanceX < 0) {
                     return true
                 } else {
@@ -373,7 +376,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
 
     interface OnRangeChangeListener {
         fun onPlayStart()
-        fun onRangeValuesChanged(dx: Float, isLeft: Boolean): Int
+        fun onRangeValuesChanged(dx: Float, isLeft: Boolean): Float
         fun onPlayEnd()
     }
 }
