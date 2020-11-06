@@ -124,6 +124,9 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var rangeChangeListener: OnRangeChangeListener? = null
     private var gestureDetector: GestureDetector? = null
 
+    private var isLeftMax = true
+    private var isRightMax = true
+    private var isMinLength = false
     /**
      * 手势滑动监听
      */
@@ -141,6 +144,26 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+            if (isMinLength) {
+                if (isDragLeft && distanceX < 0) {
+                    return true
+                }
+                if (isDragRight && distanceX > 0) {
+                    return true
+                }
+                isMinLength = false
+            } else {
+                if (isDragLeft && isLeftMax && distanceX > 0) {
+                    return true
+                } else {
+                    isLeftMax = false
+                }
+                if (isDragRight && isRightMax && distanceX < 0) {
+                    return true
+                } else {
+                    isRightMax = false
+                }
+            }
             updateDstBitmapRect(distanceX)
             invalidate()
             return true
@@ -202,34 +225,46 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 绘制更新
      */
-    private fun updateDstBitmapRect(distanceX: Float) {
+    private fun updateDstBitmapRect(dx: Float) {
         //取消动画
         progressAnima?.cancel()
 
+        var distanceX = dx
         //左右边界滑动限制
         if (isDragLeft) {
             //滑动选中最小范围限制
             if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.left + distanceX) {
-                return
+                //当最后一次滑动超过最小长度时, 控制移动距离使其正好等于最小长度
+                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.left - minLength
+                isMinLength = true
             }
             var rectLeft = mLeftDstRectF!!.left
             rectLeft -= distanceX
-            if (rectLeft >= viewMarginSe) {
-                mLeftDstRectF!!.left = rectLeft
-                mLeftDstRectF!!.right -= distanceX
+            if (rectLeft <= viewMarginSe) {
+                rectLeft = viewMarginSe
+                //当最后一次滑动超过最左侧时, 控制移动距离使其正好停在最左侧
+                distanceX = mLeftDstRectF!!.left - viewMarginSe
+                isLeftMax = true
             }
+            mLeftDstRectF!!.left = rectLeft
+            mLeftDstRectF!!.right = rectLeft + slideWidth
         }
         if (isDragRight) {
             //滑动选中最小范围限制
             if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.left - distanceX) {
-                return
+                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.left - minLength
+                isMinLength = true
             }
             var rectRight = mRightDstRectF!!.right
             rectRight -= distanceX
-            if (rectRight <= viewWidth - viewMarginSe) {
-                mRightDstRectF!!.right = rectRight
-                mRightDstRectF!!.left -= distanceX
+            if (rectRight >= viewWidth - viewMarginSe) {
+                rectRight = viewWidth - viewMarginSe
+                //当最后一次滑动超过最右侧时, 控制移动距离使其正好停在最右侧
+                distanceX = mRightDstRectF!!.right - (viewWidth - viewMarginSe)
+                isRightMax = true
             }
+            mRightDstRectF!!.right = rectRight
+            mRightDstRectF!!.left = rectRight - slideWidth
         }
 
         //获取动画执行时长

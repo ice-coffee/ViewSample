@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.view_video_clip.view.*
 public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
     companion object {
-        const val MIN_SELECT_DURATION = 3 * 1000
+        const val MIN_SELECT_DURATION = 5 * 1000
         const val MAX_SELECT_DURATION = 60 * 1000
         const val MIN_THUMB_TOTAL_COUNT = 10
     }
@@ -151,6 +151,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
         }
 
         override fun onRangeValuesChanged(dx: Float, isLeft: Boolean): Int {
+            Log.e("rangechange", "$dx")
             if (isLeft) {
                 selectStartTime -= dx.toInt() * unitLengthTime
             } else {
