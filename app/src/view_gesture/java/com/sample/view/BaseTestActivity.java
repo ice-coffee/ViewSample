@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * <b>Create Date:</b> 2017/4/25<br>
  * <b>Author:</b> qiwenming<br>
  * <b>Description:</b>
- *  基本手势测试
+ * 基本手势测试
  * <br>
  */
 public class BaseTestActivity extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class BaseTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_test);
-        mBaseTv = (TextView)findViewById(R.id.base_tv);
+        mBaseTv = (TextView) findViewById(R.id.base_tv);
         mGestureDetector = new GestureDetector(this, mOnGestureListener);
 //        mGestureDetector = new GestureDetectorCompat(this,mSimpleOnGestureListener);
     }
@@ -36,64 +36,65 @@ public class BaseTestActivity extends AppCompatActivity {
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
-    
-   private GestureDetector.OnGestureListener mOnGestureListener = new GestureDetector.OnGestureListener() {
-       @Override
-       public boolean onDown(MotionEvent mCurrentDownEvent) {
-           logger("onDown: ");
-           Log.i(TAG, "onDown: ");
-           return false;
-       }
 
-       @Override
-       public void onShowPress(MotionEvent mCurrentDownEvent) {
-           logger("onShowPress: ");
-           Log.i(TAG, "onShowPress: ");
-       }
+    private GestureDetector.OnGestureListener mOnGestureListener = new GestureDetector.OnGestureListener() {
+        @Override
+        public boolean onDown(MotionEvent mCurrentDownEvent) {
+            logger("onDown: ");
+            Log.i(TAG, "onDown: ");
+            return false;
+        }
 
-       @Override
-       public boolean onSingleTapUp(MotionEvent mCurrentDownEvent) {
-           logger("onSingleTapUp: ");
-           Log.i(TAG, "onSingleTapUp: ");
-           return false;
-       }
+        @Override
+        public void onShowPress(MotionEvent mCurrentDownEvent) {
+            logger("onShowPress: ");
+            Log.i(TAG, "onShowPress: ");
+        }
 
-       @Override
-       public boolean onScroll(MotionEvent mCurrentDownEvent, MotionEvent motionEvent1, float velocityX, float velocityY) {
-           logger("onScroll: "+velocityX+"     ,     "+velocityY);
-           Log.i(TAG, "onScroll: "+velocityX+"     ,     "+velocityY);
-           return false;
-       }
+        @Override
+        public boolean onSingleTapUp(MotionEvent mCurrentDownEvent) {
+            logger("onSingleTapUp: ");
+            Log.i(TAG, "onSingleTapUp: ");
+            return false;
+        }
 
-       @Override
-       public void onLongPress(MotionEvent mCurrentDownEvent) {
-           logger("onLongPress: ");
-           Log.i(TAG, "onLongPress: ");
-       }
+        @Override
+        public boolean onScroll(MotionEvent mCurrentDownEvent, MotionEvent motionEvent1, float velocityX, float velocityY) {
+            logger("onScroll: " + velocityX + "     ,     " + velocityY);
+            Log.i(TAG, "onScroll: " + velocityX + "     ,     " + velocityY);
+            return false;
+        }
 
-       @Override
-       public boolean onFling(MotionEvent mCurrentDownEvent, MotionEvent motionEvent1, float velocityX, float velocityY) {
-           Log.i(TAG, "onFling: "+velocityX+"     ,     "+velocityY);
-           logger("onFling: "+velocityX+"     ,     "+velocityY);
-           if(velocityX > 10 && velocityX > Math.abs(velocityY)) {
-               finish();
-           }
-           return true;
-       }
-   };
+        @Override
+        public void onLongPress(MotionEvent mCurrentDownEvent) {
+            logger("onLongPress: ");
+            Log.i(TAG, "onLongPress: ");
+        }
 
-    private GestureDetector.SimpleOnGestureListener mSimpleOnGestureListener = new GestureDetector.SimpleOnGestureListener(){
+        @Override
+        public boolean onFling(MotionEvent mCurrentDownEvent, MotionEvent motionEvent1, float velocityX, float velocityY) {
+            Log.i(TAG, "onFling: " + velocityX + "     ,     " + velocityY);
+            logger("onFling: " + velocityX + "     ,     " + velocityY);
+            if (velocityX > 10 && velocityX > Math.abs(velocityY)) {
+                finish();
+            }
+            return true;
+        }
+    };
+
+    private GestureDetector.SimpleOnGestureListener mSimpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onDown(MotionEvent e) {
             logger("onDown: ");
             Log.i(TAG, "onDown: ");
             return false;
         }
+
         @Override
         public boolean onFling(MotionEvent mCurrentDownEvent, MotionEvent motionEvent1, float velocityX, float velocityY) {
-            logger("onFling: "+velocityX+"     ,     "+velocityY);
-            Log.i(TAG, "onFling: "+velocityX+","+velocityY);
-            if(velocityX > 10 && velocityX > Math.abs(velocityY)) {
+            logger("onFling: " + velocityX + "     ,     " + velocityY);
+            Log.i(TAG, "onFling: " + velocityX + "," + velocityY);
+            if (velocityX > 10 && velocityX > Math.abs(velocityY)) {
                 finish();
             }
             return true;
@@ -107,9 +108,9 @@ public class BaseTestActivity extends AppCompatActivity {
         }
     };
 
-    private void logger(String msg){
-        String log = mBaseTv.getText()+"\n"+msg;
-        if(log.split(":").length>30){
+    private void logger(String msg) {
+        String log = mBaseTv.getText() + "\n" + msg;
+        if (log.split(":").length > 30) {
             log = msg;
         }
         mBaseTv.setText(log);
