@@ -20,5 +20,7 @@ class ViewDragHelperActivity: AppCompatActivity() {
         dragLayout.addDragView(dragView)
 
         dragView.setOnClickListener { Toast.makeText(this, "click", Toast.LENGTH_SHORT).show() }
+
+        bottomView.setOnClickListener { Toast.makeText(this, "bottom click", Toast.LENGTH_SHORT).show() }
     }
 }

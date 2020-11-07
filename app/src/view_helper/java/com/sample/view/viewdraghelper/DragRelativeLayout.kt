@@ -32,7 +32,7 @@ class DragRelativeLayout : RelativeLayout {
      */
     private var mDragFrameLayoutController: DragFrameLayoutController? = null
 
-    private var mDragHelper: ViewDragHelper? = null
+    private lateinit var mDragHelper: ViewDragHelper
     var mCurrentLeft: Int = 0
     var mCurrentTop: Int = 0
 
@@ -68,9 +68,9 @@ class DragRelativeLayout : RelativeLayout {
 
                 LogUtils.e("$leftBound, $rightBound, $mCurrentLeft, $mCurrentTop")
                 if ((releasedChild.width / 2 + mCurrentLeft) < width / 2) {
-                    mDragHelper?.settleCapturedViewAt(leftBound, mCurrentTop)
+                    mDragHelper.settleCapturedViewAt(leftBound, mCurrentTop)
                 } else {
-                    mDragHelper?.settleCapturedViewAt(rightBound, mCurrentTop)
+                    mDragHelper.settleCapturedViewAt(rightBound, mCurrentTop)
                 }
                 invalidate()
             }
@@ -86,23 +86,17 @@ class DragRelativeLayout : RelativeLayout {
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        if (null != mDragHelper && null != ev) {
-            return mDragHelper!!.shouldInterceptTouchEvent(ev)
-        }
-        return super.onInterceptTouchEvent(ev)
+        return mDragHelper.shouldInterceptTouchEvent(ev!!)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (null != event) {
-            mDragHelper?.processTouchEvent(event)
-            return true
-        }
+        mDragHelper.processTouchEvent(event!!)
         return super.onTouchEvent(event)
     }
 
     override fun computeScroll() {
         super.computeScroll()
-        if (null != mDragHelper && mDragHelper!!.continueSettling(true)) {
+        if (mDragHelper.continueSettling(true)) {
             invalidate()
         }
     }

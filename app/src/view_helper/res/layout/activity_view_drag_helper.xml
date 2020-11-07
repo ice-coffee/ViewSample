@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sample.view.viewdraghelper.DragRelativeLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dragLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/dragView"
+        android:id="@+id/bottomView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerInParent="true"
         android:background="@android:color/holo_red_light"/>
 
-</com.sample.view.viewdraghelper.DragRelativeLayout>
+    <com.sample.view.viewdraghelper.DragRelativeLayout
+        android:id="@+id/dragLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/dragView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@android:color/holo_red_light"/>
+
+    </com.sample.view.viewdraghelper.DragRelativeLayout>
+
+</RelativeLayout>
