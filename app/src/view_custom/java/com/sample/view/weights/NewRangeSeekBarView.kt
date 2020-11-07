@@ -11,8 +11,6 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
 import com.sample.view.R
-import kotlin.math.ceil
-import kotlin.math.floor
 
 /**
  * @author mzp
@@ -20,9 +18,6 @@ import kotlin.math.floor
  * desc :
  */
 class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
-
-    private val MIN_SELECT_DURATION = 3 * 1000
-    private val MAX_SELECT_DURATION = 60 * 1000
 
     /**
      * 控件宽高
@@ -94,37 +89,19 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var bottomViewWidth = 0f
 
     /**
-     * 左右滑块滑动的距离
-     */
-    private var moveLeftRange = 0f
-    private var moveRightRange = 0f
-
-    /**
-     * 最小(大)选择时间段(毫秒)
-     */
-    private var minSelectTime = MIN_SELECT_DURATION
-    private var maxSelectTime = MAX_SELECT_DURATION
-
-    /**
      * 最小时间段像素长度
      */
-    private var minRange = 0
-
-    /**
-     * 单位 PX  = 多少时长
-     */
-    private var unitLengthTime = 0
-
-    /**
-     * 选中时间线(秒)
-     */
-    private var selectStartTime = 0
-    private var selectEndTime = 0
+    private var minLength = 0f
 
     /**
      * 进度条执行动画
      */
     private var progressAnima: ValueAnimator? = null
+
+    /**
+     * 动画播放时长
+     */
+    private var animaDuration = 0f
 
     /**
      * 判断动画取消成因, true: 滑动滑块取消, false: 正常播放结束
@@ -147,6 +124,9 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     private var rangeChangeListener: OnRangeChangeListener? = null
     private var gestureDetector: GestureDetector? = null
 
+    private var isLeftMax = true
+    private var isRightMax = true
+    private var isMinLength = false
     /**
      * 手势滑动监听
      */
@@ -164,13 +144,30 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            if (isDragLeft) {
-                moveLeftRange -= distanceX
+            //当滑块选中范围缩小到最小值时不再处理可能缩小范围的滑动事件
+            if (isMinLength) {
+                if (isDragLeft && distanceX < 0) {
+                    return true
+                }
+                if (isDragRight && distanceX > 0) {
+                    return true
+                }
+                isMinLength = false
+            } else {
+                //当左滑块滑动到最左端不再处理左滑块左滑动事件
+                if (isDragLeft && isLeftMax && distanceX > 0) {
+                    return true
+                } else {
+                    isLeftMax = false
+                }
+                //当右滑块滑动到最右端不再处理右滑块右滑动事件
+                if (isDragRight && isRightMax && distanceX < 0) {
+                    return true
+                } else {
+                    isRightMax = false
+                }
             }
-            if (isDragRight) {
-                moveRightRange += distanceX
-            }
-            updateDstBitmapRect()
+            updateDstBitmapRect(distanceX)
             invalidate()
             return true
         }
@@ -181,8 +178,10 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         mPaint.strokeWidth = viewStrokeWidth
         mLeftBitmap = BitmapFactory.decodeResource(resources, R.mipmap.upload_btn_cut_left, )
         mRightBitmap = BitmapFactory.decodeResource(resources, R.mipmap.upload_btn_cut_right)
+
         mLeftSrcRect = Rect(0, 0, mLeftBitmap.width, mLeftBitmap.height)
         mRightSrcRect = Rect(0, 0, mRightBitmap.width, mRightBitmap.height)
+
         gestureDetector = GestureDetector(context, gestureListener)
     }
 
@@ -190,14 +189,22 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         super.onSizeChanged(w, h, oldw, oldh)
         viewHeight = h
         viewWidth = w
-        viewMoveWidth = viewWidth - viewMarginSe * 2 - slideWidth - slideWidth
 
-        mUnSelectRightMargin = bottomViewWidth - viewWidth
+        //左右滑块绘制Rect
+        mLeftDstRectF = RectF(viewMarginSe, viewMarginTb, viewMarginSe + slideWidth, slideHeight + viewMarginTb)
+        mRightDstRectF = RectF(viewWidth - viewMarginSe - slideWidth, viewMarginTb, viewWidth - viewMarginSe, slideHeight + viewMarginTb)
 
-        //单位像素代表的时长
-        unitLengthTime = maxSelectTime / viewMoveWidth.toInt()
-        minRange = MIN_SELECT_DURATION / unitLengthTime
-        updateDstBitmapRect()
+        mleftUnSelectRect = RectF(viewMarginSe + slideWidth, viewMarginTb + viewStrokeWidth, mLeftDstRectF!!.right, slideHeight + viewMarginTb - viewStrokeWidth)
+        mRightUnSelectRect = RectF(mRightDstRectF!!.left, viewMarginTb + viewStrokeWidth, viewWidth - viewMarginSe - slideWidth, slideHeight + viewMarginTb - viewStrokeWidth)
+
+        viewMoveWidth = viewWidth - viewMarginSe * 2 - slideWidth * 2
+
+        mUnSelectRightMargin = bottomViewWidth - viewMoveWidth
+        if (mUnSelectRightMargin < 0) {
+            mUnSelectRightMargin = 0f
+        }
+
+        updateDstBitmapRect(0f)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -224,42 +231,68 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 绘制更新
      */
-    private fun updateDstBitmapRect() {
-
+    private fun updateDstBitmapRect(dx: Float) {
         //取消动画
         progressAnima?.cancel()
 
+        var distanceX = dx
         //左右边界滑动限制
-        if (moveLeftRange < 0) {
-            moveLeftRange = 0f
+        if (isDragLeft) {
+            //滑动选中最小范围限制
+            if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.right + distanceX) {
+                //当最后一次滑动超过最小长度时, 控制移动距离使其正好等于最小长度
+                distanceX = minLength - (mRightDstRectF!!.left - mLeftDstRectF!!.right)
+                isMinLength = true
+            }
+            var rectLeft = mLeftDstRectF!!.left
+            rectLeft -= distanceX
+            if (rectLeft <= viewMarginSe) {
+                rectLeft = viewMarginSe
+                //当最后一次滑动超过最左侧时, 控制移动距离使其正好停在最左侧
+                distanceX = mLeftDstRectF!!.left - viewMarginSe
+                isLeftMax = true
+            }
+            mLeftDstRectF!!.left = rectLeft
+            mLeftDstRectF!!.right = rectLeft + slideWidth
         }
-        if (moveRightRange < 0) {
-            moveRightRange = 0f
+        if (isDragRight) {
+            //滑动选中最小范围限制
+            if (minLength > mRightDstRectF!!.left - mLeftDstRectF!!.right - distanceX) {
+                distanceX = mRightDstRectF!!.left - mLeftDstRectF!!.right - minLength
+                isMinLength = true
+            }
+            var rectRight = mRightDstRectF!!.right
+            rectRight -= distanceX
+            if (rectRight >= viewWidth - viewMarginSe) {
+                rectRight = viewWidth - viewMarginSe
+                //当最后一次滑动超过最右侧时, 控制移动距离使其正好停在最右侧
+                distanceX = mRightDstRectF!!.right - (viewWidth - viewMarginSe)
+                isRightMax = true
+            }
+            mRightDstRectF!!.right = rectRight
+            mRightDstRectF!!.left = rectRight - slideWidth
         }
-        val leftRectLeft = viewMarginSe + moveLeftRange
-        val leftRectRight = leftRectLeft + slideWidth
-        val rightRectLeft = viewWidth - viewMarginSe - slideWidth - moveRightRange
-        val rightRectRgith = rightRectLeft + slideWidth
 
-        //滑动选中最小范围限制
-        if (minRange > viewWidth - (viewMarginSe * 2 + slideWidth + moveLeftRange + moveRightRange + slideWidth)) {
-            return
+        //获取动画执行时长
+        if (null != rangeChangeListener) {
+            animaDuration = rangeChangeListener!!.onRangeValuesChanged(distanceX, isDragLeft)
         }
 
-        //左右滑块绘制Rect
-        mLeftDstRectF = RectF(leftRectLeft, viewMarginTb, leftRectRight, slideHeight + viewMarginTb)
-        mRightDstRectF = RectF(rightRectLeft, viewMarginTb, rightRectRgith, slideHeight + viewMarginTb)
+        val leftRectRight = mLeftDstRectF!!.right
+        val rightRectLeft = mRightDstRectF!!.left
 
-        var unSelectRectLeft = leftRectRight - moveLeftRange - mUnSelectLeftMargin
-        var unSelectRectRight = rightRectLeft + moveRightRange + mUnSelectRightMargin
+        var unSelectRectLeft = viewMarginSe + slideWidth - mUnSelectLeftMargin
         if (unSelectRectLeft < 0) {
             unSelectRectLeft = 0f
         }
+        var unSelectRectRight = viewWidth - viewMarginSe - slideWidth + mUnSelectRightMargin
         if (unSelectRectRight > viewWidth) {
             unSelectRectRight = viewWidth.toFloat()
         }
-        mleftUnSelectRect = RectF(unSelectRectLeft, viewMarginTb + viewStrokeWidth, leftRectRight, slideHeight + viewMarginTb - viewStrokeWidth)
-        mRightUnSelectRect = RectF(rightRectLeft, viewMarginTb + viewStrokeWidth, unSelectRectRight, slideHeight + viewMarginTb - viewStrokeWidth)
+        mleftUnSelectRect!!.left = unSelectRectLeft
+        mleftUnSelectRect!!.right = leftRectRight
+        mRightUnSelectRect!!.left = rightRectLeft
+        mRightUnSelectRect!!.right = unSelectRectRight
 
         //上下两条边线绘制坐标
         pts[0] = leftRectRight
@@ -272,17 +305,10 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         pts[7] = viewHeight - viewMarginTb - viewStrokeWidth / 2
 
         //进度条初始位置
-        val x = viewMarginSe + slideWidth + moveLeftRange
-        progressPts[0] = x
+        progressPts[0] = mLeftDstRectF!!.right
         progressPts[1] = 0f
-        progressPts[2] = x
+        progressPts[2] = mLeftDstRectF!!.right
         progressPts[3] = viewHeight.toFloat()
-
-        if (null != rangeChangeListener) {
-            selectStartTime = floor(unitLengthTime * moveLeftRange).toInt()
-            selectEndTime = ceil(unitLengthTime * (viewMoveWidth - moveRightRange)).toInt()
-            rangeChangeListener!!.onRangeValuesChanged(selectStartTime, selectEndTime)
-        }
     }
 
     /**
@@ -315,7 +341,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
                 rangeChangeListener?.onPlayStart()
             }
         })
-        progressAnima!!.duration = (selectEndTime - selectStartTime).toLong()
+        progressAnima!!.duration = animaDuration.toLong()
         progressAnima!!.start()
     }
 
@@ -329,38 +355,22 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
         progressPts[3] = viewHeight.toFloat()
     }
 
-    /**
-     * 根据视频时长初始化选择框可选区间
-     * @param duration 视频时长,单位毫秒
-     */
-    fun setVideoDuration(duration: Int) {
-        //时长区间
-        minSelectTime = 0
-        if (duration < MAX_SELECT_DURATION) {
-            maxSelectTime = duration
-        }
-
-        //初始选中开始播放时间和播放结束时间
-        selectStartTime = minSelectTime
-        selectEndTime = maxSelectTime
-
-        updateProgressAnimation()
-    }
-
     fun initBottomShadow(bottomViewWidth: Float) {
         this.bottomViewWidth = bottomViewWidth
     }
 
-    fun updateUnSelectRect(dx: Int) {
-
-        mUnSelectLeftMargin += dx
-        mUnSelectRightMargin -= dx
-        updateDstBitmapRect()
-        invalidate()
+    fun initMinLength(length: Float) {
+        this.minLength = length
     }
 
-    fun getUnitLengthTime(): Int {
-        return unitLengthTime
+    fun updateUnSelectRect(dx: Int) {
+
+        if (dx != 0) {
+            mUnSelectLeftMargin += dx
+            mUnSelectRightMargin -= dx
+            updateDstBitmapRect(0f)
+            invalidate()
+        }
     }
 
     fun addRangeChangeListener(listener: OnRangeChangeListener?) {
@@ -369,7 +379,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
 
     interface OnRangeChangeListener {
         fun onPlayStart()
-        fun onRangeValuesChanged(startTime: Int, endTime: Int)
+        fun onRangeValuesChanged(dx: Float, isLeft: Boolean): Float
         fun onPlayEnd()
     }
 }

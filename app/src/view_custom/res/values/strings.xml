@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools"  tools:ignore="MissingTranslation">
 
-    <string name="video_shoot_tip">已选取 %1ss</string>
+    <string name="video_shoot_tip">已选取 %.1fs</string>
 
 </resources>
