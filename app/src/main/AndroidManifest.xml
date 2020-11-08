@@ -41,6 +41,8 @@
         <activity android:name=".CustomGestureTextView" />
 
         <activity android:name=".CustomActivity" />
+
+        <activity android:name=".LayoutInflaterActivity" />
     </application>
 
 </manifest>
