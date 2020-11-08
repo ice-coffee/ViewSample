@@ -8,12 +8,19 @@
         android:id="@+id/bottomView"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:visibility="gone"
         android:background="@android:color/holo_red_light"/>
 
     <com.sample.view.viewdraghelper.DragRelativeLayout
         android:id="@+id/dragLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/dragViewOne"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@android:color/holo_red_light"/>
 
         <TextView
             android:id="@+id/dragView"
