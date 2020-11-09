@@ -129,7 +129,6 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
 
         //视频播放
         videoView.setVideoURI(videoUri)
-        videoView.start()
     }
 
     /**
@@ -145,6 +144,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
             mp.isLooping = true
             //视频 和 进度条动画同步播放
             seekBarView.updateProgressAnimation()
+            videoView.start()
         }
     }
 
