@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.view_video_clip.view.*
 public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
     companion object {
-        const val MIN_SELECT_DURATION = 5 * 1000f
-        const val MAX_SELECT_DURATION = 60 * 1000f
+        const val MIN_SELECT_DURATION = 3 * 1000f
+        const val MAX_SELECT_DURATION = 30 * 1000f
         const val MIN_THUMB_TOTAL_COUNT = 10
     }
 
@@ -67,10 +67,13 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
     private var unitLengthTime = 0f
 
     /**
-     * 选中时间线(秒)
+     * 选中时间段距离缩略图列表左右边缘距离 margin
+     * 这里使用像素累计精度会更高
+     * videoSelectLeft: 左边框距离选中框初始状态最左侧的距离
+     * videoSelectRight: 右边框距离选中框初始状态最左侧的距离
      */
-    private var selectStartTime = 0f
-    private var selectEndTime = 0f
+    private var videoSelectLeft = 0f
+    private var videoSelectRight = 0f
 
     private var mVideoThumbAdapter: VideoTrimmerAdapter = VideoTrimmerAdapter(context)
     private var layoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -89,16 +92,13 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
         seekBarMaxLength = viewWidth - resources.getDimension(R.dimen.seek_margin_start_end) * 2 - resources.getDimension(R.dimen.slider_width) * 2
 
         //缩略图数量
-        val maxThumbCount = videoDuration / 1000 / MAX_SELECT_DURATION * 10
+        val maxThumbCount = videoDuration / MAX_SELECT_DURATION * 10
         if (maxThumbCount > MIN_THUMB_TOTAL_COUNT) {
             thumbTotalCount = maxThumbCount.toInt()
         }
 
-        //选中最大时长
-        selectEndTime = videoDuration.toFloat()
-        if (selectEndTime > MAX_SELECT_DURATION) {
-            selectEndTime = MAX_SELECT_DURATION
-        }
+        //右边框距离选中框初始状态最左侧的最大距离
+        videoSelectRight = seekBarMaxLength
 
         startShootVideoThumbs(context, videoUri, thumbTotalCount, 0, videoDuration.toLong())
 
@@ -155,18 +155,18 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
 
         override fun onRangeValuesChanged(dx: Float, isLeft: Boolean): Float {
             if (isLeft) {
-                selectStartTime -= dx * unitLengthTime
+                videoSelectLeft -= dx
             } else {
-                selectEndTime -= dx * unitLengthTime
+                videoSelectRight -= dx
             }
-            videoView.seekTo(selectStartTime.toInt())
+            videoView.seekTo((videoSelectLeft * unitLengthTime).toInt())
             updateVideoSelectTime()
 
-            return selectEndTime - selectStartTime
+            return (videoSelectRight - videoSelectLeft) * unitLengthTime
         }
 
         override fun onPlayEnd() {
-            videoView.seekTo(selectStartTime.toInt())
+            videoView.seekTo((videoSelectLeft * unitLengthTime).toInt())
         }
     }
 
@@ -177,10 +177,10 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            selectStartTime += dx * unitLengthTime
-            selectEndTime += dx * unitLengthTime
+            videoSelectLeft += dx
+            videoSelectRight += dx
 
-            videoView.seekTo(selectStartTime.toInt())
+            videoView.seekTo((videoSelectLeft * unitLengthTime).toInt())
             updateVideoSelectTime()
             seekBarView.updateUnSelectRect(dx)
         }
@@ -190,7 +190,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
      * 更新显示选中时间
      */
     private fun updateVideoSelectTime() {
-        videoSelectTime.text = String.format(resources.getString(R.string.video_shoot_tip), selectEndTime / 1000f - selectStartTime / 1000f)
+        videoSelectTime.text = String.format(resources.getString(R.string.video_shoot_tip), (videoSelectRight - videoSelectLeft) * unitLengthTime / 1000)
     }
 
     /**
