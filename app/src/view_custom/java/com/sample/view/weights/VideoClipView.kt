@@ -151,7 +151,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
     /**
      * RangeSeekBarView 选中范围监听
      */
-    private val rangeChangeListener = object : NewRangeSeekBarView.OnRangeChangeListener {
+    private val rangeChangeListener = object : RangeSeekBarView.OnRangeChangeListener {
         override fun onPlayStart() {
         }
 

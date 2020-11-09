@@ -17,7 +17,7 @@ import com.sample.view.R
  * date : 2020/11/2
  * desc :
  */
-class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class RangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     /**
      * 控件宽高

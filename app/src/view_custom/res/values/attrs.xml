@@ -2,7 +2,7 @@
 <resources>
 
     <!-- 自定义的属性-->
-    <declare-styleable name="NewRangeSeekBarView">
+    <declare-styleable name="RangeSeekBarView">
         <attr name="leftBitmap" format="integer" />
         <attr name="rightBitmap" format="integer" />
         <attr name="viewMargin" format="integer" />

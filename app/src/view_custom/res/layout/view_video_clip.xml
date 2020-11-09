@@ -22,7 +22,7 @@
             android:layout_height="52dp"
             android:layout_centerVertical="true"/>
 
-        <com.sample.view.weights.NewRangeSeekBarView
+        <com.sample.view.weights.RangeSeekBarView
             android:id="@+id/seekBarView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
