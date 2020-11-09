@@ -314,7 +314,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
     /**
      * 更新进度条动画
      */
-    private fun updateProgressAnimation() {
+    public fun updateProgressAnimation() {
         progressAnima = ValueAnimator.ofFloat(mLeftDstRectF!!.right, mRightDstRectF!!.left)
         progressAnima!!.addUpdateListener(AnimatorUpdateListener { animation ->
             val progressValue = animation.animatedValue as Float
@@ -369,6 +369,7 @@ class NewRangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context
             mUnSelectLeftMargin += dx
             mUnSelectRightMargin -= dx
             updateDstBitmapRect(0f)
+            updateProgressAnimation()
             invalidate()
         }
     }

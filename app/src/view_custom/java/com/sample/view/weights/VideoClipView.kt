@@ -143,6 +143,8 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
         //循环播放
         videoView.setOnPreparedListener { mp ->
             mp.isLooping = true
+            //视频 和 进度条动画同步播放
+            seekBarView.updateProgressAnimation()
         }
     }
 
