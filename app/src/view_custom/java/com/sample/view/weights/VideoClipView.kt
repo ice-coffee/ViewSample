@@ -145,6 +145,7 @@ public class VideoClipView(context: Context, attrs: AttributeSet?) : RelativeLay
             //视频 和 进度条动画同步播放
             seekBarView.updateProgressAnimation()
             videoView.start()
+            videoView.seekTo((videoSelectLeft * unitLengthTime).toInt())
         }
     }
 

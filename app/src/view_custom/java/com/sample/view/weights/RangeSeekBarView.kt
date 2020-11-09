@@ -315,6 +315,9 @@ class RangeSeekBarView(context: Context, attrs: AttributeSet?) : View(context, a
      * 更新进度条动画
      */
     public fun updateProgressAnimation() {
+        //取消动画
+        progressAnima?.cancel()
+
         progressAnima = ValueAnimator.ofFloat(mLeftDstRectF!!.right, mRightDstRectF!!.left)
         progressAnima!!.addUpdateListener(AnimatorUpdateListener { animation ->
             val progressValue = animation.animatedValue as Float
