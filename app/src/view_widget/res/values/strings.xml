@@ -5,6 +5,8 @@
     <string name="behavior_sample_two_recyclerview">com.sample.view.appbarLayout.RecyclerViewBehavior</string>
     <string name="behavior_sample_five">com.sample.view.appbarLayout.SampleFiveBehavior</string>
 
+    <string name="appbar_sample_format">示例%d</string>
+
     <string name="large_text">
         水神：这类能够光明正大享受百姓香火的神道神祗、神灵，来历驳杂，可能是投水而死的前朝忠烈名臣，可能是成精化形、然后被王朝招安的水族精怪，或是尚未化龙的诸多龙属种族。敕封文书，规格为“金字玉册”、“朱字金册”以及更次一等的“朱漆银册”。
 城隍爷：类似人类官场的县令，牧守一方，位卑却权重。

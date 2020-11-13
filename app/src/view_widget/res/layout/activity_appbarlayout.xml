@@ -5,47 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/appbarTab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" />
 
-        <Button
-            style="@style/common_main_botton"
-            android:layout_weight="1"
-            android:onClick="replaceSampleOne"
-            android:text="SampleOne"/>
-
-        <Button
-            style="@style/common_main_botton"
-            android:layout_weight="1"
-            android:onClick="replaceSampleTwo"
-            android:text="SampleTwo"/>
-
-        <Button
-            style="@style/common_main_botton"
-            android:layout_weight="1"
-            android:onClick="replaceSampleThree"
-            android:text="SampleThree"/>
-
-        <Button
-            style="@style/common_main_botton"
-            android:layout_weight="1"
-            android:onClick="replaceSampleFour"
-            android:text="SampleFour"/>
-
-        <Button
-            style="@style/common_main_botton"
-            android:layout_weight="1"
-            android:onClick="replaceSampleFive"
-            android:text="SampleFive"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llFragmentContent"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/appbarViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
