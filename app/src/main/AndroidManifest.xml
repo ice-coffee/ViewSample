@@ -24,6 +24,7 @@
         <activity android:name=".WidgetActivity" />
         <activity android:name=".viewSwitcher.ViewSwitcherActivity" />
         <activity android:name=".appbarLayout.AppbarLayoutActivity" />
+        <activity android:name=".tablayout.TabLayoutActivity" />
 
         <activity android:name=".ViewHelperActivity" />
         <activity android:name=".viewdraghelper.ViewDragHelperActivity" />

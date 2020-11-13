@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.sample.view.appbarLayout.AppbarLayoutActivity
+import com.sample.view.tablayout.TabLayoutActivity
 import com.sample.view.viewSwitcher.ViewSwitcherActivity
 
 /**
@@ -27,5 +28,9 @@ class WidgetActivity: AppCompatActivity() {
 
     fun jumpAppbarLayout(view: View) {
         startActivity(Intent(this, AppbarLayoutActivity::class.java))
+    }
+
+    fun jumpTabLayout(view: View) {
+        startActivity(Intent(this, TabLayoutActivity::class.java))
     }
 }
