@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.sample.common.utils.LogUtils
 import com.sample.view.R
 import kotlinx.android.synthetic.main.fragment_appbar_one.*
 import java.util.*
