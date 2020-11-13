@@ -50,4 +50,8 @@ class MainActivity : AppCompatActivity() {
     fun jumpViewCustom(view: View) {
         startActivity(Intent(this, CustomActivity::class.java))
     }
+
+    fun jumpLayoutInflate(view: View) {
+        startActivity(Intent(this, LayoutInflaterActivity::class.java))
+    }
 }
