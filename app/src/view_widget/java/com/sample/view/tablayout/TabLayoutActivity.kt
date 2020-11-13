@@ -26,6 +26,10 @@ class TabLayoutActivity: AppCompatActivity() {
 
         viewpager.adapter = MyFragmentPagerAdapter(supportFragmentManager, pageTitles, pagerFragmengs)
         tabLayout.setupWithViewPager(viewpager)
+
+        for (i in 0 until pageTitles.size) {
+            tabLayout.getTabAt(i)?.setIcon(R.mipmap.ic_home)
+        }
     }
 
     private fun initFragmentList() {
