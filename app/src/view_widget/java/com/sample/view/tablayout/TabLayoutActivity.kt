@@ -2,7 +2,8 @@ package com.sample.view.tablayout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.tabs.TabLayout
+import androidx.fragment.app.Fragment
+import com.sample.view.MyFragmentPagerAdapter
 import com.sample.view.R
 import kotlinx.android.synthetic.main.activity_tab_layout.*
 
@@ -13,18 +14,23 @@ import kotlinx.android.synthetic.main.activity_tab_layout.*
  */
 class TabLayoutActivity: AppCompatActivity() {
 
+    private val pageTitles = arrayListOf("首页", "消息", "我")
+    private val pagerFragmengs = arrayListOf<Fragment>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_tab_layout)
 
-//        tabLayout1.getTabAt(0)?.text = "0"
-//        tabLayout1.getTabAt(1)?.text = "1"
-//        tabLayout1.getTabAt(2)?.text = "2"
-//        tabLayout1.getTabAt(3)?.text = "3"
+        initFragmentList()
 
-        tabLayout1.addTab(tabLayout1.newTab().setText("Tab 1"))
-        tabLayout1.addTab(tabLayout1.newTab().setText("Tab 2"))
-        tabLayout1.addTab(tabLayout1.newTab().setText("Tab 3"))
+        viewpager.adapter = MyFragmentPagerAdapter(supportFragmentManager, pageTitles, pagerFragmengs)
+        tabLayout.setupWithViewPager(viewpager)
+    }
+
+    private fun initFragmentList() {
+        for (i in 0 until pageTitles.size) {
+            pagerFragmengs.add(TabLayoutFragment.getInstance(pageTitles[i]))
+        }
     }
 }

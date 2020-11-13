@@ -5,26 +5,14 @@
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout2"
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"/>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout3"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>
