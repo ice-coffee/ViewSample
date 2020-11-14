@@ -16,7 +16,7 @@ import com.sample.common.views.BaseView
 /**
  * date: 2020/9/20
  * author: ice_coffee
- * remark: TODO-MZP 本实例仅用于演示 RadialGradient 的用法, 在android material design 设计规范中按钮水波纹使用 material.ripple实现
+ * remark: TODO-MZP 本实例仅用于演示 RadialGradient 的用法, 在android material design 设计规范中按钮水波纹使用 material.ripple 实现
  */
 class RadialGradientView(context: Context?, attributeSet: AttributeSet?) : BaseView(context, attributeSet) {
 

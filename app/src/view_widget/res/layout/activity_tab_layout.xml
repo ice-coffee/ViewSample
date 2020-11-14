@@ -13,7 +13,10 @@
         app:tabContentStart="100dp"
         app:tabIndicatorFullWidth="false"
         app:tabInlineLabel="true"
-        app:tabIconTint="@color/colorPrimary"
+        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/black"
+        app:tabRippleColor="@color/white"
         app:tabTextAppearance="@style/collapsed_title_text"/>
 
     <androidx.viewpager.widget.ViewPager
