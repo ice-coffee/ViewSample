@@ -54,4 +54,8 @@ class MainActivity : AppCompatActivity() {
     fun jumpLayoutInflate(view: View) {
         startActivity(Intent(this, LayoutInflaterActivity::class.java))
     }
+
+    fun jumpDrawable(view: View) {
+        startActivity(Intent(this, DrawableActivity::class.java))
+    }
 }

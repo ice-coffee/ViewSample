@@ -56,6 +56,11 @@
             android:onClick="jumpLayoutInflate"
             android:text="LayoutInflate"/>
 
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpDrawable"
+            android:text="drawable"/>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
