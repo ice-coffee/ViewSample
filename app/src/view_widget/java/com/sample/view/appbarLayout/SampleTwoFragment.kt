@@ -41,7 +41,7 @@ class SampleHeaderBehavior : CoordinatorLayout.Behavior<ImageView> {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
 
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: ImageView, directTargetChild: View, target: View, axes: Int, type: Int): Boolean {
-        return axes and ViewCompat.SCROLL_AXIS_VERTICAL != 0
+        return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: ImageView, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
