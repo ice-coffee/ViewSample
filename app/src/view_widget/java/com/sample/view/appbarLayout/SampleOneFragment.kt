@@ -35,18 +35,18 @@ class SampleOneFragment: Fragment() {
         myList.adapter = MyAdapter(context!!)
     }
 
-    class SampleOneBehavior : CoordinatorLayout.Behavior<View?> {
+    class SampleOneBehavior : CoordinatorLayout.Behavior<TextView> {
         // 列表顶部和title底部重合时，列表的滑动距离。
         private var deltaY = 0f
 
         constructor() {}
         constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
 
-        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun layoutDependsOn(parent: CoordinatorLayout, child: TextView, dependency: View): Boolean {
             return dependency is RecyclerView
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun onDependentViewChanged(parent: CoordinatorLayout, child: TextView, dependency: View): Boolean {
             if (deltaY == 0f) {
                 deltaY = dependency.y - child.height
             }
