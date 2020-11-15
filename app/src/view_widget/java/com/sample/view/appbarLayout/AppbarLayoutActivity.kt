@@ -33,7 +33,6 @@ class AppbarLayoutActivity : AppCompatActivity() {
         pagerFragmengs.add(SampleTwoFragment())
         pagerFragmengs.add(SampleThreeFragment())
         pagerFragmengs.add(SampleFourFragment())
-        pagerFragmengs.add(SampleFiveFragment())
 
         for (i in 0..pagerFragmengs.size) {
             pageTitles.add(String.format(getString(R.string.appbar_sample_format), i))
