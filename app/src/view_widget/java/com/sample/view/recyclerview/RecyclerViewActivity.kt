@@ -2,11 +2,11 @@ package com.sample.view.recyclerview
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DiffUtil.Callback
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sample.view.R
 import kotlinx.android.synthetic.main.activity_recycler_view.*
+
 
 /**
  * date: 2020/11/26
@@ -22,42 +22,34 @@ public class RecyclerViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
 
-        oldStudentList.add(StudentBean(0, "陈平安", 23, StudentBean.GENDER_BOY))
-        oldStudentList.add(StudentBean(1, "宁姚", 23, StudentBean.GENDER_GRIL))
-        oldStudentList.add(StudentBean(2, "刘羡阳", 23, StudentBean.GENDER_BOY))
-        oldStudentList.add(StudentBean(3, "舍月", 23, StudentBean.GENDER_GRIL))
+        newStudentList.add(StudentBean(0, "宁姚", 23, StudentBean.GENDER_GRIL))
+        newStudentList.add(StudentBean(1, "陈平安", 23, StudentBean.GENDER_BOY))
+        newStudentList.add(StudentBean(2, "舍月", 23, StudentBean.GENDER_GRIL))
+        newStudentList.add(StudentBean(3, "刘羡阳", 23, StudentBean.GENDER_BOY))
+        newStudentList.add(StudentBean(4, "顾燦", 23, StudentBean.GENDER_BOY))
 
-        newStudentList.add(StudentBean(0, "陈平安", 43, StudentBean.GENDER_BOY))
-        newStudentList.add(StudentBean(4, "顾燦", 43, StudentBean.GENDER_BOY))
-        newStudentList.add(StudentBean(2, "刘羡阳", 43, StudentBean.GENDER_BOY))
+        oldStudentList.add(StudentBean(1, "陈平安", 23, StudentBean.GENDER_BOY))
+        oldStudentList.add(StudentBean(3, "刘羡阳", 23, StudentBean.GENDER_BOY))
+        oldStudentList.add(StudentBean(4, "顾燦", 23, StudentBean.GENDER_BOY))
 
-        val diffAdapter = StudentAdapter(this, oldStudentList)
+        val diffAdapter = StudentAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = diffAdapter
         recyclerView.addItemDecoration(LayoutItemDecoration(10, false))
 
-        btDiff.setOnClickListener {
-            val diffResult = DiffUtil.calculateDiff(object : Callback() {
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return oldStudentList[oldItemPosition].id == newStudentList[newItemPosition].id
-                }
+        /**
+         * 既然是动画，就会有时间，我们把动画执行时间变大一点来看一看效果
+         */
+        /**
+         * 既然是动画，就会有时间，我们把动画执行时间变大一点来看一看效果
+         */
+        val defaultItemAnimator = DefaultItemAnimator()
+        defaultItemAnimator.addDuration = 200
+        defaultItemAnimator.removeDuration = 200
+        recyclerView.itemAnimator = defaultItemAnimator
 
-                override fun getOldListSize(): Int {
-                    return oldStudentList.size
-                }
+        diffAdapter.submitList(oldStudentList)
 
-                override fun getNewListSize(): Int {
-                    return newStudentList.size
-                }
-
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return oldStudentList[oldItemPosition].name == newStudentList[newItemPosition].name
-                }
-            })
-
-            diffResult.dispatchUpdatesTo(diffAdapter)
-            oldStudentList.clear()
-            oldStudentList.addAll(newStudentList)
-        }
+        btDiff.setOnClickListener { diffAdapter.submitList(newStudentList) }
     }
 }

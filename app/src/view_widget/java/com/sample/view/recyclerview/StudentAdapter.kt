@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.view.R
 
@@ -16,23 +18,43 @@ import com.sample.view.R
  *  date : 2020/11/13
  *  desc :
  */
-class StudentAdapter(context: Context, val studentList: List<StudentBean>) : RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
+class StudentAdapter(context: Context) : RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
 
     private val girlColor = "#FFD6E7"
     private val boyColor = "#BAE7FF"
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
+    //1. 声明 DiffUtil.ItemCallback 回调
+    private val itemCallback = object : DiffUtil.ItemCallback<StudentBean>() {
+        override fun areItemsTheSame(oldItem: StudentBean, newItem: StudentBean): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: StudentBean, newItem: StudentBean): Boolean {
+            return oldItem.name == newItem.name && oldItem.age == newItem.age
+        }
+    }
+
+    //2. 创建 AsyncListDiff 对象
+    private val mDiffer = AsyncListDiffer<StudentBean>(this, itemCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentAdapter.MyViewHolder {
         return MyViewHolder(layoutInflater.inflate(R.layout.item_student, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return studentList.size
+        return mDiffer.currentList.size
+    }
+
+    fun submitList(studentList: List<StudentBean>) {
+        //3. 提交新数据列表
+        mDiffer.submitList(studentList)
     }
 
     override fun onBindViewHolder(holder: StudentAdapter.MyViewHolder, position: Int) {
-        val studentBean = studentList[position]
+        //4. 从新数据列表中获取最新数据
+        val studentBean = mDiffer.currentList[position]
         when (studentBean.gender) {
             StudentBean.GENDER_GRIL -> {
                 holder.rlRoot.setBackgroundColor(Color.parseColor(girlColor))
