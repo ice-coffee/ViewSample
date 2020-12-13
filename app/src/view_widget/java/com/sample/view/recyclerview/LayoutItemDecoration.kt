@@ -32,6 +32,9 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
             is LinearLayoutManager -> {
                 setLinearItemDecoration(outRect, layoutManager.orientation, position, itemCount)
             }
+            else -> {
+                outRect.set(spacing, spacing, spacing, spacing)
+            }
         }
     }
 

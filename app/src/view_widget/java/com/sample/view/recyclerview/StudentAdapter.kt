@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -57,11 +57,11 @@ class StudentAdapter(context: Context) : RecyclerView.Adapter<StudentAdapter.MyV
         val studentBean = mDiffer.currentList[position]
         when (studentBean.gender) {
             StudentBean.GENDER_GRIL -> {
-                holder.rlRoot.setBackgroundColor(Color.parseColor(girlColor))
+                holder.llRoot.setBackgroundColor(Color.parseColor(girlColor))
                 holder.ivIcon.setBackgroundResource(R.mipmap.girl)
             }
             StudentBean.GENDER_BOY -> {
-                holder.rlRoot.setBackgroundColor(Color.parseColor(boyColor))
+                holder.llRoot.setBackgroundColor(Color.parseColor(boyColor))
                 holder.ivIcon.setBackgroundResource(R.mipmap.boy)
             }
         }
@@ -71,7 +71,7 @@ class StudentAdapter(context: Context) : RecyclerView.Adapter<StudentAdapter.MyV
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val rlRoot: RelativeLayout = view.findViewById(R.id.rl_student_root)
+        val llRoot: LinearLayout = view.findViewById(R.id.ll_student_root)
         val ivIcon: ImageView = view.findViewById(R.id.iv_student_icon)
         val tvName: TextView = view.findViewById(R.id.tv_student_name)
         val tvAge: TextView = view.findViewById(R.id.tv_student_age)

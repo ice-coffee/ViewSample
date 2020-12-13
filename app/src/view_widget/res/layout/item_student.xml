@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_student_root"
+<com.sample.view.recyclerview.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_student_root"
     android:layout_width="match_parent"
-    android:layout_height="112dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/iv_student_icon"
         android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"/>
+        android:layout_height="72dp"/>
 
     <TextView
         android:id="@+id/tv_student_name"
-        android:layout_toEndOf="@id/iv_student_icon"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="张梦怡"
-        android:textSize="24dp"/>
+        android:textStyle="bold"
+        android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/tv_student_age"
-        android:layout_toEndOf="@id/iv_student_icon"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         tools:text="12"
         android:textSize="16dp"/>
 
-</RelativeLayout>
+</com.sample.view.recyclerview.SquareLinearLayout>

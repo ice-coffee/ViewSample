@@ -3,7 +3,8 @@ package com.sample.view.recyclerview
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.arasthel.spannedgridlayoutmanager.SpanSize
+import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager
 import com.sample.view.R
 import kotlinx.android.synthetic.main.activity_recycler_view.*
 
@@ -32,8 +33,14 @@ public class RecyclerViewActivity : AppCompatActivity() {
         oldStudentList.add(StudentBean(3, "刘羡阳", 23, StudentBean.GENDER_BOY))
         oldStudentList.add(StudentBean(4, "顾燦", 23, StudentBean.GENDER_BOY))
 
+        val spannedGridLayoutManager = SpannedGridLayoutManager(SpannedGridLayoutManager.Orientation.VERTICAL, 3)
+        spannedGridLayoutManager.itemOrderIsStable = true
+        spannedGridLayoutManager.spanSizeLookup = SpannedGridLayoutManager.SpanSizeLookup { position: Int ->
+            if (position == 0) SpanSize(2, 2) else SpanSize(1, 1)
+        }
+
         val diffAdapter = StudentAdapter(this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = spannedGridLayoutManager
         recyclerView.adapter = diffAdapter
         recyclerView.addItemDecoration(LayoutItemDecoration(10, false))
 
