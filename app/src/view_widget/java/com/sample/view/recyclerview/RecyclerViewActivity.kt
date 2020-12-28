@@ -58,5 +58,10 @@ public class RecyclerViewActivity : AppCompatActivity() {
         diffAdapter.submitList(oldStudentList)
 
         btDiff.setOnClickListener { diffAdapter.submitList(newStudentList) }
+
+        add.setOnClickListener { diffAdapter.notifyItemInserted(3) }
+        remove.setOnClickListener { diffAdapter.notifyItemRemoved(3) }
+        change.setOnClickListener { diffAdapter.notifyItemChanged(3) }
+
     }
 }

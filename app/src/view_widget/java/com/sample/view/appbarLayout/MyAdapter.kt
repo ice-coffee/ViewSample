@@ -15,7 +15,7 @@ import java.util.*
  *  date : 2020/11/13
  *  desc :
  */
-class MyAdapter(context: Context) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(val context: Context) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     private val colorArray = arrayOf("#FADB14", "#FFD6E7", "#D9D9D9", "#BAE7FF", "#D3F261", "#BAC5F3", "#FFEADB", "#FF847C", "#D9F7BE", "#FFEECC")
     private val random = Random()
@@ -26,7 +26,7 @@ class MyAdapter(context: Context) : RecyclerView.Adapter<MyAdapter.MyViewHolder>
     }
 
     override fun getItemCount(): Int {
-        return 15
+        return 100
     }
 
     override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
