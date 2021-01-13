@@ -14,7 +14,7 @@ import com.sample.common.utils.LogUtils
  * author: ice_coffee
  * remark:
  */
-class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Boolean) : ItemDecoration() {
+class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Boolean) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
@@ -43,16 +43,20 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
      */
     private fun setLinearItemDecoration(outRect: Rect, orientation: Int, position: Int, itemCount: Int) {
         if (orientation == LinearLayoutManager.HORIZONTAL) {
+            val top = if (includeEdge) spacing else 0
+            val bottom = if (includeEdge) spacing else 0
             when (position) {
-                0 -> outRect.set(spacing, 0, spacing, 0)
-                itemCount - 1 -> outRect.set(0, 0, if (includeEdge) spacing else 0, 0)
-                else -> outRect.set(0, 0, spacing, 0)
+                0 -> outRect.set(spacing, top, spacing, bottom)
+                itemCount - 1 -> outRect.set(0, top, if (includeEdge) spacing else 0, bottom)
+                else -> outRect.set(0, top, spacing, bottom)
             }
         } else {
+            val left = if (includeEdge) spacing else 0
+            val right = if (includeEdge) spacing else 0
             when (position) {
-                0 -> outRect.set(0, spacing, 0, spacing)
-                itemCount - 1 -> outRect.set(0, 0, 0, if (includeEdge) spacing else 0)
-                else -> outRect.set(0, 0, 0, spacing)
+                0 -> outRect.set(left, spacing, right, spacing)
+                itemCount - 1 -> outRect.set(left, 0, right, if (includeEdge) spacing else 0)
+                else -> outRect.set(left, 0, right, spacing)
             }
         }
     }
@@ -61,7 +65,6 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
      * 设置瀑布流分割线
      */
     private fun setGridItemDecoration(outRect: Rect, spanCount: Int, position: Int, itemCount: Int) {
-        LogUtils.e("gridItemd")
         //当前列
         val column = position % spanCount
         //是否需要包含边界
