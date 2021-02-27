@@ -26,6 +26,8 @@
         <activity android:name=".appbarLayout.AppbarLayoutActivity" />
         <activity android:name=".tablayout.TabLayoutActivity" />
         <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity android:name=".recyclerview.LayoutManagerActivity" />
+        <activity android:name=".recyclerview.ItemTouchHelperActivity" />
 
         <activity android:name=".ViewHelperActivity" />
         <activity android:name=".viewdraghelper.ViewDragHelperActivity" />

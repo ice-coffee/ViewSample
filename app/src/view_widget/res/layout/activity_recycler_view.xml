@@ -2,49 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btDiff"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="diff"
-        android:textAllCaps="false" />
+        style="@style/common_main_botton"
+        android:onClick="jumpLayoutManager"
+        android:text="LayoutManager"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="add"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/change"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="change"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/remove"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="remove"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button
+        style="@style/common_main_botton"
+        android:onClick="jumpItemTouchHelper"
+        android:text="ItemTouchHelper"/>
 
 </LinearLayout>
