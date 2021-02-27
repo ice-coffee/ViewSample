@@ -1,17 +1,18 @@
-package com.sample.view
+package com.sample.jetpack
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.sample.view.R
 
 /**
  * @date: 2021/2/27
  * @author: ice_coffee
  * remark:
  */
-class JetpackActivity: AppCompatActivity() {
+class ViewModelActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jetpack)
+        setContentView(R.layout.activity_view_model)
     }
 }

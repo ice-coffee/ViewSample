@@ -1,5 +1,6 @@
 ext {
     ext.lib_version = '26.1.0'
+    ext.lifecycle_version = "2.2.0"
 
     android = [
             compileSdkVersion   : 29,
@@ -12,5 +13,11 @@ ext {
     view = [
         "layoutmanager"         : "com.arasthel:spannedgridlayoutmanager:3.0.2",
         "flexbox"               : "com.google.android:flexbox:1.0.0",
+    ]
+
+    jetpack = [
+        "lifecycle"             :"androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+        "viewmodel"             :"androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+        "livedata"              :"androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     ]
 }

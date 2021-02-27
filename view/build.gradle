@@ -24,7 +24,6 @@ android {
 
     sourceSets {
         main {
-            manifest.srcFile 'src/main/AndroidManifest.xml'
             def dirs = ['main', 'view_round', 'view_paint',
                         'view_canvas', 'view_shader', 'view_widget',
                         'view_helper', 'view_gesture', 'view_custom',

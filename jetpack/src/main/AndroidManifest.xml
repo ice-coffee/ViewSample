@@ -3,7 +3,9 @@
 
     <application>
 
-        <activity android:name=".JetpackActivity" />
+        <activity android:name="com.sample.jetpack.JetpackActivity" />
+
+        <activity android:name="com.sample.jetpack.ViewModelActivity" />
 
     </application>
 </manifest>

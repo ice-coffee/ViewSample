@@ -4,13 +4,8 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/button"
         style="@style/common_main_botton"
-        android:onClick="jumpViewModel"
-        android:text="ViewModel" />
-
-    <Button
-        style="@style/common_main_botton"
-        android:onClick="jumpLiveData"
-        android:text="LiveData" />
+        android:text="click" />
 
 </LinearLayout>

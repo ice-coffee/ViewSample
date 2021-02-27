@@ -22,9 +22,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            def dirs = ['main', 'livedata', 'viewmodel']
+            dirs.each { dir ->
+                java.srcDir("src/$dir/java")
+                res.srcDir("src/$dir/res")
+                assets.srcDir("src/$dir/assets")
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':common')
+
+    implementation rootProject.ext.jetpack["lifecycle"]
+    implementation rootProject.ext.jetpack["viewmodel"]
+    implementation rootProject.ext.jetpack["livedata"]
 }
