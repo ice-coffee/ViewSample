@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -7,7 +7,6 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
@@ -22,13 +21,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            def dirs = ['main', 'view_round', 'view_paint',
+                        'view_canvas', 'view_shader', 'view_widget',
+                        'view_helper', 'view_gesture', 'view_custom',
+                        'view_inflate', 'view_drawable']
+            dirs.each { dir ->
+                java.srcDir("src/$dir/java")
+                res.srcDir("src/$dir/res")
+                assets.srcDir("src/$dir/assets")
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':common')
-    implementation project(':view')
-    implementation project(':jetpack')
+
+    implementation rootProject.ext.view["layoutmanager"]
+    implementation rootProject.ext.view["flexbox"]
 }
 repositories {
     mavenCentral()

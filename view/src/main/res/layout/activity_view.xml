@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpWidget"
+            android:text="Widget" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpHelper"
+            android:text="Helper" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpRoundView"
+            android:text="圆角图片" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpViewPaint"
+            android:text="Paint" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpViewCanvas"
+            android:text="Canvas" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpTextShader"
+            android:text="着色器" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpGestureDetector"
+            android:text="手势" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpViewCustom"
+            android:text="自定义View" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpLayoutInflate"
+            android:text="LayoutInflate" />
+
+        <Button
+            style="@style/common_main_botton"
+            android:onClick="jumpDrawable"
+            android:text="drawable" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

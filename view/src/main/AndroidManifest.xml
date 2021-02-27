@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sample.view" >
+
+    <application >
+        <activity android:name=".ViewActivity" />
+
+        <activity android:name=".RoundViewActivity" />
+        <activity android:name=".PaintActivity" />
+        <activity android:name=".CanvasActivity" />
+
+        <activity android:name=".WidgetActivity" />
+        <activity android:name=".viewSwitcher.ViewSwitcherActivity" />
+        <activity android:name=".appbarLayout.AppbarLayoutActivity" />
+        <activity android:name=".tablayout.TabLayoutActivity" />
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity android:name=".recyclerview.LayoutManagerActivity" />
+        <activity android:name=".recyclerview.ItemTouchHelperActivity" />
+
+        <activity android:name=".ViewHelperActivity" />
+        <activity android:name=".viewdraghelper.ViewDragHelperActivity" />
+
+        <activity android:name=".ShaderActivity" />
+
+        <activity android:name=".GestureActivity" />
+        <activity android:name=".BaseTestActivity" />
+        <activity android:name=".DoubleTapActivity" />
+        <activity android:name=".DragTestActivity" />
+        <activity android:name=".MoveGestureActivity" />
+        <activity android:name=".RotateGestureActivity" />
+        <activity android:name=".ScaleGestureActivity" />
+        <activity android:name=".ShoveGestureActivity" />
+        <activity android:name=".CustomGestureTextView" />
+
+        <activity android:name=".CustomActivity" />
+
+        <activity android:name=".LayoutInflaterActivity" />
+
+        <activity android:name=".DrawableActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="common_main_botton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@drawable/selector_elevation</item>
+    </style>
+
+</resources>
