@@ -1,11 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sample.view">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
 
         <activity android:name="com.sample.jetpack.JetpackActivity" />
 
         <activity android:name="com.sample.jetpack.ViewModelActivity" />
+        <activity android:name="com.sample.jetpack.LiveDataActivity" />
 
     </application>
 </manifest>

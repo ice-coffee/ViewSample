@@ -29,8 +29,10 @@ class MasterFragment: Fragment() {
         viewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory(BaseApplication.instance!!)).get(ShareViewModel::class.java)
 
         button.setOnClickListener {
-            val value = viewModel.clickLiveData.value
-            viewModel.clickLiveData.value = value?.plus(1) ?: 0
+            Thread(Runnable {
+                val value = viewModel.clickLiveData.value
+                viewModel.clickLiveData.postValue(value?.plus(1) ?: 0)
+            }).start()
         }
     }
 }

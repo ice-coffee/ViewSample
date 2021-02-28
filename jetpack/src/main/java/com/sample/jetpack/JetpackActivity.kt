@@ -23,6 +23,6 @@ class JetpackActivity: AppCompatActivity() {
     }
 
     public fun jumpLiveData(view: View) {
-        startActivity(Intent(this, ViewModelActivity::class.java))
+        startActivity(Intent(this, LiveDataActivity::class.java))
     }
 }
