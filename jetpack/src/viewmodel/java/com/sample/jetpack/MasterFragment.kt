@@ -1,12 +1,12 @@
 package com.sample.jetpack
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.sample.common.BaseApplication
 import com.sample.view.R
 import kotlinx.android.synthetic.main.fragment_master.*
 
@@ -26,7 +26,7 @@ class MasterFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(activity!!).get(ShareViewModel::class.java)
+        viewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory(BaseApplication.instance!!)).get(ShareViewModel::class.java)
 
         button.setOnClickListener {
             val value = viewModel.clickLiveData.value
