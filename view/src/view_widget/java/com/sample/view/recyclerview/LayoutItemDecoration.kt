@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import java.util.HashMap
+import java.util.*
 
 /**
  * date: 2020/11/28
@@ -56,7 +56,7 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
             val top = if (includeEdge) spacing else 0
             val bottom = if (includeEdge) spacing else 0
             when (position) {
-                0 -> outRect.set(spacing, top, spacing, bottom)
+                0 -> outRect.set(if (includeEdge) spacing else 0, top, spacing, bottom)
                 itemCount - 1 -> outRect.set(0, top, if (includeEdge) spacing else 0, bottom)
                 else -> outRect.set(0, top, spacing, bottom)
             }
@@ -64,7 +64,7 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
             val left = if (includeEdge) spacing else 0
             val right = if (includeEdge) spacing else 0
             when (position) {
-                0 -> outRect.set(left, spacing, right, spacing)
+                0 -> outRect.set(left, if (includeEdge) spacing else 0, right, spacing)
                 itemCount - 1 -> outRect.set(left, 0, right, if (includeEdge) spacing else 0)
                 else -> outRect.set(left, 0, right, spacing)
             }
