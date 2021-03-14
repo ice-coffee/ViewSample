@@ -3,6 +3,8 @@
     <string name="behavior_sample_one">com.sample.view.appbarLayout.SampleOneFragment$SampleOneBehavior</string>
     <string name="behavior_sample_two_head">com.sample.view.appbarLayout.SampleHeaderBehavior</string>
     <string name="behavior_sample_two_recyclerview">com.sample.view.appbarLayout.RecyclerViewBehavior</string>
+    <string name="behavior_sample_two_linearlayout">com.sample.view.appbarLayout.SampleLinearBehavior</string>
+    <string name="behavior_sample_two_textview">com.sample.view.appbarLayout.SampleTextViewBehavior</string>
     <string name="behavior_sample_five">com.sample.view.appbarLayout.SampleFiveBehavior</string>
 
     <string name="appbar_sample_format">示例%d</string>
