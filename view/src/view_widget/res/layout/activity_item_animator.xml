@@ -8,36 +8,38 @@
         android:id="@+id/rvItemAnimator"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rdDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:padding="5dp"
-            android:text="Delete"/>
+            android:text="删除" />
 
         <RadioButton
             android:id="@+id/rdAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Add"/>
+            android:text="添加" />
 
         <RadioButton
             android:id="@+id/rdChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Change"/>
+            android:text="修改" />
 
     </RadioGroup>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,15 +49,17 @@
             android:id="@+id/cbPre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:padding="5dp"
-            android:text="Predictive Animatons"/>
+            android:text="执行预布局" />
 
         <CheckBox
             android:id="@+id/cbAnimaNull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:padding="5dp"
-            android:text="animator is null"/>
+            android:text="执行Item动画" />
 
     </LinearLayout>
 

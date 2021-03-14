@@ -37,13 +37,13 @@ class ItemAnimatorActivity : AppCompatActivity() {
             layoutManager.setSupport(isChecked)
         }
         cbAnimaNull.setOnCheckedChangeListener { _, isChecked ->
-            rvItemAnimator.itemAnimator = if (isChecked) null else DefaultItemAnimator()
+            rvItemAnimator.itemAnimator = if (isChecked) DefaultItemAnimator() else null
         }
     }
 
     private class CustomLinearLayoutManager(context: Context?) : LinearLayoutManager(context) {
 
-        private var isSupport = false
+        private var isSupport = true
 
         override fun supportsPredictiveItemAnimations(): Boolean {
             return isSupport
