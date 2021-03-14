@@ -13,8 +13,6 @@ import com.sample.view.R
  */
 class RecyclerViewActivity : AppCompatActivity() {
 
-    private val itemList = arrayListOf("LayoutManager", "ItemTouchHelper")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
@@ -22,6 +20,10 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     fun jumpLayoutManager(view: View) {
         startActivity(Intent(this, LayoutManagerActivity::class.java))
+    }
+
+    fun jumpDiffUtil(view: View) {
+        startActivity(Intent(this, DiffUtilActivity::class.java))
     }
 
     fun jumpItemTouchHelper(view: View) {

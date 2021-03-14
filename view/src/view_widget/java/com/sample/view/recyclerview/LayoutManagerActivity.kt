@@ -1,8 +1,16 @@
 package com.sample.view.recyclerview
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.RecyclerView
 import com.arasthel.spannedgridlayoutmanager.SpanSize
 import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager
 import com.sample.view.R
@@ -15,52 +23,77 @@ import kotlinx.android.synthetic.main.activity_recyclerview_layoutmanager.*
  */
 class LayoutManagerActivity : AppCompatActivity() {
 
-    private var oldStudentList = mutableListOf<StudentBean>()
-    private var newStudentList = mutableListOf<StudentBean>()
+    private var mStudentList = mutableListOf<PersonBean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recyclerview_layoutmanager)
 
-        newStudentList.add(StudentBean(0, "宁姚", 23, StudentBean.GENDER_GRIL))
-        newStudentList.add(StudentBean(1, "陈平安", 23, StudentBean.GENDER_BOY))
-        newStudentList.add(StudentBean(2, "舍月", 23, StudentBean.GENDER_GRIL))
-        newStudentList.add(StudentBean(3, "刘羡阳", 23, StudentBean.GENDER_BOY))
-        newStudentList.add(StudentBean(4, "顾燦", 23, StudentBean.GENDER_BOY))
-
-        oldStudentList.add(StudentBean(1, "陈平安", 23, StudentBean.GENDER_BOY))
-        oldStudentList.add(StudentBean(3, "刘羡阳", 23, StudentBean.GENDER_BOY))
-        oldStudentList.add(StudentBean(4, "顾燦", 23, StudentBean.GENDER_BOY))
+        mStudentList.add(PersonBean("宁姚", PersonBean.GENDER_GRIL))
+        mStudentList.add(PersonBean("陈平安", PersonBean.GENDER_BOY))
+        mStudentList.add(PersonBean("舍月", PersonBean.GENDER_GRIL))
+        mStudentList.add(PersonBean("刘羡阳", PersonBean.GENDER_BOY))
+        mStudentList.add(PersonBean("顾燦", PersonBean.GENDER_BOY))
+        mStudentList.add(PersonBean("暖树", PersonBean.GENDER_GRIL))
+        mStudentList.add(PersonBean("景清", PersonBean.GENDER_BOY))
+        mStudentList.add(PersonBean("周米粒", PersonBean.GENDER_GRIL))
+        mStudentList.add(PersonBean("姜尚真", PersonBean.GENDER_BOY))
 
         val spannedGridLayoutManager = SpannedGridLayoutManager(SpannedGridLayoutManager.Orientation.VERTICAL, 3)
         spannedGridLayoutManager.itemOrderIsStable = true
         spannedGridLayoutManager.spanSizeLookup = SpannedGridLayoutManager.SpanSizeLookup { position: Int ->
-            if (position == 0) SpanSize(2, 2) else SpanSize(1, 1)
+            if (position % 4 == 0) SpanSize(2, 2) else SpanSize(1, 1)
         }
 
-        val diffAdapter = StudentAdapter(this)
+        val diffAdapter = StudentAdapter(this, mStudentList)
         recyclerView.layoutManager = spannedGridLayoutManager
         recyclerView.adapter = diffAdapter
         recyclerView.addItemDecoration(LayoutItemDecoration(10, false))
+    }
 
-        /**
-         * 既然是动画，就会有时间，我们把动画执行时间变大一点来看一看效果
-         */
-        /**
-         * 既然是动画，就会有时间，我们把动画执行时间变大一点来看一看效果
-         */
-        val defaultItemAnimator = DefaultItemAnimator()
-        defaultItemAnimator.addDuration = 200
-        defaultItemAnimator.removeDuration = 200
-        recyclerView.itemAnimator = defaultItemAnimator
+    class StudentAdapter(context: Context, private val studentList: List<PersonBean>) : RecyclerView.Adapter<MyViewHolder>() {
 
-        diffAdapter.submitList(oldStudentList)
+        private val girlColor = "#FFD6E7"
+        private val boyColor = "#BAE7FF"
 
-        btDiff.setOnClickListener { diffAdapter.submitList(newStudentList) }
+        private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
-        add.setOnClickListener { diffAdapter.notifyItemInserted(3) }
-        remove.setOnClickListener { diffAdapter.notifyItemRemoved(3) }
-        change.setOnClickListener { diffAdapter.notifyItemChanged(3) }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+            return MyViewHolder(layoutInflater.inflate(R.layout.item_student, parent, false))
+        }
 
+        override fun getItemCount(): Int {
+            return studentList.size
+        }
+
+        override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+            //4. 从新数据列表中获取最新数据
+            val bean = studentList[position]
+            when (bean.gender) {
+                PersonBean.GENDER_GRIL -> {
+                    holder.llRoot.setBackgroundColor(Color.parseColor(girlColor))
+                    holder.ivIcon.setBackgroundResource(R.mipmap.girl)
+                }
+                PersonBean.GENDER_BOY -> {
+                    holder.llRoot.setBackgroundColor(Color.parseColor(boyColor))
+                    holder.ivIcon.setBackgroundResource(R.mipmap.boy)
+                }
+            }
+            holder.tvName.text = bean.name
+        }
+    }
+
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        val llRoot: LinearLayout = view.findViewById(R.id.ll_student_root)
+        val ivIcon: ImageView = view.findViewById(R.id.iv_student_icon)
+        val tvName: TextView = view.findViewById(R.id.tv_student_name)
+    }
+
+    class PersonBean(val name: String, val gender: Int) {
+        companion object {
+            const val GENDER_GRIL = 0
+            const val GENDER_BOY = 1
+        }
     }
 }

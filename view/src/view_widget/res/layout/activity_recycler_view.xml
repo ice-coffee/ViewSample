@@ -11,6 +11,11 @@
 
     <Button
         style="@style/common_main_botton"
+        android:onClick="jumpDiffUtil"
+        android:text="DiffUtil"/>
+
+    <Button
+        style="@style/common_main_botton"
         android:onClick="jumpItemTouchHelper"
         android:text="ItemTouchHelper"/>
 
