@@ -27,4 +27,8 @@ class RecyclerViewActivity : AppCompatActivity() {
     fun jumpItemTouchHelper(view: View) {
         startActivity(Intent(this, ItemTouchHelperActivity::class.java))
     }
+
+    fun jumpItemAnimator(view: View) {
+        startActivity(Intent(this, ItemAnimatorActivity::class.java))
+    }
 }

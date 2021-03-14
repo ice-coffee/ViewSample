@@ -14,4 +14,9 @@
         android:onClick="jumpItemTouchHelper"
         android:text="ItemTouchHelper"/>
 
+    <Button
+        style="@style/common_main_botton"
+        android:onClick="jumpItemAnimator"
+        android:text="ItemAnimator"/>
+
 </LinearLayout>
