@@ -1,49 +1,36 @@
 package com.sample.jetpack
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import com.sample.view.R
 
 /**
  * @date: 2021/3/20
  * @author: ice_coffee
  * remark:
  */
-class LifecycleActivity: AppCompatActivity() {
+class LifecycleActivity : AppCompatActivity() {
+
+    private lateinit var fragment : LifecycleFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(MyObserver())
-    }
-}
+        setContentView(R.layout.activity_lifecycle)
+        fragment = LifecycleFragment()
 
-class MyObserver : LifecycleObserver {
+        lifecycle.addObserver(CustomObserver("activity"))
+    }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
-        Log.e("lifecycle", "activity_onCreate")
+    public fun addFragment(view: View) {
+        val ft = supportFragmentManager.beginTransaction()
+        ft.add(R.id.fragmentLayout, fragment)
+        ft.commit()
     }
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
-        Log.e("lifecycle", "activity_onDestroy")
-    }
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        Log.e("lifecycle", "activity_onResume")
-    }
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        Log.e("lifecycle", "activity_onPause")
-    }
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        Log.e("lifecycle", "activity_onStart")
-    }
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
-        Log.e("lifecycle", "activity_onStop")
+
+    public fun hideFragment(view: View) {
+        val ft = supportFragmentManager.beginTransaction()
+        ft.remove(fragment)
+        ft.commit()
     }
 }
