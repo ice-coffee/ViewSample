@@ -14,4 +14,9 @@
         android:onClick="jumpLiveData"
         android:text="LiveData" />
 
+    <Button
+        style="@style/common_main_botton"
+        android:onClick="jumpLifecycle"
+        android:text="Lifecycle" />
+
 </LinearLayout>

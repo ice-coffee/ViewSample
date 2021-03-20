@@ -8,6 +8,7 @@
 
         <activity android:name="com.sample.jetpack.ViewModelActivity" />
         <activity android:name="com.sample.jetpack.LiveDataActivity" />
+        <activity android:name="com.sample.jetpack.LifecycleActivity" />
 
     </application>
 </manifest>

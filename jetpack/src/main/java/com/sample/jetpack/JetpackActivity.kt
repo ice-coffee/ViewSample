@@ -25,4 +25,8 @@ class JetpackActivity: AppCompatActivity() {
     public fun jumpLiveData(view: View) {
         startActivity(Intent(this, LiveDataActivity::class.java))
     }
+
+    public fun jumpLifecycle(view: View) {
+        startActivity(Intent(this, LifecycleActivity::class.java))
+    }
 }
