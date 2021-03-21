@@ -44,4 +44,5 @@ dependencies {
     api rootProject.ext.jetpack["lifecycle-process"]
     implementation rootProject.ext.jetpack["viewmodel"]
     implementation rootProject.ext.jetpack["livedata"]
+    implementation rootProject.ext.jetpack["startup"]
 }
