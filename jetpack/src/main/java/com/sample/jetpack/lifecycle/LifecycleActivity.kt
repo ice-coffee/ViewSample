@@ -1,9 +1,10 @@
-package com.sample.jetpack
+package com.sample.jetpack.lifecycle
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.view.R
+import com.sample.jetpack.LifecycleFragment
+import com.sample.jetpack.R
 
 /**
  * @date: 2021/3/20
@@ -12,7 +13,7 @@ import com.sample.view.R
  */
 class LifecycleActivity : AppCompatActivity() {
 
-    private lateinit var fragment : LifecycleFragment
+    private lateinit var fragment: LifecycleFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,14 +24,18 @@ class LifecycleActivity : AppCompatActivity() {
     }
 
     public fun addFragment(view: View) {
-        val ft = supportFragmentManager.beginTransaction()
-        ft.add(R.id.fragmentLayout, fragment)
-        ft.commit()
+        if (!fragment.isAdded) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.add(R.id.fragmentLayout, fragment)
+            ft.commit()
+        }
     }
 
     public fun hideFragment(view: View) {
-        val ft = supportFragmentManager.beginTransaction()
-        ft.remove(fragment)
-        ft.commit()
+        if (fragment.isAdded) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.remove(fragment)
+            ft.commit()
+        }
     }
 }

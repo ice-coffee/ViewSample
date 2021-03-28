@@ -1,14 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sample.view">
+    package="com.sample.jetpack">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
 
-        <activity android:name="com.sample.jetpack.JetpackActivity" />
+        <activity android:name=".JetpackActivity" />
 
-        <activity android:name="com.sample.jetpack.ViewModelActivity" />
-        <activity android:name="com.sample.jetpack.LiveDataActivity" />
-        <activity android:name="com.sample.jetpack.LifecycleActivity" />
+        <activity android:name=".viewmodel.ViewModelActivity" />
+        <activity android:name=".livedata.LiveDataActivity" />
+        <activity android:name=".lifecycle.LifecycleActivity" />
+        <activity android:name=".databinding.DataBindingActivity" />
 
     </application>
 </manifest>

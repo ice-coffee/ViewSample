@@ -1,8 +1,8 @@
-package com.sample.jetpack
+package com.sample.jetpack.viewmodel
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.view.R
+import com.sample.jetpack.R
 
 /**
  * @date: 2021/2/27

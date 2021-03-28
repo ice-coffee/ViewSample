@@ -1,4 +1,4 @@
-package com.sample.jetpack
+package com.sample.jetpack.viewmodel
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sample.common.BaseApplication
-import com.sample.view.R
+import com.sample.jetpack.R
 import kotlinx.android.synthetic.main.fragment_master.*
 
 /**

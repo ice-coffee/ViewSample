@@ -1,12 +1,10 @@
-package com.sample.jetpack
+package com.sample.jetpack.livedata
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import com.sample.view.R
+import com.sample.jetpack.R
 
 /**
  * @date: 2021/2/28

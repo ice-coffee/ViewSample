@@ -2,7 +2,7 @@ package com.sample.view
 
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.sample.common.BaseApplication
-import com.sample.jetpack.CustomObserver
+import com.sample.jetpack.lifecycle.CustomObserver
 
 /**
  * @date: 2021/2/28

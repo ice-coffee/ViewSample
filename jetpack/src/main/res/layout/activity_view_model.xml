@@ -6,14 +6,14 @@
 
     <fragment
         android:id="@+id/masterFragment"
-        android:name="com.sample.jetpack.MasterFragment"
+        android:name="com.sample.jetpack.viewmodel.MasterFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.sample.jetpack.DetailsFragment"
+        android:name="com.sample.jetpack.viewmodel.MasterFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

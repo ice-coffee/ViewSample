@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.graphics.Color" />
+        <variable
+            name="item"
+            type="com.sample.jetpack.databinding.Item" />
+    </data>
+
+    <TextView
+        android:id="@+id/tvColor"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@{Color.parseColor(item.color)}"
+        android:gravity="center"
+        android:text="@{item.color}"
+        android:textColor="#000000"
+        android:textSize="18dp" />
+</layout>

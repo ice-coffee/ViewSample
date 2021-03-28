@@ -1,4 +1,4 @@
-package com.sample.jetpack
+package com.sample.jetpack.livedata
 
 import android.content.BroadcastReceiver
 import android.content.Context

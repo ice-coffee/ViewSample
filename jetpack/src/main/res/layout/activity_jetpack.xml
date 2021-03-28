@@ -19,4 +19,9 @@
         android:onClick="jumpLifecycle"
         android:text="Lifecycle" />
 
+    <Button
+        style="@style/common_main_botton"
+        android:onClick="jumpDataBinding"
+        android:text="DataBinding" />
+
 </LinearLayout>

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.sample.view.R
+import com.sample.jetpack.lifecycle.CustomObserver
 
 /**
  * @date: 2021/3/20

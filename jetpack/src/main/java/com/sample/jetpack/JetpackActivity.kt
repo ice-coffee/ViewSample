@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.view.R
+import com.sample.jetpack.databinding.DataBindingActivity
+import com.sample.jetpack.lifecycle.LifecycleActivity
+import com.sample.jetpack.livedata.LiveDataActivity
+import com.sample.jetpack.viewmodel.ViewModelActivity
 
 /**
  * @date: 2021/2/27
@@ -18,15 +21,19 @@ class JetpackActivity: AppCompatActivity() {
         setContentView(R.layout.activity_jetpack)
     }
 
-    public fun jumpViewModel(view: View) {
+    fun jumpViewModel(view: View) {
         startActivity(Intent(this, ViewModelActivity::class.java))
     }
 
-    public fun jumpLiveData(view: View) {
+    fun jumpLiveData(view: View) {
         startActivity(Intent(this, LiveDataActivity::class.java))
     }
 
-    public fun jumpLifecycle(view: View) {
+    fun jumpLifecycle(view: View) {
         startActivity(Intent(this, LifecycleActivity::class.java))
+    }
+
+    fun jumpDataBinding(view: View) {
+        startActivity(Intent(this, DataBindingActivity::class.java))
     }
 }

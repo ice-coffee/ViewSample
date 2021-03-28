@@ -23,16 +23,8 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            def dirs = ['main', 'livedata', 'viewmodel',
-                        'lifecycle']
-            dirs.each { dir ->
-                java.srcDir("src/$dir/java")
-                res.srcDir("src/$dir/res")
-                assets.srcDir("src/$dir/assets")
-            }
-        }
+    dataBinding {
+        enabled = true
     }
 }
 
