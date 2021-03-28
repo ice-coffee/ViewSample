@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="java.util.List" />
         <variable
+            name="list"
+            type="List&lt;String>" />
+        <variable
             name="user"
             type="com.sample.jetpack.databinding.User" />
         <variable
-            name="list"
-            type="List&lt;String>" />
+            name="handle"
+            type="com.sample.jetpack.databinding.MyHandle" />
     </data>
 
     <LinearLayout
@@ -16,24 +20,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="方法引用"
+            android:onClick="@{handle::onClickFriend}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="监听器绑定"
+            android:onLongClick="@{(view) -> handle.onHandleClick()}"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/name_format(user.firstName, user.lastName)}" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.format(@string/name_format, user.firstName, user.lastName)}" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{list[0]}"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name_format"/>
 
         <LinearLayout
             android:id="@+id/llFragment"

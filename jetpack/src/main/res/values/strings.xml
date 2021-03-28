@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="name_format">%1s,%2s</string>
+    <string name="name_format">资源引用:%1s,%2s</string>
+    <string name="name_fragment_format">fragment资源引用:%1s,%2s</string>
 
 </resources>

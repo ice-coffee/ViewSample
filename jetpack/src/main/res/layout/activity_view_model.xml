@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.sample.jetpack.viewmodel.MasterFragment"
+        android:name="com.sample.jetpack.viewmodel.DetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
