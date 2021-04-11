@@ -2,17 +2,21 @@ package com.sample.jetpack.databinding
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sample.common.utils.dp2px
 import com.sample.jetpack.R
 import kotlinx.android.synthetic.main.activity_data_bind.*
-import androidx.databinding.library.baseAdapters.BR
 
 /**
  * @date: 2021/3/27
@@ -51,14 +55,40 @@ class DataBindingActivity : AppCompatActivity() {
 }
 
 class MyHandle {
+
     fun onClickFriend(view: View) {
-        Log.e("click", "onClickFriend")
+        Log.e("MyHandle", "onClickFriend")
     }
 
     fun onHandleClick(): Boolean {
-        Log.e("click", "onHandleClick")
+        Log.e("MyHandle", "onHandleClick")
         return true
     }
+
+    val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            Log.e("MyHandle", s.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
+
+    fun showFocusChange(hasFocus: Boolean) {
+        Log.e("MyHandle", "$hasFocus")
+    }
+
+    fun afterTextChanged(s: Editable?) {
+        Log.e("MyHandle", s.toString())
+    }
+}
+
+@BindingAdapter("android:layout_marginLeft")
+fun setMarginLeft(view: View, margin: Int) {
+    Log.e("view_margin", "" + margin)
 }
 
 class MainAdapter(private val context: Context, private val colorList: List<Item>) :

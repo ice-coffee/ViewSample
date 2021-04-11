@@ -20,18 +20,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="方法引用"
-            android:onClick="@{handle::onClickFriend}"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="监听器绑定"
-            android:onLongClick="@{(view) -> handle.onHandleClick()}"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,6 +30,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="方法引用"
+            android:onClick="@{handle::onClickFriend}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="监听器绑定"
+            android:onClick="@{(view) -> handle.onHandleClick()}"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="绑定适配器"
+            app:addTextChangedListener="@{handle.textWatcher}"
+            app:onFocusChangeListener="@{(view, focuschange) -> handle.showFocusChange(focuschange)}"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:afterTextChanged="@{(str) -> handle.afterTextChanged(str)}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
