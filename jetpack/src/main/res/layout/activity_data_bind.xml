@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="监听器绑定"
-            android:onClick="@{(view) -> handle.onHandleClick()}"/>
+            android:onClick="@{(view) -> handle.onHandleClick(`哈哈哈`)}"/>
 
         <EditText
             android:layout_width="match_parent"

@@ -60,8 +60,8 @@ class MyHandle {
         Log.e("MyHandle", "onClickFriend")
     }
 
-    fun onHandleClick(): Boolean {
-        Log.e("MyHandle", "onHandleClick")
+    fun onHandleClick(name: String): Boolean {
+        Log.e("MyHandle", "onHandleClick, $name")
         return true
     }
 
