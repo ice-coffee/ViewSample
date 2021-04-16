@@ -10,11 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingMethod
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sample.common.utils.dp2px
 import com.sample.jetpack.R
 import kotlinx.android.synthetic.main.activity_data_bind.*
 
