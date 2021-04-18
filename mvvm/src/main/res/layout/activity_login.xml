@@ -13,10 +13,6 @@
         <variable
             name="userObservable"
             type="com.sample.mvvm.UserObservable" />
-
-        <variable
-            name="userVmOb"
-            type="com.sample.mvvm.UserViewModelObservable" />
     </data>
 
     <LinearLayout

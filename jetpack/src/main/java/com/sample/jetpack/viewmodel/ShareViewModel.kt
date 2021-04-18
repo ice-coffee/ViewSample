@@ -10,5 +10,5 @@ import androidx.lifecycle.MutableLiveData
  * remark:
  */
 class ShareViewModel(app: Application): AndroidViewModel(app) {
-    val clickLiveData = MutableLiveData<Int>()
+    val clickLiveData = MutableLiveData<Int>(1)
 }
