@@ -10,12 +10,12 @@ import androidx.databinding.InverseMethod
 object Converter {
     @InverseMethod("stringToInt")
     @JvmStatic
-    fun intToString(username: String, newValue: Int): String {
+    fun intToString(newValue: Int): String {
         return newValue.toString()
     }
 
     @JvmStatic
-    fun stringToInt(username: String, newValue: String): Int {
+    fun stringToInt(newValue: String): Int {
         return newValue.toInt()
     }
 }
