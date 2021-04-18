@@ -18,6 +18,7 @@
         <activity android:name=".recyclerview.DiffUtilActivity" />
         <activity android:name=".recyclerview.ItemTouchHelperActivity" />
         <activity android:name=".recyclerview.ItemAnimatorActivity" />
+        <activity android:name=".recyclerview.ItemDecorationActivity" />
 
         <activity android:name=".ViewHelperActivity" />
         <activity android:name=".viewdraghelper.ViewDragHelperActivity" />

@@ -52,21 +52,18 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
      * 设置线性布局分割线
      */
     private fun setLinearItemDecoration(outRect: Rect, orientation: Int, position: Int, itemCount: Int) {
+        val margin = if (includeEdge) spacing else 0
         if (orientation == LinearLayoutManager.HORIZONTAL) {
-            val top = if (includeEdge) spacing else 0
-            val bottom = if (includeEdge) spacing else 0
             when (position) {
-                0 -> outRect.set(if (includeEdge) spacing else 0, top, spacing, bottom)
-                itemCount - 1 -> outRect.set(0, top, if (includeEdge) spacing else 0, bottom)
-                else -> outRect.set(0, top, spacing, bottom)
+                0 -> outRect.set(margin, margin, spacing, margin)
+                itemCount - 1 -> outRect.set(0, margin, margin, margin)
+                else -> outRect.set(0, margin, spacing, margin)
             }
         } else {
-            val left = if (includeEdge) spacing else 0
-            val right = if (includeEdge) spacing else 0
             when (position) {
-                0 -> outRect.set(left, if (includeEdge) spacing else 0, right, spacing)
-                itemCount - 1 -> outRect.set(left, 0, right, if (includeEdge) spacing else 0)
-                else -> outRect.set(left, 0, right, spacing)
+                0 -> outRect.set(margin, margin, margin, spacing)
+                itemCount - 1 -> outRect.set(margin, 0, margin, margin)
+                else -> outRect.set(margin, 0, margin, spacing)
             }
         }
     }

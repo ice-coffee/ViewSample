@@ -33,4 +33,8 @@ class RecyclerViewActivity : AppCompatActivity() {
     fun jumpItemAnimator(view: View) {
         startActivity(Intent(this, ItemAnimatorActivity::class.java))
     }
+
+    fun jumpItemDecoration(view: View) {
+        startActivity(Intent(this, ItemDecorationActivity::class.java))
+    }
 }
