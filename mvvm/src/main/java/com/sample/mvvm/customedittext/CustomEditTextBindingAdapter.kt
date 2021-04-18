@@ -1,6 +1,7 @@
 package com.sample.mvvm.customedittext
 
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -43,7 +44,7 @@ class CustomEditTextBindingAdapter {
         @JvmStatic
         fun setCustomText(view: CustomEditText, text: String) {
             val oldText: CharSequence? = view.text
-            if (text == oldText) {
+            if (TextUtils.equals(text, oldText)) {
                 return
             }
             view.setText(text)

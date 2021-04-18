@@ -25,14 +25,14 @@ class UserObservable : BaseViewModelObservable() {
     }
 
     @get:Bindable
-    var userSchool: String = ""
+    var userAge = 0
         set(value) {
             field = value
-            notifyPropertyChanged(BR.userSchool)
+            notifyPropertyChanged(BR.userAge)
         }
 
     fun updateUserSchoolValue() {
-        userSchool = "${Random.nextInt(100)}"
+        userAge = Random.nextInt(100)
     }
 
     val listener = InverseBindingListener { Log.e("observable", "changed") }

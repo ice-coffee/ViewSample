@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.sample.mvvm.customedittext.Converter"/>
+
         <variable
             name="userViewModel"
             type="com.sample.mvvm.UserViewModel" />
@@ -70,13 +72,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:customText="@={userObservable.userSchool}"/>
+                app:customText="@={Converter.intToString(userObservable.userAge)}"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{view -> userObservable.updateUserSchoolValue()}"
-                android:text="@{userObservable.userSchool}"
+                android:text="@{Converter.intToString(userObservable.userAge)}"
                 android:textAllCaps="false" />
 
         </LinearLayout>
