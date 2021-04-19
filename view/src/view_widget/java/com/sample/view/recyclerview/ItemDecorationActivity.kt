@@ -29,22 +29,22 @@ class ItemDecorationActivity: AppCompatActivity() {
     }
 
     fun switchLinear(view: View) {
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this, if (rbVertical.isChecked) LinearLayoutManager.VERTICAL else LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = ItemDecoAdapter(this)
         if (null != LayoutItemDecoration) {
             recyclerView.removeItemDecoration(LayoutItemDecoration!!)
         }
-        LayoutItemDecoration = LayoutItemDecoration(dp2px(10), rbInEdge.isChecked)
+        LayoutItemDecoration = LayoutItemDecoration(dp2px(10), dp2px(5), rbInEdge.isChecked)
         recyclerView.addItemDecoration(LayoutItemDecoration!!)
     }
 
     fun switchGrid(view: View) {
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
+        recyclerView.layoutManager = GridLayoutManager(this, 3, if (rbVertical.isChecked) GridLayoutManager.VERTICAL else GridLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = ItemDecoAdapter(this)
         if (null != LayoutItemDecoration) {
             recyclerView.removeItemDecoration(LayoutItemDecoration!!)
         }
-        LayoutItemDecoration = LayoutItemDecoration(dp2px(10), rbInEdge.isChecked)
+        LayoutItemDecoration = LayoutItemDecoration(dp2px(10), dp2px(5), rbInEdge.isChecked)
         recyclerView.addItemDecoration(LayoutItemDecoration!!)
     }
 
@@ -53,7 +53,9 @@ class ItemDecorationActivity: AppCompatActivity() {
         private val itemColorList = mutableListOf(
                 "#CD950C", "#8B658B", "#FFC1C1", "#EEB4B4", "#CD9B9B",
                 "#8B6969", "#FF6A6A", "#EE6363", "#CD5555", "#8B3A3A",
-                "#FF8247", "#EE7942", "#CD6839", "#8B4726", "#FFD39B")
+                "#FF8247", "#EE7942", "#CD6839", "#8B4726", "#FFD39B",
+                "#8B658B", "#8B6969", "#EE6363", "#FFC1C1", "#EE6363",
+                "#CD9B9B", "#FF6A6A", "#8B658B", "#8B6969", "#EE7942")
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
             return ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_decoration, parent, false))

@@ -12,10 +12,35 @@ import java.util.*
  * date: 2020/11/28
  * author: ice_coffee
  * remark: 通用 ItemDecoration 工具
- * @param spacing: 间距
- * @param includeEdge: 是否设置边缘间距
  */
-class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Boolean) : RecyclerView.ItemDecoration() {
+class LayoutItemDecoration : RecyclerView.ItemDecoration {
+
+    /**
+     * 水平方向间隔
+     */
+    var horizontalSpacing: Int
+
+    /**
+     * 垂直方向间隔
+     */
+    var verticalSpacing: Int
+
+    /**
+     * 是否设置边缘间距
+     */
+    var includeEdge: Boolean
+
+    constructor(spacing: Int, includeEdge: Boolean) {
+        this.horizontalSpacing = spacing
+        this.verticalSpacing = spacing
+        this.includeEdge = includeEdge
+    }
+
+    constructor(horizontalSpacing: Int, verticalSpacing: Int, includeEdge: Boolean) {
+        this.horizontalSpacing = horizontalSpacing
+        this.verticalSpacing = verticalSpacing
+        this.includeEdge = includeEdge
+    }
 
     /**
      * position 和对应 view 所在列的对应关系
@@ -43,7 +68,7 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
                 setLinearItemDecoration(outRect, layoutManager.orientation, position, itemCount)
             }
             else -> {
-                outRect.set(spacing, spacing, spacing, spacing)
+                outRect.set(horizontalSpacing, verticalSpacing, horizontalSpacing, verticalSpacing)
             }
         }
     }
@@ -52,18 +77,19 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
      * 设置线性布局分割线
      */
     private fun setLinearItemDecoration(outRect: Rect, orientation: Int, position: Int, itemCount: Int) {
-        val margin = if (includeEdge) spacing else 0
+        val horizontalRect = if (includeEdge) horizontalSpacing else 0
+        val verticalRect = if (includeEdge) verticalSpacing else 0
         if (orientation == LinearLayoutManager.HORIZONTAL) {
             when (position) {
-                0 -> outRect.set(margin, margin, spacing, margin)
-                itemCount - 1 -> outRect.set(0, margin, margin, margin)
-                else -> outRect.set(0, margin, spacing, margin)
+                0 -> outRect.set(horizontalRect, verticalRect, horizontalSpacing, verticalRect)
+                itemCount - 1 -> outRect.set(0, verticalRect, horizontalRect, verticalRect)
+                else -> outRect.set(0, verticalRect, horizontalSpacing, verticalRect)
             }
         } else {
             when (position) {
-                0 -> outRect.set(margin, margin, margin, spacing)
-                itemCount - 1 -> outRect.set(margin, 0, margin, margin)
-                else -> outRect.set(margin, 0, margin, spacing)
+                0 -> outRect.set(horizontalRect, verticalRect, horizontalRect, verticalSpacing)
+                itemCount - 1 -> outRect.set(horizontalRect, 0, horizontalRect, verticalRect)
+                else -> outRect.set(horizontalRect, 0, horizontalRect, verticalSpacing)
             }
         }
     }
@@ -130,38 +156,38 @@ class LayoutItemDecoration(private val spacing: Int, private val includeEdge: Bo
         //是否需要包含边界
         if (includeEdge) {
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
-                outRect.left = spacing - column * spacing / spanCount
-                outRect.right = (column + 1) * spacing / spanCount
+                outRect.left = horizontalSpacing - column * horizontalSpacing / spanCount
+                outRect.right = (column + 1) * horizontalSpacing / spanCount
                 //第一行判断
                 if (position < spanCount) {
-                    outRect.top = spacing
+                    outRect.top = verticalSpacing
                 }
-                outRect.bottom = spacing
+                outRect.bottom = verticalSpacing
             } else {
-                outRect.top = spacing - column * spacing / spanCount
-                outRect.bottom = (column + 1) * spacing / spanCount
+                outRect.top = verticalSpacing - column * verticalSpacing / spanCount
+                outRect.bottom = (column + 1) * verticalSpacing / spanCount
                 //第一行判断
                 if (position < spanCount) {
-                    outRect.left = spacing
+                    outRect.left = horizontalSpacing
                 }
-                outRect.right = spacing
+                outRect.right = horizontalSpacing
             }
         } else {
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
-                outRect.left = column * spacing / spanCount
-                outRect.right = spacing - (column + 1) * spacing / spanCount
+                outRect.left = column * horizontalSpacing / spanCount
+                outRect.right = horizontalSpacing - (column + 1) * horizontalSpacing / spanCount
                 outRect.top = 0
                 //最后一行判断
                 if (position + spanCount < itemCount) {
-                    outRect.bottom = spacing
+                    outRect.bottom = verticalSpacing
                 }
             } else {
-                outRect.top = column * spacing / spanCount
-                outRect.bottom = spacing - (column + 1) * spacing / spanCount
+                outRect.top = column * verticalSpacing / spanCount
+                outRect.bottom = verticalSpacing - (column + 1) * verticalSpacing / spanCount
                 outRect.left = 0
                 //最后一行判断
                 if (position + spanCount < itemCount) {
-                    outRect.right = spacing
+                    outRect.right = horizontalSpacing
                 }
             }
         }
