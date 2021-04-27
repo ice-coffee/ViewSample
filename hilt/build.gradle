@@ -15,7 +15,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -24,18 +23,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            def dirs = ['main', 'view_round', 'view_paint',
+                        'view_canvas', 'view_shader', 'view_widget',
+                        'view_helper', 'view_gesture', 'view_custom',
+                        'view_inflate', 'view_drawable']
+            dirs.each { dir ->
+                java.srcDir("src/$dir/java")
+                res.srcDir("src/$dir/res")
+                assets.srcDir("src/$dir/assets")
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    api 'androidx.appcompat:appcompat:1.2.0'
-    api 'androidx.constraintlayout:constraintlayout:2.0.1'
-    api 'com.google.android.material:material:1.2.1'
-    api "androidx.core:core-ktx:1.3.1"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':common')
 
-    implementation 'com.blankj:utilcode:1.26.0'
-
-    api rootProject.ext.hilt["hilt"]
+    implementation rootProject.ext.hilt["hilt"]
     kapt rootProject.ext.hilt["hilt-compiler"]
+}
+repositories {
+    mavenCentral()
 }

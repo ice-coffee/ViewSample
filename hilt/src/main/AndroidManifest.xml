@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sample.hilt">
+
+    <application android:name=".HiltApplication">
+        <activity android:name=".AHiltActivity" />
+        <activity android:name=".BHiltActivity" />
+    </application>
+
+</manifest>
