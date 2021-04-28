@@ -1,5 +1,6 @@
 package com.sample.hilt
 
+import com.sample.hilt.bean.OutSideBean
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +13,7 @@ import dagger.hilt.android.components.ActivityComponent
  */
 @Module
 @InstallIn(ActivityComponent::class)
-object HiltModule {
+object HiltActivityModule {
 
     @Provides
     fun provideOutSideBean(): OutSideBean {

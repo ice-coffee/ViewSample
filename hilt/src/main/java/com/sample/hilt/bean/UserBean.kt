@@ -1,4 +1,4 @@
-package com.sample.hilt
+package com.sample.hilt.bean
 
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
@@ -9,7 +9,4 @@ import javax.inject.Inject
  *  desc :
  */
 @ActivityScoped
-class UserBean @Inject constructor() {
-    var name: String = ""
-    var age: Int = 0
-}
+class UserBean @Inject constructor()

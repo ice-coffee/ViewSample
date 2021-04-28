@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.hilt.AHiltActivity
+import com.sample.hilt.MainHiltActivity
 import com.sample.jetpack.JetpackActivity
 import com.sample.mvvm.LoginActivity
 
@@ -35,6 +35,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun jumpHilt(view: View) {
-        startActivity(Intent(this, AHiltActivity::class.java))
+        startActivity(Intent(this, MainHiltActivity::class.java))
     }
 }

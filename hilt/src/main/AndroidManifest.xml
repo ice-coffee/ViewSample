@@ -2,8 +2,8 @@
     package="com.sample.hilt">
 
     <application>
-        <activity android:name=".AHiltActivity" />
-        <activity android:name=".BHiltActivity" />
+        <activity android:name=".MainHiltActivity" />
+        <activity android:name=".OtherHiltActivity" />
     </application>
 
 </manifest>

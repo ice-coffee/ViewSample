@@ -1,4 +1,4 @@
-package com.sample.hilt
+package com.sample.hilt.bean
 
 /**
  *  @author mzp
