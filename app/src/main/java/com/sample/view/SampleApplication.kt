@@ -1,7 +1,7 @@
 package com.sample.view
 
+import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.sample.common.BaseApplication
 import com.sample.jetpack.lifecycle.CustomObserver
 import dagger.hilt.android.HiltAndroidApp
 
@@ -11,7 +11,7 @@ import dagger.hilt.android.HiltAndroidApp
  * remark:
  */
 @HiltAndroidApp
-class SampleApplication : BaseApplication() {
+class SampleApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

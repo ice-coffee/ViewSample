@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -35,7 +33,4 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'com.blankj:utilcode:1.26.0'
-
-    api rootProject.ext.hilt["hilt"]
-    kapt rootProject.ext.hilt["hilt-compiler"]
 }

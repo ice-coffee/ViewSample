@@ -1,7 +1,9 @@
 package com.sample.hilt
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,5 +27,9 @@ class AHiltActivity: AppCompatActivity() {
         userBean.age = 3
 
         Log.e("hilt", "${userBean.name} 今年 ${userBean.age} 了")
+    }
+
+    fun jumpBHilt(view: View) {
+        startActivity(Intent(this, BHiltActivity::class.java))
     }
 }
