@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.hilt.bean.OutSideBean
+import com.sample.hilt.bean.WaterBean
 import com.sample.hilt.bean.UserBean
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class MainHiltActivity: AppCompatActivity() {
     @Inject
     lateinit var secondUserBean: UserBean
     @Inject
-    lateinit var outSideBean: OutSideBean
+    lateinit var waterBean: WaterBean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +31,10 @@ class MainHiltActivity: AppCompatActivity() {
 
         Log.e("hilt", firstUserBean.toString())
         Log.e("hilt", secondUserBean.toString())
-        Log.e("hilt", outSideBean.toString())
+        Log.e("hilt", waterBean.toString())
     }
 
-    fun jumpBHilt(view: View) {
+    fun jumpOtherHilt(view: View) {
         startActivity(Intent(this, OtherHiltActivity::class.java))
     }
 }

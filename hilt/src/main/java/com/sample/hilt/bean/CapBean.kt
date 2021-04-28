@@ -5,4 +5,4 @@ package com.sample.hilt.bean
  *  date : 2021/4/28
  *  desc :
  */
-class SchoolBean (val outSideBean: OutSideBean)
+class CapBean (val waterBean: WaterBean)

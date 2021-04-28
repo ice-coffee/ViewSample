@@ -1,6 +1,6 @@
 package com.sample.hilt
 
-import com.sample.hilt.bean.OutSideBean
+import com.sample.hilt.bean.WaterBean
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ import dagger.hilt.android.components.ActivityComponent
 object HiltActivityModule {
 
     @Provides
-    fun provideOutSideBean(): OutSideBean {
-        return OutSideBean()
+    fun provideWaterBean(): WaterBean {
+        return WaterBean()
     }
 }

@@ -1,7 +1,7 @@
 package com.sample.hilt
 
-import com.sample.hilt.bean.OutSideBean
-import com.sample.hilt.bean.SchoolBean
+import com.sample.hilt.bean.WaterBean
+import com.sample.hilt.bean.CapBean
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ import dagger.hilt.android.components.FragmentComponent
 object HiltFragmentModule {
 
     @Provides
-    fun provideSchoolBean(outSideBean: OutSideBean): SchoolBean {
-        return SchoolBean(outSideBean)
+    fun provideCapBean(waterBean: WaterBean): CapBean {
+        return CapBean(waterBean)
     }
 }
