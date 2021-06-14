@@ -1,7 +1,7 @@
 include ':hilt'
 include ':mvvm'
-include ':app'
 include ':jetpack'
 include ':view'
 include ':common'
 rootProject.name = "ViewSample"
+include ':sample'

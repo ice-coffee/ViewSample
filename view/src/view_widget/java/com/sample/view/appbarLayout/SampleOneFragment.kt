@@ -1,7 +1,6 @@
 package com.sample.view.appbarLayout
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -12,10 +11,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.sample.view.R
 import kotlinx.android.synthetic.main.fragment_appbar_one.*
-import java.util.*
 
 /**
  *  @author mzp

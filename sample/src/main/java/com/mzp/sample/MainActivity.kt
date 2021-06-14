@@ -1,4 +1,4 @@
-package com.sample.view
+package com.mzp.sample
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sample.hilt.MainHiltActivity
 import com.sample.jetpack.JetpackActivity
 import com.sample.mvvm.LoginActivity
+import com.sample.view.ViewActivity
 
 /**
  * @date: 2020/9/6

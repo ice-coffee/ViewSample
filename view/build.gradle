@@ -43,6 +43,7 @@ dependencies {
 
     implementation rootProject.ext.view["layoutmanager"]
     implementation rootProject.ext.view["flexbox"]
+    implementation rootProject.ext.jetpack["lifecycle"]
 }
 repositories {
     mavenCentral()

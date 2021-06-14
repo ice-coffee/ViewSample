@@ -1,6 +1,5 @@
 package com.sample.mvvm
 
-import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.ViewModel

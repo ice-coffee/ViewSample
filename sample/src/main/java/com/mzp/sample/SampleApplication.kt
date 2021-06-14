@@ -1,4 +1,4 @@
-package com.sample.view
+package com.mzp.sample
 
 import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
