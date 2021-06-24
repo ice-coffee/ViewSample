@@ -27,4 +27,8 @@ ext {
             "hilt"         : "com.google.dagger:hilt-android:2.28-alpha",
             "hilt-compiler": "com.google.dagger:hilt-android-compiler:2.28-alpha"
     ]
+
+    coroutines = [
+            "kotlinx-coroutines": "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    ]
 }
