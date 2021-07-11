@@ -32,11 +32,12 @@ class GlobalScopeTest {
             println("lanchCreateCoroutine - start")
             println(name)
 
+            println("lanchCreateCoroutine: ${System.currentTimeMillis()}")
             val resultFun = suspendFunc02()
-            println("suspendFunc02: $resultFun")
+            println("lanchCreateCoroutine: suspendFunc02-$resultFun-${System.currentTimeMillis()}")
 
             val result = notSuspend()
-            println("notSuspend: $result")
+            println("lanchCreateCoroutine: notSuspend-$result-${System.currentTimeMillis()}")
         }
     }
 
@@ -130,6 +131,7 @@ class ProducerScope<T> {
 // 3 - 7
 suspend fun suspendFunc02() = suspendCoroutine<Int> { continuation ->
     thread {
+        Thread.sleep(1000)
         continuation.resumeWith(Result.success(5))
     }
 }
