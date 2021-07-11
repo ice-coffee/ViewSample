@@ -24,6 +24,9 @@ class GlobalScopeTest {
         }
     }
 
+    /**
+     * 创建协程, 并探索挂起函数的奥秘
+     */
     fun callCreateCoroutine() {
         testCreateCoroutine()
 
@@ -41,6 +44,9 @@ class GlobalScopeTest {
         }
     }
 
+    /**
+     * 也是创建协程, 但是这种方式创建的协程可以调用 receiver 的函数和状态信息.
+     */
     fun callLaunchCoroutine() {
         // 3 - 2 -> 由于 delay() 函数将协程延迟了一段时间, 而主线程在调用过 callLaunchCoroutine()
         launchCoroutine(ProducerScope<Int>()) {
@@ -55,23 +61,26 @@ class GlobalScopeTest {
         }
     }
 
+    /**
+     * 协程上下文, 拦截器
+     */
     fun callCoroutineContext() {
-//        var coroutineContext:CoroutineContext = EmptyCoroutineContext
-//        coroutineContext += CoroutineName("c0-01")
-//        coroutineContext += CoroutineExceptionHandler { coroutineContext, throwable ->  }
+        var coroutineContext:CoroutineContext = EmptyCoroutineContext
+        coroutineContext += CoroutineName("c0-01")
+        coroutineContext += CoroutineExceptionHandler { coroutineContext, throwable ->  }
+        coroutineContext += LogInterceptor()
 
         suspend {
             suspendFunc02()
-            suspendFunc02()
         }.startCoroutine(object : Continuation<Int> {
-            override val context: CoroutineContext = LogInterceptor()
+            override val context: CoroutineContext = coroutineContext
 
             override fun resumeWith(result: Result<Int>) {
                 result.onFailure {
                     context[CoroutineExceptionHandler]?.handleException(context, it)
                 }
                 result.onSuccess {
-                    println("Coroutine End: $result")
+                    println("Coroutine End: ${context[CoroutineName]?.name}, $result")
                 }
             }
         })
@@ -143,6 +152,7 @@ suspend fun notSuspend() = suspendCoroutine<Int> { continuation ->
     continuation.resume(5)
 }
 
+// 3 - 20
 class LogInterceptor : ContinuationInterceptor {
     override val key = ContinuationInterceptor
 
