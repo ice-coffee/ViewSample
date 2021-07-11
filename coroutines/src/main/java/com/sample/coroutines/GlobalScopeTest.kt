@@ -18,25 +18,27 @@ class GlobalScopeTest {
 
         @JvmStatic
         fun main(args: Array<String>) {
-//            test.testCreateCoroutine()
+            test.callCreateCoroutine()
+            test.callLaunchCoroutine()
             test.callCoroutineContext()
         }
     }
 
-//    fun runGlobalScope() {
-//        GlobalScope.launch { // 在后台启动一个新的协程并继续
-//            println("World!") // 在延迟后打印输出
-//        }
-//    }
-//
-//    fun runBlocking() = runBlocking {
-//        launch {
-//            delay(200L)
-//            println("Task from runBlocking")
-//        }
-//        println("Coroutine scope is over") // 这一行在内嵌 launch 执行完毕后才输出
-//    }
+    fun callCreateCoroutine() {
+        testCreateCoroutine()
 
+        // 3 - 1 变种
+        lanchCreateCoroutine {
+            println("lanchCreateCoroutine - start")
+            println(name)
+
+            val resultFun = suspendFunc02()
+            println("suspendFunc02: $resultFun")
+
+            val result = notSuspend()
+            println("notSuspend: $result")
+        }
+    }
 
     fun callLaunchCoroutine() {
         // 3 - 2 -> 由于 delay() 函数将协程延迟了一段时间, 而主线程在调用过 callLaunchCoroutine()
@@ -49,18 +51,6 @@ class GlobalScopeTest {
              */
             produce(4000)
             println("launchReceiverCoroutine - end")
-        }
-
-        // 3 - 1 变种
-        lanchCreateCoroutine {
-            println("lanchCreateCoroutine - start")
-            println(name)
-
-            val resultFun = suspendFunc02()
-            println("suspendFunc02: $resultFun")
-
-            val result = notSuspend()
-            println("notSuspend: $result")
         }
     }
 
@@ -81,7 +71,7 @@ class GlobalScopeTest {
                 }
                 result.onSuccess {
                     println("Coroutine End: $result")
-"?:"                }
+                }
             }
         })
     }
