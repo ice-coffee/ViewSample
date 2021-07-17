@@ -8,7 +8,13 @@ import kotlin.coroutines.*
 /**
  * @date: 2021/6/23
  * @author: ice_coffee
- * remark:
+ * remark: <<深入理解协程>> 第三章 Kotlin 协程的基础设施
+ * 3.1 kotlin 的构造
+ * 3.2 函数挂起
+ * 3.3 协程上下文
+ * 3.4 协程的拦截器
+ * 3.5 kotlin 协程所属的类别
+ * 3.6 本章小结
  */
 class GlobalScopeTest {
     private val name = "张三"
