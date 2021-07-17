@@ -72,8 +72,11 @@ class GlobalScopeTest {
 
         suspend {
             suspendFunc02()
+            suspendFunc02()
+//            notSuspend()
+//            notSuspend()
         }.startCoroutine(object : Continuation<Int> {
-            override val context: CoroutineContext = coroutineContext
+            override val context: CoroutineContext = EmptyCoroutineContext
 
             override fun resumeWith(result: Result<Int>) {
                 result.onFailure {
