@@ -71,9 +71,9 @@ class GlobalScopeTest {
      * 协程上下文, 拦截器
      */
     fun callCoroutineContext() {
-        var coroutineContext:CoroutineContext = EmptyCoroutineContext
+        var coroutineContext: CoroutineContext = EmptyCoroutineContext
         coroutineContext += CoroutineName("c0-01")
-        coroutineContext += CoroutineExceptionHandler { coroutineContext, throwable ->  }
+        coroutineContext += CoroutineExceptionHandler { coroutineContext, throwable -> }
         coroutineContext += LogInterceptor()
 
         suspend {
@@ -82,7 +82,7 @@ class GlobalScopeTest {
 //            notSuspend()
 //            notSuspend()
         }.startCoroutine(object : Continuation<Int> {
-            override val context: CoroutineContext = EmptyCoroutineContext
+            override val context: CoroutineContext = coroutineContext
 
             override fun resumeWith(result: Result<Int>) {
                 result.onFailure {
